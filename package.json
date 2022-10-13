@@ -2,11 +2,9 @@
   "name": "client_open_scout",
   "author": "Ethan Berk",
   "version": "0.1.0",
-  "author": "Ethan Berk",
   "homepage":"https://github.com/Angelbots1339/client_open_scout",
   "email" : "Ethanwberk@gmail.com",
   "private": true,
-  "homepage": "https://github.com/Angelbots1339/client_open_scout",
   "engines": {
     "node": ">=16.17.0",
     "pnpm": ">=7.13.4",
