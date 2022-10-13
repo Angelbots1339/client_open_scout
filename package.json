@@ -1,6 +1,9 @@
 {
   "name": "client_open_scout",
   "version": "0.1.0",
+  "author": "Ethan Berk",
+  "homepage":"https://github.com/Angelbots1339/client_open_scout",
+  "email" : "Ethanwberk@gmail.com",
   "private": true,
   "scripts": {
     "dev": "next dev",
