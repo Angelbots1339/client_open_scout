@@ -74,4 +74,5 @@ const AppBarNavigationButtons: NextComponentType = () => {
 
     </>)}
 
-export default Home
+
+export default Home;
