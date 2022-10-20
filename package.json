@@ -2,21 +2,18 @@
   "name": "client_open_scout",
   "author": "Ethan Berk",
   "version": "0.1.0",
-  "homepage":"https://github.com/Angelbots1339/client_open_scout",
-  "email" : "Ethanwberk@gmail.com",
+  "homepage": "https://github.com/Angelbots1339/client_open_scout",
+  "email": "Ethanwberk@gmail.com",
   "private": true,
-  "engines": {
-    "node": ">=16.17.0",
-    "pnpm": ">=7.13.4",
-    "npm": "please-use-pnpm"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@babel/core": ">=7.0.0 <8.0.0",
@@ -30,14 +27,27 @@
     "react-google-button": "^0.7.2"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
     "@types/node": "18.7.14",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
+    "babel-loader": "^8.2.5",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
+    "eslint-plugin-storybook": "^0.6.6",
     "husky": "^8.0.1",
     "typescript": "4.8.2"
+  },
+  "resolutions": {
+    "webpack": "^5"
   }
 }
