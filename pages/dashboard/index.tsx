@@ -18,8 +18,8 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
 import {usePopupState, bindTrigger, bindMenu, bindToggle,} from 'material-ui-popup-state/hooks'
+import DBDrawerLayout from "../../components/layouts/dashboard/dbDrawerLayout/DBDrawerLayout";
 
 
 const DashboardHome: NextPage = () => {
@@ -41,36 +41,11 @@ const DashboardHome: NextPage = () => {
 const DashboardAppBar: NextComponentType = () => {
 
     const AccountMenuPopupState = usePopupState({ variant: 'popover', popupId: 'accountMenu' })
-    const DashboardDrawerPopupState = usePopupState({ variant: 'popover', popupId: 'dashboardDrawer' })
 
 
     return (
         <>
-
-            <Drawer variant="permanent"
-                    anchor="left"
-                    {...bindMenu(DashboardDrawerPopupState)}>
-
-
-
-                {DashboardDrawerPopupState.isOpen ?
-                    <> <Button
-                        {...bindToggle(DashboardDrawerPopupState)}
-                        variant={"text"}
-                        sx={{m:1}}>
-                        <ChevronLeftIcon fontSize="large"/>
-                    </Button>
-                    <DashboardDrawerFull/> </>
-
-                    : <> <Button
-                        {...bindToggle(DashboardDrawerPopupState)}
-                        variant={"text"}
-                        sx={{m:1}}>
-                        <ChevronRightIcon fontSize="large"/>
-                    </Button>
-                    <DashboardDrawerCollapsed/></>
-                }
-            </Drawer>
+            <DBDrawerLayout/>
 
 
             <Toolbar sx={{width:"90%", ml:"10%"}}>
@@ -93,23 +68,6 @@ const DashboardAppBar: NextComponentType = () => {
             </Toolbar>
 
 
-        </>
-    )}
-
-
-const DashboardDrawerFull: NextComponentType = () => {
-
-    return(
-        <>
-            <Typography sx={{m:15}}> Drawer </Typography>
-        </>
-    )}
-
-const DashboardDrawerCollapsed: NextComponentType = () => {
-
-    return(
-        <>
-            <Typography sx={{m:1}}> Collapsed </Typography>
         </>
     )}
 

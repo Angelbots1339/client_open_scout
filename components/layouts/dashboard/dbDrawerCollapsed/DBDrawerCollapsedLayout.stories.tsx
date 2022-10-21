@@ -3,7 +3,7 @@ import DBDrawerCollapsedLayout, { IDBDrawerCollapsedLayout } from './DBDrawerCol
 import { DBDrawerCollapsedLayoutProps } from './DBDrawerCollapsedLayout.mocks';
 
 export default {
-    title: 'layouts/dashboard/dbDrawerCollapsed/DBDrawerCollapsedLayout',
+    title: 'layouts/dashboard/dbDrawerCollapsed/DBDrawerOpenLayout',
     component: DBDrawerCollapsedLayout,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
