@@ -3,7 +3,7 @@ import BaseTemplate, { IBaseTemplate } from './BaseTemplate';
 import { mockBaseTemplateProps } from './BaseTemplate.mocks';
 
 export default {
-    title: 'templates/BaseTemplate',
+    title: 'templates/base',
     component: BaseTemplate,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
