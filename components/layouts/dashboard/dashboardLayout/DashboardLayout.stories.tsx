@@ -3,7 +3,7 @@ import DashboardLayout, { IDashboardLayout } from './DashboardLayout';
 import { defaultLandingAppBarProps } from './DashboardLayout.mocks';
 
 export default {
-    title: 'layouts/dashboard/DBDrawerCollapsedLayout',
+    title: 'layouts/dashboard/dashboardLayout/DashboardLayout',
     component: DashboardLayout,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
@@ -14,9 +14,9 @@ const Template: ComponentStory<typeof DashboardLayout> = (args) => (
     <DashboardLayout {...args} />
 );
 
-export const SLandingAppBar = Template.bind({});
+export const SDashboardLayout = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
-SLandingAppBar.args = {
+SDashboardLayout.args = {
     ...defaultLandingAppBarProps.base,
 } as IDashboardLayout;

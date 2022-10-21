@@ -3,7 +3,7 @@ import DBDrawerCollapsedLayout, { IDBDrawerCollapsedLayout } from './DBDrawerCol
 import { DBDrawerCollapsedLayoutProps } from './DBDrawerCollapsedLayout.mocks';
 
 export default {
-    title: 'layouts/dashboard/DBDrawerCollapsedLayout',
+    title: 'layouts/dashboard/dbDrawerCollapsed/DBDrawerCollapsedLayout',
     component: DBDrawerCollapsedLayout,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
@@ -14,9 +14,9 @@ const Template: ComponentStory<typeof DBDrawerCollapsedLayout> = (args) => (
     <DBDrawerCollapsedLayout {...args} />
 );
 
-export const SLandingAppBar = Template.bind({});
+export const SDBDrawerCollapsedLayout = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
-SLandingAppBar.args = {
+SDBDrawerCollapsedLayout.args = {
     ...DBDrawerCollapsedLayoutProps.base,
 } as IDBDrawerCollapsedLayout;

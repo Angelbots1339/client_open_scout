@@ -1,4 +1,4 @@
-import styles from './LandingAppBar.module.css';
+import styles from './DashboardLayout.module.css';
 import {
   AppBar,
   Box,

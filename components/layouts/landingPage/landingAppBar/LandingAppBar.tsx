@@ -9,14 +9,13 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export interface ILandingAppBar {
-}
+export interface ILandingAppBar {}
 
 const LandingAppBar: React.FC<ILandingAppBar> = () => {
     return (
         <div className={styles.container}>
 
-            <AppBar position="sticky" className={styles.appBar} sx={{ boxShadow:1, backgroundColor:"FFFFFF"}}>
+            <AppBar position="sticky" className={styles.appBar} sx={{ boxShadow:1, backgroundColor:"#FFFFFF"}}>
 
                 <Toolbar sx={{width:"90%", ml:"10%"}}>
 
