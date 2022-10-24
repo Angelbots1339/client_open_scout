@@ -1,4 +1,4 @@
-import { IDBDrawerCollapsedLayout } from './DBDrawerCollapsedLayout';
+import { IDBDrawerCollapsedLayout } from './DBDrawerItem';
 
 
 

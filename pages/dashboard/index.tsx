@@ -19,7 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {usePopupState, bindTrigger, bindMenu, bindToggle,} from 'material-ui-popup-state/hooks'
-import DBDrawerLayout from "../../components/layouts/dashboard/dbDrawerLayout/DBDrawerLayout";
+import DBDrawerLayout from "../../components/layouts/dashboard/dbDrawer/dbDrawerLayout/DBDrawerLayout";
 
 
 const DashboardHome: NextPage = () => {
