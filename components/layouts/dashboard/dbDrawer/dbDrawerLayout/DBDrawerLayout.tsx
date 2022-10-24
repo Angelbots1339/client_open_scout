@@ -1,6 +1,6 @@
 import styles from './DBDrawerLayout.module.css';
 import {
-    Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText,
+    Drawer, IconButton, List,
 } from "@mui/material";
 import React from "react";
 import {bindMenu, bindToggle, usePopupState} from "material-ui-popup-state/hooks";
@@ -47,9 +47,9 @@ const DBDrawerLayout: React.FC<IDBDrawerCollapsedLayout> = () => {
 
             <List>
 
-                <DBDrawerItem text={"Scouts"} icon={<GroupIcon fontSize="medium" />} collapsed={DashboardDrawerPopupState.isOpen} href="/dashboard/scouts"/>
-                <DBDrawerItem text={"Schedule"} icon={<AccessTimeIcon fontSize="medium" />} collapsed={DashboardDrawerPopupState.isOpen} href="/dashboard/schedule"/>
-                <DBDrawerItem text={"Scouting"} icon={<AssignmentIcon fontSize="medium" />} collapsed={DashboardDrawerPopupState.isOpen} href="/dashboard/scouting"/>
+                <DBDrawerItem text={"Scouts"} icon={<GroupIcon fontSize="medium" />} open={DashboardDrawerPopupState.isOpen} href="/dashboard/scouts"/>
+                <DBDrawerItem text={"Schedule"} icon={<AccessTimeIcon fontSize="medium" />} open={DashboardDrawerPopupState.isOpen} href="/dashboard/schedule"/>
+                <DBDrawerItem text={"Scouting"} icon={<AssignmentIcon fontSize="medium" />} open={DashboardDrawerPopupState.isOpen} href="/dashboard/scouting"/>
 
             </List>
 

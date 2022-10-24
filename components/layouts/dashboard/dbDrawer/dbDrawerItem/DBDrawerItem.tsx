@@ -1,18 +1,18 @@
 import styles from './DBDrawerItem.module.css';
 import {
-    Button, Drawer, iconClasses, ListItemButton, ListItemIcon, ListItemText, Typography,
+   ListItemButton, ListItemIcon, ListItemText,
 } from "@mui/material";
 import React from "react";
 
 
-export interface IDBDrawerCollapsedLayout {
+export interface IDBDrawerItem {
     text: string;
     icon: React.ReactElement;
-    collapsed: boolean;
+    open: boolean;
     href: string;
 }
 
-const DBDrawerItem: React.FC<IDBDrawerCollapsedLayout> = ({text, icon, collapsed, href}) => {
+const DBDrawerItem: React.FC<IDBDrawerItem> = ({text, icon, open, href}) => {
 
 
     return (
@@ -22,7 +22,7 @@ const DBDrawerItem: React.FC<IDBDrawerCollapsedLayout> = ({text, icon, collapsed
               <ListItemIcon>
                   <>{icon}</>
               </ListItemIcon>
-              {collapsed ? <ListItemText primary={text} className={styles.listText} /> : <></>}
+              {open ? <ListItemText primary={text} className={styles.listText} /> : <></>}
           </ListItemButton>
       </div>
 

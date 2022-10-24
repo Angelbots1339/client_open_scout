@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DBDrawerItem, { IDBDrawerCollapsedLayout } from './DBDrawerItem';
+import DBDrawerItem, { IDBDrawerItem } from './DBDrawerItem';
 import { DBDrawerCollapsedLayoutProps } from './DBDrawerItem.mocks';
 
 export default {
@@ -19,4 +19,4 @@ export const SDBDrawerCollapsedLayout = Template.bind({});
 
 SDBDrawerCollapsedLayout.args = {
     ...DBDrawerCollapsedLayoutProps.base,
-} as IDBDrawerCollapsedLayout;
+} as IDBDrawerItem;
