@@ -1,22 +1,15 @@
 import styles from './DashboardLayout.module.css';
-import {
-  AppBar,
-  Box,
-  Button,
-  Divider,
-  Toolbar,
-  Typography
-} from "@mui/material";
 import React from "react";
+import DBDrawerLayout from "../dbDrawer/dbDrawerLayout/DBDrawerLayout";
 
 export interface IDashboardLayout {}
 
 const DashboardLayout: React.FC<IDashboardLayout> = () => {
   return (
       <div className={styles.container}>
-        Hello World
-      </div>
+          <DBDrawerLayout/>
 
+      </div>
   )};
 
 export default DashboardLayout;
