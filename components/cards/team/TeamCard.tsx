@@ -1,11 +1,18 @@
-import styles from './BaseTemplate.module.css';
+import {Card, CardProps} from "@mui/material";
 
-export interface IBaseTemplate {
+
+export interface ITeamCard {
     sampleTextProp: string;
+    teamNumber: number;
+    teamName: string
 }
 
-const BaseTemplate: React.FC<IBaseTemplate> = ({ sampleTextProp }) => {
-    return <div className={styles.container}>{sampleTextProp}</div>;
+const TeamCard: React.FC<ITeamCard & CardProps> = ({sampleTextProp, teamNumber, teamName, ...card}) => {
+    return(
+        <Card {...card}>
+            {`${sampleTextProp}: ${teamNumber} :${teamName}`}
+        </Card>
+    ) ;
 };
 
-export default BaseTemplate;
+export default TeamCard;

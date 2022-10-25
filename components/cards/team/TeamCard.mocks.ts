@@ -1,9 +1,11 @@
-import { IBaseTemplate } from './BaseTemplate';
+import { ITeamCard } from './TeamCard';
 
-const base: IBaseTemplate = {
-    sampleTextProp: 'Hello world!',
+const base: ITeamCard = {
+    teamName: "angelBotics",
+    teamNumber: 1339,
+    sampleTextProp: "t"
 };
 
-export const mockBaseTemplateProps = {
+export const mockTeamCardProps = {
     base,
 };
