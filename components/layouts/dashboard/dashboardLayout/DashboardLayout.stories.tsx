@@ -1,9 +1,9 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DashboardLayout, { IDashboardLayout } from './DashboardLayout';
-import { defaultLandingAppBarProps } from './DashboardLayout.mocks';
+import DashboardLayout, { IDBToolBarLayout } from './DashboardLayout';
+import { defaultDashboardLayoutProps } from './DashboardLayout.mocks';
 
 export default {
-    title: 'layouts/dashboard/dashboardLayout/DashboardLayout',
+    title: 'layouts/dashboard/dashboardLayout/DBToolBarMenuItem',
     component: DashboardLayout,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
@@ -18,5 +18,5 @@ export const SDashboardLayout = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
 SDashboardLayout.args = {
-    ...defaultLandingAppBarProps.base,
-} as IDashboardLayout;
+    ...defaultDashboardLayoutProps.base,
+} as IDBToolBarLayout;

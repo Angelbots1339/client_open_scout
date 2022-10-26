@@ -5,6 +5,10 @@
 
 .button {
 
+    width: 150px;
+    margin: 1px;
+    color: black;
+
 }
 
 .appBar{

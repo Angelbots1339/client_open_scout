@@ -4,6 +4,6 @@ const base: ILandingAppBar = {
     barColor: '#FFFFFF',
 };
 
-export const defaultLandingAppBarProps = {
+export const defaultDashboardLayoutProps = {
     base,
 };

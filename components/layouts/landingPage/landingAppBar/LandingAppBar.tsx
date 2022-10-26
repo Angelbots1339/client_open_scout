@@ -19,19 +19,20 @@ const LandingAppBar: React.FC<ILandingAppBar> = () => {
 
                 <Toolbar sx={{width:"90%", ml:"10%"}}>
 
-                    <Button href="/dashboard" variant={"text"} sx={{m:0, width:150}}>
-                        <Typography sx={{}}>Dashboard</Typography>
+                    <Button  className={styles.button} href="/dashboard" variant={"text"}>
+                        <Typography>Dashboard</Typography>
                     </Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button className={styles.button} href="/" variant={"text"} sx={{m:0, width:150}}>
-                        <Typography sx={{}}>API Docs</Typography>
+                    <Button className={styles.button} href="/" variant={"text"}>
+                        <Typography>API Docs</Typography>
                     </Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
+                    <Button className={styles.button} href="/" variant={"text"}>
+                        <Typography>About Us</Typography>
+                    </Button>
 
                     <Box sx={{width:"100%"}}></Box>
-                    <Button
-                        variant={"text"}
-                        sx={{m:1}}>
+                    <Button className={styles.button} variant={"text"}>
                         Placeholder
                     </Button>
 
