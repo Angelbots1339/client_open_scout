@@ -4,16 +4,16 @@ import DashboardLayout from "../../components/layouts/dashboard/dashboardLayout/
 import {Typography} from "@mui/material";
 
 
-const DashboardHome: NextPage = () => {
+const DashboardSchedule: NextPage = () => {
 
     const getLayout = DashboardLayout.getLayout ?? ((page) => page);
 
     return getLayout(
         <>
-        <Typography variant={"h2"} sx={{m:10}}>Dashboard Home</Typography>
+            <Typography variant={"h2"} sx={{m:10}}>Schedule</Typography>
         </>
-    ,["Dashboard", "Home"]);
+    ,["Dashboard", "Schedule"]);
     }
 
 
-export default DashboardHome;
+export default DashboardSchedule;

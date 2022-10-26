@@ -1,7 +1,7 @@
 import styles from './DashboardDrawerItem.module.css';
 import {
     Collapse,
-    ListItemButton, ListItemIcon, ListItemText,
+    ListItemButton, ListItemIcon, ListItemText, Tooltip,
 } from "@mui/material";
 import React from "react";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
@@ -26,6 +26,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
 
     return (
       <div className={styles.container}>
+          <Tooltip title={text} placement="right">
           {dropDownType.toLowerCase() === "child" ?
               // If it is a Drop-Down Child
               <Collapse in={dropDownPopupState.isOpen} timeout="auto" unmountOnExit className={drawerOpen ? styles.collapsibleClosed : styles.collapsibleOpened}>
@@ -58,6 +59,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
                   </ListItemButton>
 
           }
+          </Tooltip>
       </div>
 
   )};
