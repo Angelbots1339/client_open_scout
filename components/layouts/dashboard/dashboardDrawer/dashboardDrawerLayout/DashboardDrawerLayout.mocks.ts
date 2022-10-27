@@ -1,8 +1,8 @@
-import { IDashboardDrawerCollapsedLayout } from './DashboardDrawerLayout';
+import { IDashboardDrawerLayout } from './DashboardDrawerLayout';
 
 
 
-const base: IDashboardDrawerCollapsedLayout = {
+const base: IDashboardDrawerLayout = {
 
 };
 

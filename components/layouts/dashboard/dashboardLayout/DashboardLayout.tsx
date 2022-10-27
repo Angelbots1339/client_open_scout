@@ -1,5 +1,5 @@
 import styles from './DashboardLayout.module.css';
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState} from "react";
 import DashboardDrawerLayout from "../dashboardDrawer/dashboardDrawerLayout/DashboardDrawerLayout";
 import DashboardToolBarLayout from "../dashboardToolBar/dashboardToolBarLayout/DashboardToolBarLayout";
 import {DashboardPageWithLayout} from "../../../../pages/_app";
@@ -24,26 +24,35 @@ const DashboardLayout: DashboardPageWithLayout = () => {
 
 DashboardLayout.getLayout = function getLayout(page: ReactElement) {
 
+    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+
+    const setDrawerOpen = (bool: boolean) => {
+        setIsDrawerOpen(bool);
+        console.log(isDrawerOpen);
+    }
+
     const splitPath = useRouter().pathname.split("/").slice(1);
 
     return (
         <div className={styles.container}>
 
-        <DashboardDrawerLayout/>
-        <DashboardToolBarLayout/>
-            <Box sx={{ml:10, mt:5, width:"90%", height:"auto"}} >
+        <DashboardDrawerLayout mainLayoutSetDrawerOpen={setDrawerOpen} />
+
+            <div className={isDrawerOpen ? styles.movedByDrawerOpen : styles.movedByDrawerClosed}>
+                <DashboardToolBarLayout/>
+            <Box sx={{ml:10, mr:10, mt:5, width:"auto", height:"auto"}} >
                 <div className={styles.cardHeader}>
                     <Typography variant="h2" className={styles.breadcrumbsHeader}> {splitPath[0] === "dashboard" ? "Home" : splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)} </Typography>
 
                     <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumbs}>
 
-                        <Link underline="hover" color="inherit" href={"/dashboard"}>
+                        {splitPath.length === 1 ? <Link underline="hover" color="inherit" href={"/dashboard"}>
                             Dashboard
-                        </Link>
+                        </Link> : ""}
 
                         {splitPath.map((dir: string) =>
                             <Link underline="hover" color="inherit" href={dir === "home" || dir === "dashboard" ? "/dashboard" :"/dashboard/" + dir.toLowerCase()}>
-                                {dir === "dashboard" ? "Home" : dir.charAt(0).toUpperCase() + dir.slice(1)}
+                                {splitPath.length === 1 ? "Home" : dir.charAt(0).toUpperCase() + dir.slice(1)}
                             </Link>
                         )}
                     </Breadcrumbs>
@@ -53,7 +62,7 @@ DashboardLayout.getLayout = function getLayout(page: ReactElement) {
                 {page}
             </Card>
             </Box>
-
+            </div>
         </div>
     )
 }

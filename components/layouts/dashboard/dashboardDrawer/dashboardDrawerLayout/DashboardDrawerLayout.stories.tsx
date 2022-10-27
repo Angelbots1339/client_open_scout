@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DashboardDrawerLayout, { IDashboardDrawerCollapsedLayout } from './DashboardDrawerLayout';
+import DashboardDrawerLayout, { IDashboardDrawerLayout } from './DashboardDrawerLayout';
 import { DashboardDrawerLayoutProps } from './DashboardDrawerLayout.mocks';
 
 export default {
@@ -19,4 +19,4 @@ export const SDashboardDrawerLayout = Template.bind({});
 
 SDashboardDrawerLayout.args = {
     ...DashboardDrawerLayoutProps.base,
-} as IDashboardDrawerCollapsedLayout;
+} as IDashboardDrawerLayout;

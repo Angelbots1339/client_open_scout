@@ -2,17 +2,27 @@ import styles from './DashboardDrawerLayout.module.css';
 import {
     Drawer, IconButton, List,
 } from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import {bindMenu, bindToggle, usePopupState} from "material-ui-popup-state/hooks";
 import {ShowChart, ChevronRight, ChevronLeft, Group, AccessTime, Assignment, Search, Star, ViewStream, AssignmentInd} from "@mui/icons-material"
 import DashboardDrawerItem from "../dashboardDrawerItem/DashboardDrawerItem";
 
-export interface IDashboardDrawerCollapsedLayout {}
+export interface IDashboardDrawerLayout {
+    mainLayoutSetDrawerOpen: Function;
+}
 
-const DashboardDrawerLayout: React.FC<IDashboardDrawerCollapsedLayout> = () => {
+
+const DashboardDrawerLayout: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerOpen}) => {
 
     const DashboardDrawerPopupState = usePopupState({ variant: 'popover', popupId: 'dashboardDrawer' })
     const DataDropDownPopupState = usePopupState({ variant: 'popover', popupId: 'dashboardDrawer' })
+
+    useEffect(() => {
+
+        mainLayoutSetDrawerOpen(DashboardDrawerPopupState.isOpen);
+
+
+    }, [DashboardDrawerPopupState])
 
 
     return (

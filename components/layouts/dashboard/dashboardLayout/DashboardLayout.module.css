@@ -12,12 +12,21 @@
 
 .breadcrumbs {
     align-self: flex-end;
+    margin-bottom: 10px;
 
 }
 
 .breadcrumbsHeader {
 
     margin-right: 50px;
+}
+
+.movedByDrawerOpen {
+    margin-left: 210px;
+}
+
+.movedByDrawerClosed {
+    margin-left: 10px;
 }
 
 
