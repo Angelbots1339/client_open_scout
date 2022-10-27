@@ -1,5 +1,5 @@
 import * as NextImage from 'next/image';
-import { muiTheme } from 'storybook-addon-material-ui'
+import { muiTheme } from 'storybook-addon-material-ui';
 
 const BREAKPOINTS_INT = {
   xs: 375,
@@ -9,25 +9,22 @@ const BREAKPOINTS_INT = {
   xl: 1536,
 };
 
-
-export const decorators = [
-  muiTheme()
-];
+export const decorators = [muiTheme()];
 
 const customViewports = Object.fromEntries(
-    Object.entries(BREAKPOINTS_INT).map(([key, val], idx) => {
-      console.log(val);
-      return [
-        key,
-        {
-          name: key,
-          styles: {
-            width: `${val}px`,
-            height: `${(idx + 5) * 10}vh`,
-          },
+  Object.entries(BREAKPOINTS_INT).map(([key, val], idx) => {
+    console.log(val);
+    return [
+      key,
+      {
+        name: key,
+        styles: {
+          width: `${val}px`,
+          height: `${(idx + 5) * 10}vh`,
         },
-      ];
-    })
+      },
+    ];
+  })
 );
 
 // Allow Storybook to handle Next's <Image> component
