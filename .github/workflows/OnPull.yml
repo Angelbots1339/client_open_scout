@@ -23,6 +23,9 @@ jobs:
     - name: lint
       run: |
         npm install
+        npm run prettier
+    - name: lint
+      run: |
         npm run lint
     - name: build
       run: |
