@@ -1,8 +1,8 @@
 import styles from './DashboardLayout.module.css';
 import React, {ReactElement, useState} from "react";
 import DashboardDrawerLayout from "../dashboardDrawer/dashboardDrawerLayout/DashboardDrawerLayout";
-import DashboardToolBarLayout from "../dashboardToolBar/dashboardToolBarLayout/DashboardToolBarLayout";
-import {DashboardPageWithLayout} from "../../../../pages/_app";
+import DashboardToolBar from "../dashboardToolBar/dashboardToolBar/DashboardToolBar";
+import { PageWithLayout} from "../../../../pages/_app";
 import {Box, Breadcrumbs, Card, Link, Typography} from "@mui/material";
 import {useRouter} from "next/router";
 
@@ -10,13 +10,9 @@ export interface IDBToolBarLayout {
     children: React.ReactNode;
 }
 
-const DashboardLayout: DashboardPageWithLayout = () => {
+const DashboardLayout: PageWithLayout = () => {
   return (
       <div className={styles.container}>
-
-          <DashboardDrawerLayout/>
-          <DashboardToolBarLayout/>
-
 
 
       </div>
@@ -39,7 +35,7 @@ DashboardLayout.getLayout = function getLayout(page: ReactElement) {
         <DashboardDrawerLayout mainLayoutSetDrawerOpen={setDrawerOpen} />
 
             <div className={isDrawerOpen ? styles.movedByDrawerOpen : styles.movedByDrawerClosed}>
-                <DashboardToolBarLayout/>
+                <DashboardToolBar/>
             <Box sx={{ml:10, mr:10, mt:5, width:"auto", height:"auto"}} >
                 <div className={styles.cardHeader}>
                     <Typography variant="h2" className={styles.breadcrumbsHeader}> {splitPath[splitPath.length - 1] === "dashboard" ? "Home" : splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)} </Typography>

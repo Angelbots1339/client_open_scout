@@ -4,6 +4,6 @@ const base: IDBToolBarLayout = {
     barColor: '#FFFFFF',
 };
 
-export const defaultDBToolBarLayoutProps = {
+export const defaultDBToolBarProps = {
     base,
 };
