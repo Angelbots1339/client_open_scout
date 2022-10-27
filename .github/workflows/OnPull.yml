@@ -23,5 +23,5 @@ jobs:
     - name: Build
       run: |
         npm install
-        next lint
-        next build
+        pnpm lint
+        pnpm build
