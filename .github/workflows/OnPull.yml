@@ -44,7 +44,7 @@ jobs:
     - name: install
       run: |
         npm install
-    - name: prettier
+    - name: lint
       run: |
         npm run lint
   build:
@@ -65,7 +65,7 @@ jobs:
     - name: install
       run: |
         npm install
-    - name: prettier
+    - name: build
       run: |
         npm run build
 
