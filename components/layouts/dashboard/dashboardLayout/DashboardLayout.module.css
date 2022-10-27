@@ -3,4 +3,21 @@
 
 }
 
+.cardHeader {
+
+    display: flex;
+    width: auto;
+
+}
+
+.breadcrumbs {
+    align-self: flex-end;
+
+}
+
+.breadcrumbsHeader {
+
+    margin-right: 50px;
+}
+
 

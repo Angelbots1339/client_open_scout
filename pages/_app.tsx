@@ -10,7 +10,6 @@ export type PageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 export type DashboardPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
     breadCrumbs?: (dir: []) => [];
-
 };
 
 type AppPropsWithLayout = AppProps & {

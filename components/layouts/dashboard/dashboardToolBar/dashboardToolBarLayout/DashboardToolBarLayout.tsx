@@ -1,6 +1,6 @@
 import styles from './DashboardToolBarLayout.module.css';
 import React from "react";
-import {Avatar, Box, Button, Menu, MenuItem, Toolbar} from "@mui/material";
+import {Avatar, Box, Button, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import {bindMenu, bindTrigger, usePopupState} from "material-ui-popup-state/hooks";
 
 export interface IDBToolBarLayout {}
@@ -13,6 +13,7 @@ const DashboardToolBarLayout: React.FC<IDBToolBarLayout> = () => {
       <div className={styles.container}>
           <Toolbar className={styles.toolBar} >
 
+              <Typography variant="h4">Dashboard</Typography>
               <Box sx={{width:"100%"}}></Box>
               <Button
                   {...bindTrigger(AccountMenuPopupState)}

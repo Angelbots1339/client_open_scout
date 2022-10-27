@@ -12,8 +12,7 @@ const DashboardScouting: NextPage = () => {
         <>
             <Typography variant={"h2"} sx={{m:10}}>Scouting</Typography>
         </>
-    ,["Dashboard", "Scouting"]);
-    }
+    )}
 
 
 export default DashboardScouting;

@@ -12,8 +12,7 @@ const DashboardHome: NextPage = () => {
         <>
         <Typography variant={"h2"} sx={{m:10}}>Dashboard Home</Typography>
         </>
-    ,["Dashboard", "Home"]);
-    }
+    )}
 
 
 export default DashboardHome;

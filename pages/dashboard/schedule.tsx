@@ -12,8 +12,7 @@ const DashboardSchedule: NextPage = () => {
         <>
             <Typography variant={"h2"} sx={{m:10}}>Schedule</Typography>
         </>
-    ,["Dashboard", "Schedule"]);
-    }
+    )}
 
 
 export default DashboardSchedule;

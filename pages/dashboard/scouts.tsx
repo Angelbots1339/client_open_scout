@@ -50,7 +50,6 @@ const DashboardScouts = () => {
                 }`}
             </Paper>
         </Box>
-        ,["Dashboard", "Scouts"]);
-};
+        )}
 
 export default DashboardScouts;
