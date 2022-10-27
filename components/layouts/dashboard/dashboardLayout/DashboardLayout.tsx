@@ -6,7 +6,7 @@ import { PageWithLayout} from "../../../../pages/_app";
 import {Box, Breadcrumbs, Card, Link, Typography} from "@mui/material";
 import {useRouter} from "next/router";
 
-export interface IDBToolBarLayout {
+export interface IDashboardLayout {
     children: React.ReactNode;
 }
 

@@ -1,6 +1,6 @@
-import {IDBToolBarLayout} from "../../dashboardLayout/DashboardLayout";
+import {IDashboardLayout} from "../../dashboardLayout/DashboardLayout";
 
-const base: IDBToolBarLayout = {
+const base: IDashboardLayout = {
     barColor: '#FFFFFF',
 };
 

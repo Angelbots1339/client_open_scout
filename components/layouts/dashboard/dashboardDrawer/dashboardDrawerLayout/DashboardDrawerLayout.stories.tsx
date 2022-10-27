@@ -3,7 +3,7 @@ import DashboardDrawerLayout, { IDashboardDrawerLayout } from './DashboardDrawer
 import { DashboardDrawerLayoutProps } from './DashboardDrawerLayout.mocks';
 
 export default {
-    title: 'layouts/dashboard/dashboardDrawer/dashboardDrawerLayout/DashboardDrawerListItem',
+    title: 'layouts/dashboard/dashboardDrawer/dashboardDrawerLayout/DashboardDrawerLayout',
     component: DashboardDrawerLayout,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
