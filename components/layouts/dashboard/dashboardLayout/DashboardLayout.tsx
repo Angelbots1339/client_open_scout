@@ -42,7 +42,7 @@ DashboardLayout.getLayout = function getLayout(page: ReactElement) {
                 <DashboardToolBarLayout/>
             <Box sx={{ml:10, mr:10, mt:5, width:"auto", height:"auto"}} >
                 <div className={styles.cardHeader}>
-                    <Typography variant="h2" className={styles.breadcrumbsHeader}> {splitPath[0] === "dashboard" ? "Home" : splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)} </Typography>
+                    <Typography variant="h2" className={styles.breadcrumbsHeader}> {splitPath[splitPath.length - 1] === "dashboard" ? "Home" : splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)} </Typography>
 
                     <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumbs}>
 
