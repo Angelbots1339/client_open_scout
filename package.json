@@ -21,7 +21,6 @@
     "@mui/material": "^5.10.3",
     "axios": "^0.27.2",
     "next": "12.2.5",
-    "pnpm": "^7.13.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-google-button": "^0.7.2"
@@ -42,6 +41,7 @@
     "@typescript-eslint/parser": "^5.40.0",
     "babel-loader": "^8.2.5",
     "eslint": "8.23.0",
+    "pnpm": "^7.13.6",
     "eslint-config-next": "12.2.5",
     "eslint-plugin-storybook": "^0.6.6",
     "prettier": "^2.7.1",
