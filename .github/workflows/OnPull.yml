@@ -1,8 +1,6 @@
 name: NodeJS with Webpack
 
 on:
-  push:
-    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
 
@@ -12,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x]
     
     steps:
     - uses: actions/checkout@v3
