@@ -27,10 +27,10 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
     return (
       <div className={styles.container}>
           <Tooltip title={text} placement="right">
-          {dropDownType.toLowerCase() === "child" ?
+          {dropDownType.toLowerCase() === "child" && dropDownPopupState?
               // If it is a Drop-Down Child
               <Collapse in={dropDownPopupState.isOpen} timeout="auto" unmountOnExit className={drawerOpen ? styles.collapsibleClosed : styles.collapsibleOpened}>
-          <ListItemButton href={href} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
+          <ListItemButton {...(href && { href: href })} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
               <ListItemIcon>
                   <>{icon}</>
               </ListItemIcon>
@@ -40,7 +40,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
 
 
               // If it is a Drop-Down Parent
-              : dropDownType.toLowerCase() === "parent" ?
+              : dropDownType.toLowerCase() === "parent" && dropDownPopupState ?
                   <ListItemButton {...bindToggle(dropDownPopupState)} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
                   <ListItemIcon className={dropDownPopupState.isOpen ? styles.parentIconOpened : styles.parentIconClosed}>
                       <>{icon}</>
@@ -51,7 +51,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
 
               :
                   // If it is not a Drop-Down at all
-                  <ListItemButton href={href} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
+                  <ListItemButton  {...(href && { href: href })} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
                       <ListItemIcon>
                           <>{icon}</>
                       </ListItemIcon>

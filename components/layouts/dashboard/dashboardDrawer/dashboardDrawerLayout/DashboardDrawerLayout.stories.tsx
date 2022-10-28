@@ -1,6 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DashboardDrawerLayout, { IDashboardDrawerLayout } from './DashboardDrawerLayout';
-import { DashboardDrawerLayoutProps } from './DashboardDrawerLayout.mocks';
+import DashboardDrawerLayout from './DashboardDrawerLayout';
 
 export default {
     title: 'layouts/dashboard/dashboardDrawer/dashboardDrawerLayout/DashboardDrawerLayout',
@@ -17,6 +16,6 @@ const Template: ComponentStory<typeof DashboardDrawerLayout> = (args) => (
 export const SDashboardDrawerLayout = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
-SDashboardDrawerLayout.args = {
-    ...DashboardDrawerLayoutProps.base,
-} as IDashboardDrawerLayout;
+// SDashboardDrawerLayout.args = {
+//     ...DashboardDrawerLayoutProps.base,
+// } as IDashboardDrawerLayout;

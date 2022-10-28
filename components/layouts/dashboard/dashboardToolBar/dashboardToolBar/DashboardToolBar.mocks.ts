@@ -1,7 +1,6 @@
-import {IDashboardLayout} from "../../dashboardLayout/DashboardLayout";
+import {IDBToolBar} from "./DashboardToolBar";
 
-const base: IDashboardLayout = {
-    barColor: '#FFFFFF',
+const base: IDBToolBar = {
 };
 
 export const defaultDBToolBarProps = {

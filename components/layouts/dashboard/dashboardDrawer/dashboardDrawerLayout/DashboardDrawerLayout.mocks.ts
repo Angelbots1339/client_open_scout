@@ -1,8 +1,6 @@
-import { IDashboardDrawerLayout } from './DashboardDrawerLayout';
 
 
-
-const base: IDashboardDrawerLayout = {
+const base = {
 
 };
 

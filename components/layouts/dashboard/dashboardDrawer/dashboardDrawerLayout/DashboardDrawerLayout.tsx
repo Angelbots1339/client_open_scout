@@ -22,7 +22,7 @@ const DashboardDrawerLayout: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetD
         mainLayoutSetDrawerOpen(DashboardDrawerPopupState.isOpen);
 
 
-    }, [DashboardDrawerPopupState])
+    }, [mainLayoutSetDrawerOpen, DashboardDrawerPopupState])
 
 
     return (
