@@ -5,7 +5,6 @@ import {
     Button,
     Divider,
     Toolbar,
-    Typography
 } from "@mui/material";
 import React from "react";
 import LandingAppBarButton from "../landingAppBarButton/LandingAppBarButton";

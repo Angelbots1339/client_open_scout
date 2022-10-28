@@ -15,7 +15,7 @@ const DashboardScouts = () => {
                     router.push('http://localhost:3000/');
                 }
             });
-    }, [router]);
+    }, [router, setUserObject]);
 
     // return getLayout(
     //     <Box
