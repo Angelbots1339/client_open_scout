@@ -31,9 +31,9 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({children}) => {
 
                         <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumbs}>
 
-                            {splitPath.length === 1 ? <Link underline="hover" color="inherit" href={"/dashboard"}>
+                            {splitPath.length === 1 && <Link underline="hover" color="inherit" href={"/dashboard"}>
                                 Dashboard
-                            </Link> : ""}
+                            </Link>}
 
                             {splitPath.map((dir: string) =>
                                 <Link key={dir} underline="hover" color="inherit" href={dir === "home" || dir === "dashboard" ? "/dashboard" :"/dashboard/" + dir.toLowerCase()}>

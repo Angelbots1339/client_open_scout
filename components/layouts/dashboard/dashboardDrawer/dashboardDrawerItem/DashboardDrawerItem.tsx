@@ -13,7 +13,7 @@ export interface IDashboardDrawerItem {
     text: string;
     icon: React.ReactElement;
     drawerOpen: PopupState;
-    dropDownType: string;
+    dropDownType: "child" | "parent" | "";
 
     href?: string;
 
@@ -34,7 +34,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
               <ListItemIcon>
                   <>{icon}</>
               </ListItemIcon>
-              {drawerOpen.isOpen ? <ListItemText primary={text} className={styles.listText}/> : <></>}
+              {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
           </ListItemButton>
               </Collapse>
 
@@ -45,7 +45,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
                   <ListItemIcon className={dropDownPopupState.isOpen ? styles.parentIconOpened : styles.parentIconClosed}>
                       <>{icon}</>
                   </ListItemIcon>
-                  {drawerOpen.isOpen ? <ListItemText primary={text} className={styles.listText}/> : <></>}
+                  {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
                   {dropDownPopupState.isOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
 
@@ -55,7 +55,7 @@ const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawer
                       <ListItemIcon>
                           <>{icon}</>
                       </ListItemIcon>
-                      {drawerOpen.isOpen ? <ListItemText primary={text} className={styles.listText}/> : <></>}
+                      {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
                   </ListItemButton>
 
           }
