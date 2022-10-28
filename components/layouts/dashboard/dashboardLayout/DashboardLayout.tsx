@@ -14,7 +14,6 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({children}) => {
 
     const setDrawerOpen = (bool: boolean) => {
         setIsDrawerOpen(bool);
-        console.log(isDrawerOpen);
     }
 
     const splitPath = useRouter().pathname.split("/").slice(1);

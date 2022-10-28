@@ -21,9 +21,7 @@ const DashboardDrawerLayout: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetD
 
         mainLayoutSetDrawerOpen(DashboardDrawerPopupState.isOpen);
 
-
     }, [mainLayoutSetDrawerOpen, DashboardDrawerPopupState])
-
 
     return (
       <div className={styles.container}>
@@ -58,11 +56,7 @@ const DashboardDrawerLayout: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetD
                     <DashboardDrawerItem text={"My Team"} icon={<Group fontSize="medium" />} drawerOpen={DashboardDrawerPopupState} href="/dashboard/data/myTeam" dropDownType="child" dropDownPopupState={DataDropDownPopupState}/>
                     <DashboardDrawerItem text={"Competitions"} icon={<ViewStream fontSize="medium" />} drawerOpen={DashboardDrawerPopupState} href="/dashboard/data/competitions" dropDownType="child" dropDownPopupState={DataDropDownPopupState}/>
 
-
-
               </List>
-
-
 
           </Drawer>
       </div>

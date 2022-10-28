@@ -8,6 +8,7 @@ import {
     Typography
 } from "@mui/material";
 import React from "react";
+import LandingAppBarButton from "../landingAppBarButton/LandingAppBarButton";
 
 export interface ILandingAppBar {}
 
@@ -19,17 +20,16 @@ const LandingAppBar: React.FC<ILandingAppBar> = () => {
 
                 <Toolbar sx={{width:"90%", ml:"10%"}}>
 
-                    <Button  className={styles.button} href="/dashboard" variant={"text"}>
-                        <Typography>Dashboard</Typography>
-                    </Button>
+
+                    <LandingAppBarButton text={"Dashboard"} href={"/dashboard"}/>
+
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button className={styles.button} href="/" variant={"text"}>
-                        <Typography>API Docs</Typography>
-                    </Button>
+
+                    <LandingAppBarButton text={"API Docs"} href={"/"}/>
+
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button className={styles.button} href="/" variant={"text"}>
-                        <Typography>About Us</Typography>
-                    </Button>
+                    <LandingAppBarButton text={"About Us"} href={"/about"}/>
+
 
                     <Box sx={{width:"100%"}}></Box>
                     <Button className={styles.button} variant={"text"}>

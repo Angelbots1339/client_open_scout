@@ -3,7 +3,7 @@ import LandingAppBar, { ILandingAppBar } from './LandingAppBar';
 import { defaultLandingAppBarProps } from './LandingAppBar.mocks';
 
 export default {
-    title: 'layouts/landingPage/LandingAppBar',
+    title: 'layouts/landingPage/landingAppBar/LandingAppBar',
     component: LandingAppBar,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
