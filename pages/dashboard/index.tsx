@@ -6,7 +6,6 @@ import {PageWithLayout} from "../_app";
 const DashboardHome: PageWithLayout = () => {
 
     return <></>;
-
 }
 
 DashboardHome.getLayout = function getLayout(page: ReactElement) {
@@ -16,8 +15,6 @@ DashboardHome.getLayout = function getLayout(page: ReactElement) {
             {page}
         </DashboardLayout>
     )
-
 }
-
 
 export default DashboardHome;

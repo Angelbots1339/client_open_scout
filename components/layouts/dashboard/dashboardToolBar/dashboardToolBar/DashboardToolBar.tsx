@@ -20,13 +20,14 @@ const DashboardToolBar: React.FC<IDBToolBar> = () => {
               <Button
                   {...bindTrigger(AccountMenuPopupState)}
                   variant={"text"}
-                  sx={{m:1}}>
+                  sx={{m:1}}
+                  disableRipple={true}
+              >
                   <Avatar/>
               </Button>
               <Menu className={styles.menu} {...bindMenu(AccountMenuPopupState)}>
                   <DashboardToolBarAccountItem text="My Account" icon={<AccountCircle fontSize="medium" />} href="/myaccount"/>
                   <DashboardToolBarAccountItem text="Logout" icon={<Logout fontSize="medium" />} href="/logout"/>
-
               </Menu>
 
           </Toolbar>

@@ -43,7 +43,7 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({children}) => {
                         </Breadcrumbs>
                     </div>
 
-                    <Card color={"primary"} sx={{ width:"100%", height:"auto", boxShadow:5}}>
+                    <Card color={"primary"} sx={{ width:"100%", height:"auto", boxShadow:5, minWidth: 700, minHeight: 400}}>
                         {children}
                     </Card>
                 </Box>

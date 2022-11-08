@@ -1,23 +1,31 @@
-import { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
-import { useRouter } from 'next/router';
+import React, {ReactElement} from 'react';
+import DashboardLayout from "../../components/layouts/dashboard/dashboardLayout/DashboardLayout";
+import DashboardScouts from "../../components/layouts/dashboard/dashboardScouts/dashboardScouts/DashboardScouts";
 
-const DashboardScouts = () => {
-    const router = useRouter();
-    const [setUserObject] = useState<any>();
-    useEffect(() => {
-        axios
-            .get('http://localhost:5000/auth/getuser', {withCredentials: true})
-            .then((res: AxiosResponse) => {
-                if (res.data) {
-                    setUserObject(res.data);
-                } else {
-                    router.push('http://localhost:3000/');
-                }
-            });
-    }, [router, setUserObject]);
 
-    // return getLayout(
+const DashboardScoutsPage = () => {
+    // const router = useRouter();
+    // const [setUserObject] = useState<any>();
+    // useEffect(() => {
+    //     axios
+    //         .get('http://localhost:5000/auth/getuser', {withCredentials: true})
+    //         .then((res: AxiosResponse) => {
+    //             if (res.data) {
+    //                 setUserObject(res.data);
+    //             } else {
+    //                 router.push('http://localhost:3000/');
+    //             }
+    //         });
+    // }, [router, setUserObject]);
+
+    return (
+        <>
+            <DashboardScouts/>
+    </>
+    )
+
+
+    // return (
     //     <Box
     //         sx={{
     //             marginTop: 8,
@@ -46,9 +54,21 @@ const DashboardScouts = () => {
     //             }`}
     //         </Paper>
     //     </Box>
-    //)}
+    // )}
+
+
 }
 
+DashboardScoutsPage.getLayout = function getLayout(page: ReactElement) {
 
+    return (
+        <div>
+            <DashboardLayout>
+            {page}
+            </DashboardLayout>
+    </div>
+    )
 
-export default DashboardScouts;
+}
+
+export default DashboardScoutsPage;

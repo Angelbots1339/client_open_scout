@@ -8,7 +8,7 @@ import {ShowChart, ChevronRight, ChevronLeft, Group, AccessTime, Assignment, Sea
 import DashboardDrawerItem from "../dashboardDrawerItem/DashboardDrawerItem";
 
 export interface IDashboardDrawerLayout {
-    mainLayoutSetDrawerOpen: Function;
+    mainLayoutSetDrawerOpen: (bool: boolean) => void;
 }
 
 

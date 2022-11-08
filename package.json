@@ -16,15 +16,20 @@
   },
   "dependencies": {
     "@babel/core": ">=7.0.0 <8.0.0",
+    "@dnd-kit/core": "^6.0.5",
+    "@dnd-kit/utilities": "^3.2.0",
     "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.3",
+    "@mui/x-data-grid": "^5.17.9",
     "axios": "^0.27.2",
     "material-ui-popup-state": "^4.1.0",
     "next": "12.2.5",
-    "pnpm": "^7.13.6",
     "react": "18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-google-button": "^0.7.2"
   },
@@ -39,20 +44,20 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/node": "18.7.14",
     "@types/react": "18.0.18",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "babel-loader": "^8.2.5",
     "eslint": "8.23.0",
-    "pnpm": "^7.13.6",
     "eslint-config-next": "12.2.5",
     "eslint-plugin-storybook": "^0.6.6",
     "husky": "^8.0.1",
-    "typescript": "4.8.2",
-    "util": "^0.12.5",
+    "pnpm": "^7.14.2",
     "prettier": "^2.7.1",
-    "storybook-addon-material-ui": "0.9.0-alpha.24"
-
+    "storybook-addon-material-ui": "0.9.0-alpha.24",
+    "typescript": "4.8.2",
+    "util": "^0.12.5"
   },
   "resolutions": {
     "webpack": "^5"

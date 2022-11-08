@@ -3,7 +3,7 @@ import DashboardToolBar, { IDBToolBar } from './DashboardToolBar';
 import { defaultDBToolBarProps } from './DashboardToolBar.mocks';
 
 export default {
-    title: 'layouts/dashboard/dashboardToolBar/dashboardToolBar/DashboardToolBar',
+    title: 'layouts/dashboard/dashboardToolBar/dashboardToolBar/TableDraggable',
     component: DashboardToolBar,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
