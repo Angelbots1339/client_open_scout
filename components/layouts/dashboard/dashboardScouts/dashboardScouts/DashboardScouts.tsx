@@ -37,8 +37,7 @@ const DashboardScouts: React.FC<IDashboardScouts> = () => {
             assignedTeam: "1011",
             timeScouted: "6",
         }
-        }
-    ;
+        };
 
 
     return (
