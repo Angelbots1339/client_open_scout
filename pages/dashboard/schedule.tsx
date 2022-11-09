@@ -6,7 +6,6 @@ import {PageWithLayout} from "../_app";
 const DashboardSchedule: PageWithLayout = () => {
 
     return <></>;
-
 }
 
 DashboardSchedule.getLayout = function getLayout(page: ReactElement) {

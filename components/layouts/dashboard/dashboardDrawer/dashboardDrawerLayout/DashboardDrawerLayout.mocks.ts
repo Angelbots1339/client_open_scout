@@ -1,8 +1,4 @@
-
-
-const base = {
-
-};
+const base = {};
 
 export const DashboardDrawerLayoutProps = {
     base,

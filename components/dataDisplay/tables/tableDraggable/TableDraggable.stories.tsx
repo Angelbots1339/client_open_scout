@@ -1,6 +1,6 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import TableDraggable, { ITableDraggable } from './TableDraggable';
-import { defaultTableDraggableProps } from './TableDraggable.mocks';
+import {ComponentStory, ComponentMeta} from '@storybook/react';
+import TableDraggable, {ITableDraggable} from './TableDraggable';
+import {defaultTableDraggableProps} from './TableDraggable.mocks';
 
 export default {
     title: 'dataDisplay/tables/tableDraggable/TableDraggable',

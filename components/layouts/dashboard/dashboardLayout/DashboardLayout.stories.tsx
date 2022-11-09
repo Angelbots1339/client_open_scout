@@ -1,6 +1,6 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DashboardLayout, { IDashboardLayout } from './DashboardLayout';
-import { defaultDashboardLayoutProps } from './DashboardLayout.mocks';
+import {ComponentStory, ComponentMeta} from '@storybook/react';
+import DashboardLayout, {IDashboardLayout} from './DashboardLayout';
+import {defaultDashboardLayoutProps} from './DashboardLayout.mocks';
 
 export default {
     title: 'layouts/dashboard/dashboardLayout/DashboardLayout',

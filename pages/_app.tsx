@@ -1,6 +1,6 @@
-import type { ReactElement, ReactNode } from 'react';
-import type { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import type {ReactElement, ReactNode} from 'react';
+import type {NextPage} from 'next';
+import type {AppProps} from 'next/app';
 import {ThemeProvider} from "@mui/material";
 import {lightModeTheme} from "../theme";
 
@@ -16,14 +16,12 @@ export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
     // Use the layout defined at the page level, if available
     const getLayout = Component.getLayout ?? ((page) => page);
 
-
-
-  return getLayout(
+    return getLayout(
         <div>
-        <ThemeProvider theme={lightModeTheme}>
+            <ThemeProvider theme={lightModeTheme}>
                 <Component {...pageProps} />
-        </ThemeProvider>
+            </ThemeProvider>
         </div>
-  );
+    );
 }
 

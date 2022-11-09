@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import {ComponentStory, ComponentMeta} from '@storybook/react';
 import DashboardDrawerLayout from './DashboardDrawerLayout';
 
 export default {

@@ -21,7 +21,7 @@ const DashboardScoutsPage = () => {
     return (
         <>
             <DashboardScouts/>
-    </>
+        </>
     )
 
 
@@ -64,9 +64,9 @@ DashboardScoutsPage.getLayout = function getLayout(page: ReactElement) {
     return (
         <div>
             <DashboardLayout>
-            {page}
+                {page}
             </DashboardLayout>
-    </div>
+        </div>
     )
 
 }

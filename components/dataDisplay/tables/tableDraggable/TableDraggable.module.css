@@ -4,8 +4,8 @@
 
 .table {
 
-    margin:1%;
-    width:98%;
+    margin: 1%;
+    width: 98%;
 
 }
 
@@ -16,7 +16,7 @@
 
 .tbody {
 
-min-height: 500px;
+    min-height: 500px;
 }
 
 .rowDragging {
@@ -33,7 +33,6 @@ min-height: 500px;
 }
 
 .cell {
-
 
 
 }

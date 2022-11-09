@@ -5,24 +5,30 @@ import {DragHandle} from "@mui/icons-material";
 import {DragDropContext, Draggable, Droppable, DropResult} from "react-beautiful-dnd";
 
 
-
-
 export interface ITableDraggable {
-    data: Array<object>,
-    nameKey: string,
+    data: object,
     headerName: string,
     keysToDisplay: Array<string> | "any",
     displayNames: Array<string>,
 
 }
 
+/**
+ * This creates an MUI Table with rows that are re-arrangeable via draggable handles
+ *
+ *
+ * @param data This is the object with all your data. It must be several objects with identical keys, not an array of objects
+ * @param headerName Main header text
+ * @param keysToDisplay Array of strings that are keys for the data you want displayed from the objects
+ * @param displayNames Array of strings used for display names of the data; must be aligned with keysToDisplay
+ */
+const TableDraggable: React.FC<ITableDraggable> = ({data, headerName, keysToDisplay, displayNames}) => {
 
 
-const TableDraggable: React.FC<ITableDraggable> = ({data, nameKey, headerName, keysToDisplay, displayNames}) => {
 
-    const [rowsList, setRowsList] = useState(data);
+    const [rowsList, setRowsList] = useState(Object.keys(data));
 
-    const reorder = (array: object[], startIndex: number, endIndex: number) => {
+    const reorder = (array: string[], startIndex: number, endIndex: number) => {
         const [removed] = array.splice(startIndex, 1);
         array.splice(endIndex, 0, removed);
 
@@ -45,101 +51,102 @@ const TableDraggable: React.FC<ITableDraggable> = ({data, nameKey, headerName, k
             result.source.index,
             result.destination.index
         ));
-
-
     };
 
-
     const [winReady, setWinReady] = useState(false);
-
 
     useEffect(() => {
 
         setWinReady(true);
 
+
+
     }, [])
 
     return (
-      <div className={styles.container}>
-          <DragDropContext
-              onDragStart={onDragStart}
-              onDragUpdate={onDragUpdate}
-              onDragEnd={onDragEnd}
-          >
-          <TableContainer component={Paper} className={styles.table}>
-              <Table aria-label="simple table">
-                  <TableHead>
-                      <TableRow>
-                          <TableCell>{headerName}</TableCell>
-                          {displayNames.map((name) => (
-                              <TableCell align="right" key={name}>{name}</TableCell>
-                          ))}
+        <div className={styles.container}>
+            <DragDropContext
+                onDragStart={onDragStart}
+                onDragUpdate={onDragUpdate}
+                onDragEnd={onDragEnd}
+            >
+                <TableContainer component={Paper} className={styles.table}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>{headerName}</TableCell>
+                                {displayNames.map((name) => (
+                                    <TableCell align="right" key={name}>{name}</TableCell>
+                                ))}
 
-                      </TableRow>
-                  </TableHead>
-                  {winReady &&
-                      <Droppable droppableId="droppable">
-                          {(provided) => (
-                              <tbody
-                                  {...provided.droppableProps}
-                                  ref={provided.innerRef}
-                                  className={styles.tbody}
-                              >
-                      {rowsList.map((row, index) => (
-                            <DragRow key={row[nameKey as keyof typeof row]} row={row} nameKey={nameKey} index={index} keysToDisplay={keysToDisplay}/>
-                              ))}
-                      {provided.placeholder}
-                              </tbody> )}
-                      </Droppable> }
-              </Table>
-          </TableContainer>
-          </DragDropContext>
-      </div>
-  )};
+                            </TableRow>
+                        </TableHead>
+                        {winReady &&
+                            <Droppable droppableId="droppable">
+                                {(provided) => (
+                                    <tbody
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        className={styles.tbody}
+                                    >
+                                    {rowsList.map((row, index) => (
+                                        <DragRow key={row} rowData={data[row as keyof typeof data]} row={row}
+                                                 index={index} keysToDisplay={keysToDisplay}/>
+                                    ))}
+                                    {provided.placeholder}
+                                    </tbody>)}
+                            </Droppable>}
+                    </Table>
+                </TableContainer>
+            </DragDropContext>
+        </div>
+    )
+};
 
 interface IDragRow {
-    row: {},
-    nameKey: string,
+    rowData: {},
+    row: string,
     index: number,
     keysToDisplay: Array<string> | "any",
 }
 
-const DragRow: React.FC<IDragRow> = ({row, nameKey, index, keysToDisplay}) => {
+const DragRow: React.FC<IDragRow> = ({rowData, row, index, keysToDisplay}) => {
 
 
-    const keys = Object.keys(row);
-    keys.splice(keys.indexOf(nameKey), 1);
+    const keys = Object.keys(rowData);
 
     return (
-        <Draggable key={row[nameKey as keyof typeof row]} draggableId={row[nameKey as keyof typeof row]} index={index}>
+        <Draggable key={row} draggableId={row} index={index}>
             {(provided, snapshot) => (
                 <tr
-                    key={row[nameKey as keyof typeof row]}
+                    key={row}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     className={snapshot.isDragging ? styles.rowDragging : styles.rowNotDragging}
-                    >
-                        <TableCell className={styles.cell} component="th" scope="row" key={row[nameKey as keyof typeof row]} sx={{display:"flex"}}>
-                    <div className={styles.handle} {...provided.dragHandleProps}>
+                >
+                    <TableCell className={styles.cell} component="th" scope="row" key={row}
+                               sx={{display: "flex"}}>
+                        <div className={styles.handle} {...provided.dragHandleProps}>
                             <DragHandle fontSize={"medium"}/>
-                            </div>
-                                <Button color={"inherit"} variant={"text"} href={"/dashboard/scouts/" + row[nameKey as keyof typeof row]}>
-                                    <Typography>{row[nameKey as keyof typeof row]}</Typography>
-                                </Button>
-                        </TableCell>
+                        </div>
+                        <Button color={"inherit"} variant={"text"}
+                                href={"/dashboard/scouts/" + row}>
+                            <Typography>{row}</Typography>
+                        </Button>
+                    </TableCell>
 
-                        {keysToDisplay != "any" ? keysToDisplay.map((key) => (
-                                <TableCell className={styles.cell} align="right" key={row[key as keyof typeof row]}>
-                                    <Typography>{row[key as keyof typeof row]}</Typography>
-                                </TableCell>
-                            ))
-                            : keys.map((key) => (
-                                <TableCell className={styles.cell} align="right" key={row[key as keyof typeof row]}>
-                                    <Typography>{row[key as keyof typeof row]}</Typography>
-                                </TableCell>
-                            ))
-                        }
-                    </tr> )}
+                    {!snapshot.isDragging && keysToDisplay != "any" ? keysToDisplay.map((key) => (
+                            <TableCell className={styles.cell} align="right" key={key}>
+                                <Typography>{rowData[key as keyof typeof rowData]}</Typography>
+                            </TableCell>
+                        ))
+                        : keys.map((key) => (
+                            <TableCell className={styles.cell} align="right" key={key}>
+                                <Typography>{rowData[key as keyof typeof rowData]}</Typography>
+                            </TableCell>
+                        ))
+                    }
+                </tr>)}
         </Draggable>
 
     );

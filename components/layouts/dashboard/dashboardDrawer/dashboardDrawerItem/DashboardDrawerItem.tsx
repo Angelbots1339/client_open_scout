@@ -20,48 +20,60 @@ export interface IDashboardDrawerItem {
     dropDownPopupState?: PopupState;
 }
 
-const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({text, icon, drawerOpen, href, dropDownType, dropDownPopupState}) => {
-
+const DashboardDrawerItem: React.FC<IDashboardDrawerItem> = ({
+                                                                 text,
+                                                                 icon,
+                                                                 drawerOpen,
+                                                                 href,
+                                                                 dropDownType,
+                                                                 dropDownPopupState
+                                                             }) => {
 
 
     return (
-      <div className={styles.container}>
-          <Tooltip title={text} placement="right">
-          {dropDownType.toLowerCase() === "child" && dropDownPopupState?
-              // If it is a Drop-Down Child
-              <Collapse in={dropDownPopupState.isOpen} timeout="auto" unmountOnExit className={drawerOpen ? styles.collapsibleClosed : styles.collapsibleOpened}>
-          <ListItemButton {...(href && { href: href })} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
-              <ListItemIcon>
-                  <>{icon}</>
-              </ListItemIcon>
-              {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
-          </ListItemButton>
-              </Collapse>
+        <div className={styles.container}>
+            <Tooltip title={text} placement="right">
+                {dropDownType.toLowerCase() === "child" && dropDownPopupState ?
+                    // If it is a Drop-Down Child
+                    <Collapse in={dropDownPopupState.isOpen} timeout="auto" unmountOnExit
+                              className={drawerOpen ? styles.collapsibleClosed : styles.collapsibleOpened}>
+                        <ListItemButton {...(href && {href: href})}
+                                        className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
+                            <ListItemIcon>
+                                <>{icon}</>
+                            </ListItemIcon>
+                            {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
+                        </ListItemButton>
+                    </Collapse>
 
 
-              // If it is a Drop-Down Parent
-              : dropDownType.toLowerCase() === "parent" && dropDownPopupState ?
-                  <ListItemButton {...bindToggle(dropDownPopupState)} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
-                  <ListItemIcon className={dropDownPopupState.isOpen ? styles.parentIconOpened : styles.parentIconClosed}>
-                      <>{icon}</>
-                  </ListItemIcon>
-                  {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
-                  {dropDownPopupState.isOpen ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
+                    // If it is a Drop-Down Parent
+                    : dropDownType.toLowerCase() === "parent" && dropDownPopupState ?
+                        <ListItemButton {...bindToggle(dropDownPopupState)}
+                                        className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
+                            <ListItemIcon
+                                className={dropDownPopupState.isOpen ? styles.parentIconOpened : styles.parentIconClosed}>
+                                <>{icon}</>
+                            </ListItemIcon>
+                            {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
+                            {dropDownPopupState.isOpen ? <ExpandLess/> : <ExpandMore/>}
+                        </ListItemButton>
 
-              :
-                  // If it is not a Drop-Down at all
-                  <ListItemButton  {...(href && { href: href })} className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
-                      <ListItemIcon>
-                          <>{icon}</>
-                      </ListItemIcon>
-                      {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
-                  </ListItemButton>
+                        :
+                        // If it is not a Drop-Down at all
+                        <ListItemButton  {...(href && {href: href})}
+                                         className={drawerOpen.isOpen ? styles.listButtonClosed : styles.listButtonOpened}>
+                            <ListItemIcon>
+                                <>{icon}</>
+                            </ListItemIcon>
+                            {drawerOpen.isOpen && <ListItemText primary={text} className={styles.listText}/>}
+                        </ListItemButton>
 
-          }
-          </Tooltip>
-      </div>
+                }
+            </Tooltip>
+        </div>
 
-  )};
+    )
+};
 
 export default DashboardDrawerItem;
