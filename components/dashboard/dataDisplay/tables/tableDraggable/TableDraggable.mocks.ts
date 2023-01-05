@@ -37,6 +37,7 @@ const base: ITableDraggable = {
     headerName: "Scouts",
     keysToDisplay: "any",
     displayNames: ["Assigned Team", "Time Scouted"],
+    url: "/"
 };
 
 export const defaultTableDraggableProps = {
