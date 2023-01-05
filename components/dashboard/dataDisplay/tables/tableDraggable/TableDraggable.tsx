@@ -6,7 +6,7 @@ import {DragDropContext, Draggable, Droppable, DropResult} from "react-beautiful
 
 
 export interface ITableDraggable {
-    data: object[],
+    data: {string: {assignedTeam: string, timeScouted: string}},
     headerName: string,
     keysToDisplay: Array<string> | "any",
     displayNames: Array<string>,
