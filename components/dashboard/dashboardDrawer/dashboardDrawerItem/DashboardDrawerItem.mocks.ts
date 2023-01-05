@@ -32,5 +32,4 @@
 // export const defaultDashboardDrawerItemProps = {
 //     base1, base2
 // };
-//
-//
+export const fixVariable: string = "";

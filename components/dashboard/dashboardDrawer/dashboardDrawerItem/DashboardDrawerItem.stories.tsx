@@ -26,3 +26,5 @@
 //     ...defaultDashboardDrawerItemProps.base1,
 //     ...defaultDashboardDrawerItemProps.base2
 // } as IDashboardDrawerItem;
+
+export const variable: string = "";
