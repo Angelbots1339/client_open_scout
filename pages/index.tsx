@@ -3,8 +3,7 @@ import {
     Box,
 } from "@mui/material";
 import React from "react";
-import LandingAppBar from "../components/layouts/landingPage/landingAppBar/LandingAppBar";
-
+import LandingAppBar from "../components/landingPage/landingAppBar/LandingAppBar";
 
 const Home: NextPage = () => {
 
