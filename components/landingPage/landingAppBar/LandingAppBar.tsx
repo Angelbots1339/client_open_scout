@@ -22,7 +22,7 @@ const LandingAppBar: React.FC<ILandingAppBar> = () => {
 
                 <Toolbar sx={{width: "90%", ml: "10%"}}>
                     <Stack spacing={2} direction={"row"} alignItems={"center"}
-                           divider={<Divider orientation={"vertical"} height={25} flexItem/>}>
+                           divider={<Divider orientation={"vertical"} flexItem/>}>
 
                         <Button href={"/"} disableRipple={true} variant={"text"}>
                             <Image src={WideLogo} alt="OpenScout Logo" width="150" height="50"/>

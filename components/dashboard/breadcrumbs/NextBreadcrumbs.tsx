@@ -25,20 +25,20 @@ export default function NextBreadcrumbs() {
     const router = useRouter();
     const [breadcrumbs, setBreadcrumbs] = useState([{text: "", href: "", plain: false}]);
 
-    const generateBreadcrumbs = () => {
-        const pathArr = generatePathParts(router.asPath);
-        let temp = pathArr.map((path, idx) => {
-            return {
-                text: cleanUpText(path),
-                href: "/" + pathArr.slice(0, idx + 1).join("/"),
-                plain: idx === pathArr.length - 1
-            }
-        })
-
-        setBreadcrumbs(temp);
-    }
-
     useEffect(() => {
+
+        const generateBreadcrumbs = () => {
+            const pathArr = generatePathParts(router.asPath);
+            let temp = pathArr.map((path, idx) => {
+                return {
+                    text: cleanUpText(path),
+                    href: "/" + pathArr.slice(0, idx + 1).join("/"),
+                    plain: idx === pathArr.length - 1
+                }
+            })
+
+            setBreadcrumbs(temp);
+        }
 
         generateBreadcrumbs();
     }, [router, router.asPath])

@@ -15,6 +15,9 @@ export interface ITableDraggable {
 }
 
 /**
+ *
+ * NOTE: This will be deleted or done differently whenever possible
+ *
  * This creates an MUI Table with rows that are re-arrangeable via draggable handles
  *
  *
@@ -86,7 +89,7 @@ const TableDraggable: React.FC<ITableDraggable> = ({data, headerName, keysToDisp
                                         ref={provided.innerRef}
                                         className={styles.tbody}
                                     >
-                                    {rowsArray.map((row, index) => (
+                                    {rowsArray.map((row: any, index: number) => (
                                         <DragRow key={row["name" as keyof typeof row]} rowData={row} row={row["name" as keyof typeof row]}
                                                  index={index} keysToDisplay={keysToDisplay} url={url}/>
                                     ))}
