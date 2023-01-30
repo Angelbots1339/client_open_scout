@@ -5,7 +5,11 @@ import {PageWithLayout} from "../../_app";
 
 const DashboardScouting: PageWithLayout = () => {
 
-    return <></>;
+
+
+
+
+        return (<></>)
 }
 
 DashboardScouting.getLayout = function getLayout(page: ReactElement) {

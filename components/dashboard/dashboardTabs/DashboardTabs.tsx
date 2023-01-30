@@ -1,31 +1,66 @@
 import styles from './DashboardTabs.module.css';
 import React, {useEffect, useState} from "react";
-import {Tab, Tabs} from "@mui/material";
+import {Box, IconButton, Tab, Tabs} from "@mui/material";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {CurrentTheme} from "../../../pages/_app";
+import {ArrowBack} from "@mui/icons-material";
+import {Stack} from "@mui/system";
 
 export interface IDashboardTabs {
     children: React.ReactNode;
-    index: number;
+    tabs: Array<{name: string, href: string, idx: number}>;
+
+    backButtonHref?: string;
 }
 
-const DashboardTabs: React.FC<IDashboardTabs> = ({children, index}) => {
-    const [currentIndex, setCurrentIndex] = useState(index);
+const DashboardTabs: React.FC<IDashboardTabs> = ({children, tabs, backButtonHref}) => {
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setCurrentIndex(newValue);
+    const router = useRouter();
+
+    // This is what causes the weird thing when you switch tabs. Find a way to make the index initialize to the correct index. Probably using this code:
+    // tabs.map((item) => {
+    //     if(item.href.split("/").pop() === router.asPath.split("/").pop()) {
+    //         setCurrentIndex(item.idx);
+    //     }
+    // })
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+
+    const changeCurrentIndex = (idx: number) => {
+        setCurrentIndex(idx);
     }
 
     useEffect(() => {
-        setCurrentIndex(index);
-    }, [currentIndex, index])
+
+        tabs.map((item) => {
+            if(item.href.split("/").pop() === router.asPath.split("/").pop()) {
+                setCurrentIndex(item.idx);
+            }
+        })
+
+    }, [currentIndex, router, router.asPath, tabs])
 
     return (
         <div className={styles.container}>
-            <Tabs value={currentIndex} onChange={handleChange} aria-label="Navigational Tabs">
-                {children}
-            </Tabs>
+            <Stack direction={"row"}>
+                {backButtonHref && <Link style={{alignSelf: "left"}}
+                               href={backButtonHref}>
+                    <IconButton sx={{height:50, width:50, p:1}}>
+                        <ArrowBack fontSize={"medium"}/>
+                    </IconButton>
+                </Link>}
+                <Box sx={{display: "flex", width: "100%", justifyContent: "center"}}>
+                    <Tabs value={currentIndex} aria-label="Navigational Tabs">
+                        {tabs.map((item) => {
+                        return <NavTab label={item.name} href={item.href}
+                                changeIndex={changeCurrentIndex}
+                                index={item.idx} key={item.idx + item.name}/>
+                        })}
+                    </Tabs>
+                </Box>
+            </Stack>
+            {children}
         </div>
     )
 };

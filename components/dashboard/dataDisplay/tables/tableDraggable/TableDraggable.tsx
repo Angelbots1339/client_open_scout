@@ -21,7 +21,7 @@ export interface ITableDraggable {
  * This creates an MUI Table with rows that are re-arrangeable via draggable handles
  *
  *
- * @param data This is the object with all your data. It must be several objects with identical keys, not an array of objects
+ * @param data An array of objects with identical layout
  * @param headerName Main header text
  * @param keysToDisplay Array of strings that are keys for the data you want displayed from the objects
  * @param displayNames Array of strings used for display names of the data; must be aligned with keysToDisplay

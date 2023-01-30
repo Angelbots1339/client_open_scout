@@ -1,12 +1,13 @@
 import styles from './DashboardLayout.module.css';
 import React, {useEffect, useState} from "react";
-import DashboardDrawerLayout from "../../../dashboard/dashboardDrawer/dashboardDrawerLayout/DashboardDrawerLayout";
+import DashboardDrawer from "../../../dashboard/dashboardDrawer/dashboardDrawer/DashboardDrawer";
 import DashboardToolBar from "../../../dashboard/dashboardToolBar/dashboardToolBar/DashboardToolBar";
-import {Box, Paper, Typography} from "@mui/material";
+import {Box, Grid, Paper, Typography} from "@mui/material";
 import {useRouter} from "next/router";
 import NextBreadcrumbs from "../../../dashboard/breadcrumbs/NextBreadcrumbs";
 import DashboardLoading from "../../../dashboard/dashboardLoading/DashboardLoading";
 import {CurrentTheme} from "../../../../pages/_app";
+import {Stack} from "@mui/system";
 
 export interface IDashboardLayout {
     children: React.ReactNode;
@@ -48,24 +49,63 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({children}) => {
         <div className={styles.container}>
 
             {isLoading && <DashboardLoading/>}
+            <Stack direction={"column"}>
+                <DashboardDrawer mainLayoutSetDrawerOpen={setDrawerOpen}/>
 
-            <DashboardDrawerLayout mainLayoutSetDrawerOpen={setDrawerOpen}/>
-            <div className={isDrawerOpen ? styles.movedByDrawerOpen : styles.movedByDrawerClosed}>
-                <DashboardToolBar/>
-                <Box sx={{ml: 10, mr: 10, mt: 5, width: "auto", height: "auto"}}>
-                    <div className={styles.cardHeader}>
-                        <Typography variant="h2" className={styles.breadcrumbsHeader}>
-                            {splitPath[splitPath.length - 1] === "dashboard" ? "Home" : (splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)).replace(/([A-Z])/g, ' $1').trim()}
-                        </Typography>
+                {/***** Desktop Version *****/}
+                <Box className={isDrawerOpen ? styles.movedByDrawerOpen : styles.movedByDrawerClosed} sx={{display: {xs: 'none', sm: 'block'}}}>
+                    <DashboardToolBar/>
+                    <Box sx={{ml: 10, mr: 10, mt: 5, width: "auto", height: "auto"}}>
+                        <div className={styles.cardHeader}>
+                            <Grid container>
+                            <Typography variant="h2" className={styles.breadcrumbsHeader}>
+                                {splitPath[splitPath.length - 1] === "dashboard" ? "Home" : (splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)).replace(/([A-Z])/g, ' $1').trim()}
+                            </Typography>
+                            <NextBreadcrumbs/>
+                            </Grid>
+                        </div>
 
-                        <NextBreadcrumbs/>
-                    </div>
-
-                    <Paper sx={{width: "100%", height: "auto", boxShadow: 5, minWidth: 700, minHeight: 400, overflow:"scroll", backgroundColor: CurrentTheme().palette.background.paper}}>
-                        {children}
-                    </Paper>
+                        <Paper sx={{
+                            width: "100%",
+                            height: "auto",
+                            boxShadow: 5,
+                            //minWidth: 700,
+                            minHeight: 400,
+                            overflow: "scroll",
+                            backgroundColor: CurrentTheme().palette.background.paper
+                        }}>
+                            {children}
+                        </Paper>
+                    </Box>
                 </Box>
-            </div>
+
+                {/***** Mobile Version *****/}
+                <Box className={styles.movedByDrawerMobile} sx={{display: {xs: 'block', sm: 'none'}}}>
+                    <DashboardToolBar/>
+                    <Box sx={{ml: "1%", mr: "1%", mt: 5, width: "auto", height: "auto"}}>
+                        <div className={styles.cardHeader}>
+                            <Grid container>
+                                <Typography variant="h2" className={styles.breadcrumbsHeader}>
+                                    {splitPath[splitPath.length - 1] === "dashboard" ? "Home" : (splitPath[splitPath.length - 1].charAt(0).toUpperCase() + splitPath[splitPath.length - 1].slice(1)).replace(/([A-Z])/g, ' $1').trim()}
+                                </Typography>
+                                <NextBreadcrumbs/>
+                            </Grid>
+                        </div>
+
+                        <Paper sx={{
+                            width: "100%",
+                            height: "auto",
+                            boxShadow: 5,
+                            //minWidth: 700,
+                            minHeight: 400,
+                            overflow: "scroll",
+                            backgroundColor: CurrentTheme().palette.background.paper
+                        }}>
+                            {children}
+                        </Paper>
+                    </Box>
+                </Box>
+            </Stack>
         </div>
     )
 };

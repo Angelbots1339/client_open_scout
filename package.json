@@ -28,6 +28,7 @@
     "axios": "^0.27.2",
     "material-ui-popup-state": "^4.1.0",
     "next": "12.2.5",
+    "nivo": "^0.31.0",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dnd-html5-backend": "^16.0.1",

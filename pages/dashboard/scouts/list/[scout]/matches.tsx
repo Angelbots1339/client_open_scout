@@ -1,11 +1,8 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import DashboardLayout from "../../../../../components/layouts/dashboard/dashboardLayout/DashboardLayout";
-import {NavTab} from "../../../../../components/dashboard/dashboardTabs/DashboardTabs";
+import DashboardTabs from "../../../../../components/dashboard/dashboardTabs/DashboardTabs";
 import {useRouter} from "next/router";
-import {Box, IconButton, Tabs} from "@mui/material";
-import Link from "next/link";
-import {Stack} from "@mui/system";
-import {ArrowBack} from "@mui/icons-material";
+
 
 const testDataArray = [
     {
@@ -74,49 +71,26 @@ const DashboardScoutsPage = () => {
     const {scout: scoutPath} = router.query;
     const [scout, setScout] = useState<ScoutInterface>({name: "", assignedTeam: 0, timeScouted: 0, active: false});
 
-    const [currentIndex, setCurrentIndex] = useState(1);
-
-
     useEffect(() => {
         testDataArray.map((data, index) => {
             if (data.name === scoutPath) setScout(testDataArray[index]);
         })
-        setCurrentIndex(2);
-    }, [scoutPath, currentIndex])
-    const changeCurrentIndex = (index: number) => {
-        setCurrentIndex(index);
-    }
+    }, [scoutPath])
+
 
 
     return (
         <div>
-            <Stack direction={"row"}>
-                <Link style={{alignSelf: "left"}}
-                      href={scout.active ? "/dashboard/scouts/active" : "/dashboard/scouts/inactive"}>
-                    <IconButton sx={{height:50, width:50, p:1}}>
-                        <ArrowBack fontSize={"medium"}/>
-                    </IconButton>
-                </Link>
-                <Box sx={{display: "flex", width: "100%", justifyContent: "center"}}>
-                    <Tabs value={currentIndex} aria-label="Navigational Tabs">
-                        <NavTab label="General" href={"/dashboard/scouts/list/" + (scout.name || " ") + "/general"}
-                                changeIndex={changeCurrentIndex}
-                                index={0}/>
-                        <NavTab label="Matches Scouted"
-                                href={"/dashboard/scouts/list/" + (scout.name || " ") + "/matches"}
-                                changeIndex={changeCurrentIndex}
-                                index={1}/>
-                        <NavTab label="Pits Scouted"
-                                href={"/dashboard/scouts/list/" + (scout.name || " ") + "/pitscout"}
-                                changeIndex={changeCurrentIndex}
-                                index={2}/>
-                    </Tabs>
-                </Box>
-            </Stack>
+            <DashboardTabs tabs={[
+                {name: "General", href: "/dashboard/scouts/list/" + (scout.name || " ") + "/general", idx: 0},
+                {name: "Matches Scouted", href: "/dashboard/scouts/list/" + (scout.name || " ") + "/matches", idx: 1},
+                {name: "Pits Scouted", href: "/dashboard/scouts/list/" + (scout.name || " ") + "/pitscout", idx: 2}
 
-            <p>{scout.name}</p>
-            <p>{scout.assignedTeam}</p>
-            <p>{scout.timeScouted}</p>
+            ]} backButtonHref={scout.active ? "/dashboard/scouts/active" : "/dashboard/scouts/inactive"}>
+                <p>{scout.name}</p>
+                <p>{scout.assignedTeam}</p>
+                <p>{scout.timeScouted}</p>
+            </DashboardTabs>
         </div>
     )
 }

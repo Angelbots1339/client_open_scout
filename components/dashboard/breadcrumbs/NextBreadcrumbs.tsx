@@ -4,8 +4,7 @@ import {Breadcrumbs, Typography} from "@mui/material";
 import Link from "next/link";
 import {CurrentTheme} from "../../../pages/_app";
 
-// Pulled out the path part breakdown because its
-// going to be used by both `asPath` and `pathname`
+
 const generatePathParts = (pathStr: string) => {
     const pathWithoutQuery = pathStr.split("?")[0];
     return pathWithoutQuery.split("/")
@@ -21,6 +20,11 @@ interface IBreadCrumb {
     plain: boolean;
 }
 
+/**
+ *
+ * Procedurally generates mui breadcrumbs based off the current url
+ *
+ */
 export default function NextBreadcrumbs() {
     const router = useRouter();
     const [breadcrumbs, setBreadcrumbs] = useState([{text: "", href: "", plain: false}]);

@@ -1,4 +1,6 @@
 import {createTheme, Theme} from '@mui/material/styles';
+// @ts-ignore
+import {Theme as NivoTheme} from 'nivo/lib/defaults/theme';
 
 let lightModeTheme: Theme;
 lightModeTheme = createTheme({
@@ -56,6 +58,65 @@ darkModeTheme = createTheme({
 });
 
 export {darkModeTheme};
+
+
+const lightNivoTheme: NivoTheme = {
+    background: "#ffffff",
+    axis: {
+        fontSize: "14px",
+        tickColor: "#646464",
+        ticks: {
+            line: {
+                stroke: "#555555"
+            },
+            text: {
+                fill: "#ffffff"
+            }
+        },
+        legend: {
+            text: {
+                fill: "#aaaaaa"
+            }
+        }
+    },
+    grid: {
+        line: {
+            stroke: "#555555"
+        }
+    }
+};
+
+export {lightNivoTheme};
+
+const darkNivoTheme: NivoTheme = {
+    background: "#222222",
+    axis: {
+        fontSize: "14px",
+        tickColor: "#eee",
+        ticks: {
+            line: {
+                stroke: "#555555"
+            },
+            text: {
+                fill: "#ffffff"
+            }
+        },
+        legend: {
+            text: {
+                fill: "#aaaaaa"
+            }
+        }
+    },
+    grid: {
+        line: {
+            stroke: "#555555"
+        }
+    }
+};
+
+export {darkNivoTheme};
+
+
 
 // Palette Options Interface for reference
 //

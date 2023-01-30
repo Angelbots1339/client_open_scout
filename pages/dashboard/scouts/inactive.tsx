@@ -1,8 +1,8 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import DashboardLayout from "../../../components/layouts/dashboard/dashboardLayout/DashboardLayout";
-import TableDraggable from "../../../components/dashboard/dataDisplay/tables/tableDraggable/TableDraggable";
 import {NavTab} from "../../../components/dashboard/dashboardTabs/DashboardTabs";
 import {Box, Tabs} from "@mui/material";
+import CustomDataGrid from "../../../components/dashboard/dataDisplay/scoutsDataGrid/CustomDataGrid";
 
 const testDataArray = [
     {
@@ -78,7 +78,7 @@ const DashboardInactiveScouts = () => {
 
     return (
         <div>
-            <Box sx={{display: "flex", width: "100%", justifyContent: "center"}}>
+            <Box sx={{display: "flex", width: "100%", justifyContent: "center", mb:5}}>
                 <Tabs value={currentIndex} aria-label="Navigational Tabs">
                     <NavTab label="Active" href={"/dashboard/scouts/active"} changeIndex={changeCurrentIndex}
                             index={0}/>
@@ -88,11 +88,12 @@ const DashboardInactiveScouts = () => {
             </Box>
 
 
-            <TableDraggable data={inactiveScouts} headerName={"Scouts"}
-                            keysToDisplay={["assignedTeam", "timeScouted"]}
-                            displayNames={["Assigned Team", "Time Scouted"]}
-                            url={"/dashboard/scouts/list/"}
-            />
+            <Box sx={{width: "95%", ml: "2.5%"}}>
+                <CustomDataGrid data={inactiveScouts} width={300}
+                                keysToDisplay={["name", "assignedTeam", "timeScouted"]}
+                                displayNames={["Name", "Assigned Team", "Time Scouted"]}
+                />
+            </Box>
             </div>
     )
 }
