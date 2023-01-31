@@ -1,0 +1,42 @@
+.container {
+
+
+}
+
+.listText {
+    margin-left: 10px;
+    margin-right: 30px;
+}
+
+.listButtonOpened {
+
+    height: 50px;
+    width: 50px;
+
+}
+
+.listButtonClosed {
+
+    height: 50px;
+    width: auto;
+
+}
+
+.collapsibleOpened {
+
+}
+
+.collapsibleClosed {
+
+    margin-left: 0;
+}
+
+.parentIconOpened {
+
+    color: #0089da;
+}
+
+.parentIconClosed {
+
+    color: #76c7ff;
+}
