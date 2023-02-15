@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="27.562 223.972 137.478 30.289" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="color-1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.993711, 0, 0, 1.008579, -1257.074219, -1865.813599)">
+      <title>Light Grey</title>
+      <stop style="stop-color: rgb(115, 115, 115);"/>
+    </linearGradient>
+  </defs>
+  <rect x="8.353" y="60.933" width="30.289" height="137.476" style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 1.0013px; stroke-linejoin: round;" rx="1.422" ry="1.422" transform="matrix(0.00005, 1, -1, 0, 225.970932, 215.619293)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.356" cy="-268.53" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.61" cy="-237.816" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.618" cy="-207.038" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.647" cy="-176.322" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+</svg>
