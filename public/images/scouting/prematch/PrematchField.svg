@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="57.308 153.436 107 137.486" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+<svg viewBox="57.308 153.436 107 137.486" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="color-3" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.992625, 0, 0, 0.99455, 0.505826, -25.74806)" bx:pinned="true">
+    <linearGradient id="color-3" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.992625, 0, 0, 0.99455, 0.505826, -25.74806)">
       <title>Darkest Grey</title>
       <stop style="stop-color: rgb(38, 38, 38);"/>
     </linearGradient>
-    <linearGradient id="color-1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.002105, 0, 0, 1.01059, 0.040049, -87.20623)" bx:pinned="true">
+    <linearGradient id="color-1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.002105, 0, 0, 1.01059, 0.040049, -87.20623)">
       <title>Light Grey</title>
       <stop style="stop-color: rgb(115, 115, 115);"/>
     </linearGradient>
-    <linearGradient id="color-2" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1.003165, -0.069743, -85.385376)" bx:pinned="true">
+    <linearGradient id="color-2" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1.003165, -0.069743, -85.385376)">
       <title>Darkgray</title>
       <stop style="stop-color: rgb(85, 85, 85);"/>
     </linearGradient>
-    <linearGradient id="color-0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.016525, 0, 0, 1.044552, 13.746565, -48.943029)" bx:pinned="true">
+    <linearGradient id="color-0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.016525, 0, 0, 1.044552, 13.746565, -48.943029)">
       <title>Team Color</title>
       <stop style="stop-color: rgb(0, 72, 167);"/>
     </linearGradient>
-    <linearGradient id="color-5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1, 14.757989, 132.046389)" bx:pinned="true">
+    <linearGradient id="color-5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1, 14.757989, 132.046389)">
       <title>Lighter gray</title>
       <stop style="stop-color: rgb(191, 191, 191);"/>
     </linearGradient>
-    <linearGradient id="color-4" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.998278, 0, 0, 0.567881, -0.034489, 198.448947)" bx:pinned="true">
+    <linearGradient id="color-4" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.998278, 0, 0, 0.567881, -0.034489, 198.448947)">
       <title>Lightest grey</title>
       <stop style="stop-color: rgb(238, 238, 238);"/>
     </linearGradient>
@@ -70,7 +70,4 @@
   <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="65.521" y1="250.908" x2="76.36" y2="250.93" transform="matrix(0.997899, 0, 0, 0.999502, 0.222415, 0.03494)"/>
   <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="65.521" y1="279" x2="76.36" y2="279.022" transform="matrix(0.997899, 0, 0, 0.999502, 0.222415, 0.03494)"/>
   <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="65.521" y1="279" x2="76.36" y2="279.022" transform="matrix(0.997899, 0, 0, 0.999502, 0.222415, 0.03494)"/>
-  <rect x="118.999" y="260.523" width="21.037" height="22.678" style="stroke: url(#color-0); stroke-linejoin: round; fill: url(#color-5);" transform="matrix(0.997899, 0, 0, 0.999502, 0.222415, 0.03494)">
-    <title>Robot</title>
-  </rect>
 </svg>

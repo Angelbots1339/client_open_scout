@@ -1,15 +1,15 @@
 import * as React from "react"
 import { SVGProps } from "react"
+import {CurrentTheme} from "../../../../pages/_app";
+import {AutoPositionsI} from "../../../../pages/dashboard/scouting";
 
 
 interface AutoFieldProps extends SVGProps<SVGSVGElement> {
-
-    numberLocations?: {type: "cube" | "cone" | "pickup", id: number}[]
+    numberLocations?: AutoPositionsI[];
 }
 
 
 const AutoFieldHorizontalSVG = (props: AutoFieldProps) => {
-
 
     const possibleNumberLocations = {
         "cube": [
@@ -34,15 +34,20 @@ const AutoFieldHorizontalSVG = (props: AutoFieldProps) => {
         ]
     }
 
-
-    const tempNumLocations: {type: "cube" | "cone" | "pickup", id: number}[] = [
-        {type: "cube", id: 0},
-        {type: "pickup", id: 1},
-        {type: "cone", id: 2},
-        {type: "pickup", id: 3},
-        {type: "cube", id: 3},
-    ]
-
+    const placementPositionsY = {
+        "cube": {
+            "top": 190,
+            "mid": 200,
+            "hybrid": 215,
+            "fail": 225,
+        },
+        "cone": {
+            "top": 190,
+            "mid": 200,
+            "hybrid": 215,
+            "fail": 225,
+        }
+    }
 
     return (
     // <svg
@@ -648,70 +653,25 @@ const AutoFieldHorizontalSVG = (props: AutoFieldProps) => {
             transform="rotate(90 39.576 196.896)"
             d="m34.168 196.885 10.816.022M34.168 196.885l10.816.022"
         />
-        {/*<text*/}
-        {/*    style={{*/}
-        {/*        whiteSpace: "pre",*/}
-        {/*        fill: "#333",*/}
-        {/*        fontFamily: "Arial,sans-serif",*/}
-        {/*        fontSize: "6.9px",*/}
-        {/*    }}*/}
-        {/*    x={48.503}*/}
-        {/*    y={239.765}*/}
-        {/*>*/}
-        {/*    {"4"}*/}
-        {/*</text>*/}
-        {/*<text*/}
-        {/*    style={{*/}
-        {/*        fill: "#333",*/}
-        {/*        fontFamily: "Arial,sans-serif",*/}
-        {/*        fontSize: "6.9px",*/}
-        {/*        whiteSpace: "pre",*/}
-        {/*    }}*/}
-        {/*    transform="translate(3.094 2.187)"*/}
-        {/*    x={75.924}*/}
-        {/*    y={237.805}*/}
-        {/*>*/}
-        {/*    {"3"}*/}
-        {/*</text>*/}
-        {/*<text*/}
-        {/*    style={{*/}
-        {/*        fill: "#333",*/}
-        {/*        fontFamily: "Arial,sans-serif",*/}
-        {/*        fontSize: "6.9px",*/}
-        {/*        whiteSpace: "pre",*/}
-        {/*    }}*/}
-        {/*    transform="translate(9.46 1.814)"*/}
-        {/*    x={100.418} y={238.145}*/}
-        {/*>*/}
-        {/*        {"2"}*/}
-        {/*</text>*/}
-        {/*<text*/}
-        {/*    style={{*/}
-        {/*        fill: "#333",*/}
-        {/*        fontFamily: "Arial,sans-serif",*/}
-        {/*        fontSize: "6.9px",*/}
-        {/*        whiteSpace: "pre",*/}
-        {/*    }}*/}
-        {/*    x={140.485}*/}
-        {/*    y={239.835}*/}
-        {/*>*/}
-        {/*    {"1"}*/}
-        {/*</text>*/}
-        {props.numberLocations && props.numberLocations.map((num, index) =>
-            <text
+        {props.numberLocations && props.numberLocations.map((num, index) => {
+
+            return (<text
                 style={{
                     whiteSpace: "pre",
-                    fill: "#333",
+                    fill: num.height === "fail" ? "#ff4b4b" : CurrentTheme().palette.text.primary,
                     fontFamily: "Arial,sans-serif",
                     fontSize: "6.9px",
+                    stroke: "#FFFFFF",
+                    strokeWidth: 0.1,
                 }}
                 x={possibleNumberLocations[num.type][num.id].y}
-                y={possibleNumberLocations[num.type][num.id].x}
+                y={num.type === "pickup" ? possibleNumberLocations[num.type][num.id].x : num.height != undefined ? placementPositionsY[num.type][num.height] : placementPositionsY[num.type]["hybrid"]}
                 key={num.type + index}
             >
                 {index + 1}
-            </text>
-        )}
+            </text>)
+
+        })}
     </svg>
 )}
 

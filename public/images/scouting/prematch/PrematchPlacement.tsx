@@ -1,8 +1,33 @@
 import * as React from "react"
-import {SVGProps} from "react"
+import {SVGProps, useState} from "react"
+import {CurrentTheme} from "../../../../pages/_app";
 
 
-const PrematchPlacementSVG = (props: SVGProps<SVGSVGElement>) => {
+interface IPrematchPlacementSVGProps extends SVGProps<SVGSVGElement> {
+
+    setPrematchPlacement:  React.Dispatch<React.SetStateAction<("cube" | "cone")[]>>;
+    getPrematchPlacement: () => ("cube" | "cone")[];
+
+}
+
+const PrematchPlacementSVG = (props: IPrematchPlacementSVGProps) => {
+
+
+    const cubeColor = "#c424d7";
+    const coneColor = "#ffda2f";
+
+    const [rerender, setRerender] = useState(false);
+
+
+
+    const handleClick =  (idx: number) => {
+        let tempArr = props.getPrematchPlacement();
+        tempArr[idx] = props.getPrematchPlacement()[idx] === "cube" ? "cone" : "cube";
+        props.setPrematchPlacement(tempArr);
+        setRerender(!rerender);
+        console.log(tempArr);
+    }
+
 
     return (
         <svg
@@ -41,51 +66,75 @@ const PrematchPlacementSVG = (props: SVGProps<SVGSVGElement>) => {
             />
             <circle
                 style={{
-                    fill: "url(#a)",
+                    fill: props.getPrematchPlacement()[0] === "cube" ? cubeColor : coneColor,
                     strokeLinejoin: "round",
                 }}
                 cx={-80.356}
                 cy={-268.53}
                 transform="rotate(90 -222.183 96.3)"
                 r={10}
-            />
-            <image
-                x={-80.356}
-                y={-268.53}
-                width={50}
-                height={50}
-                href={"./../teleop/CubeRotoscoped.png"}
+                onClick={() => {
+                    handleClick(0);
+                }}
             />
             <circle
                 style={{
-                    fill: "url(#a)",
+                    fill: props.getPrematchPlacement()[1] === "cube" ? cubeColor : coneColor,
                     strokeLinejoin: "round",
                 }}
                 cx={-80.61}
                 cy={-237.816}
                 transform="rotate(90 -222.183 96.3)"
                 r={10}
+                onClick={() => {
+                    handleClick(1);
+                }}
             />
             <circle
                 style={{
-                    fill: "url(#a)",
+                    fill: props.getPrematchPlacement()[2] === "cube" ? cubeColor : coneColor,
                     strokeLinejoin: "round",
                 }}
                 cx={-80.618}
                 cy={-207.038}
                 transform="rotate(90 -222.183 96.3)"
                 r={10}
+                onClick={() => {
+                    handleClick(2);
+                }}
             />
             <circle
                 style={{
-                    fill: "url(#a)",
+                    fill: props.getPrematchPlacement()[3] === "cube" ? cubeColor : coneColor,
                     strokeLinejoin: "round",
                 }}
                 cx={-80.647}
                 cy={-176.322}
                 transform="rotate(90 -222.183 96.3)"
                 r={10}
+                onClick={() => {
+                    handleClick(3);
+                }}
             />
+            <text
+                x={92}
+                y={184}
+                transform={"rotate(90 100 240)"}
+                style={{
+                    whiteSpace: "pre",
+                    fill: CurrentTheme().palette.text.primary,
+                    fontFamily: "Arial,sans-serif",
+                    fontSize: "6.9px",
+                }}>
+                Top
+            </text>
+            {/*<image*/}
+            {/*    x={30}*/}
+            {/*    y={250}*/}
+            {/*    width={50}*/}
+            {/*    height={50}*/}
+            {/*    href={"public/images/teleop/CubeRotoscoped.png"}*/}
+            {/*/>*/}
         </svg>
     )
 }

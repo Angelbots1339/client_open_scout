@@ -1,10 +1,12 @@
 import * as React from "react"
 import {SVGProps} from "react"
+import {CurrentTheme} from "../../../../pages/_app";
+import {AutoPositionsI} from "../../../../pages/dashboard/scouting";
 
 
 interface AutoFieldProps extends SVGProps<SVGSVGElement> {
 
-    numberLocations?: {type: "cube" | "cone" | "pickup", id: number}[]
+    numberLocations?: AutoPositionsI[]
 }
 
 const AutoFieldSVG = (props: AutoFieldProps) => {
@@ -31,14 +33,20 @@ const AutoFieldSVG = (props: AutoFieldProps) => {
         ]
     }
 
-    const tempNumLocations: {type: "cube" | "cone" | "pickup", id: number}[] = [
-        {type: "cube", id: 0},
-        {type: "cube", id: 1},
-        {type: "cube", id: 2},
-        {type: "cube", id: 3},
-        {type: "cube", id: 4},
-        {type: "cube", id: 5},
-    ]
+    const placementPositionsX = {
+        "cube": {
+            "top": 60,
+            "mid": 70,
+            "hybrid": 84,
+            "fail": 93,
+        },
+        "cone": {
+            "top": 60,
+            "mid": 70,
+            "hybrid": 84,
+            "fail": 93,
+        }
+    }
 
     return (
             <svg
@@ -283,21 +291,25 @@ const AutoFieldSVG = (props: AutoFieldProps) => {
                     transform="matrix(.9979 0 0 .9995 .222 .035)"
                     d="m65.521 166.512 10.839.022M65.521 166.512l10.839.022M65.521 194.634l10.839.022M65.521 208.68l10.839.022M65.521 236.712l10.839.022M65.521 250.908l10.839.022M65.521 279l10.839.022M65.521 279l10.839.022"
                 />
-                {props.numberLocations && props.numberLocations.map((num, index) =>
-                    <text
+                {props.numberLocations && props.numberLocations.map((num, index) => {
+
+                    return (<text
                         style={{
                             whiteSpace: "pre",
-                            fill: "#333",
+                            fill: num.height === "fail" ? "#ff4b4b" : CurrentTheme().palette.text.primary,
                             fontFamily: "Arial,sans-serif",
                             fontSize: "6.9px",
+                            stroke: "#FFFFFF",
+                            strokeWidth: 0.1,
                         }}
-                        x={possibleNumberLocations[num.type][num.id].x}
+                        x={num.type === "pickup" ? possibleNumberLocations[num.type][num.id].x : num.height != undefined ? placementPositionsX[num.type][num.height] : placementPositionsX[num.type]["hybrid"]}
                         y={possibleNumberLocations[num.type][num.id].y}
                         key={num.type + index}
                     >
                         {index + 1}
-                    </text>
-                )}
+                    </text>)
+
+                })}
             </svg>
     )
 }
