@@ -6,13 +6,12 @@ import {
     Grid, IconButton,
     List, ListItem, ListItemAvatar, ListItemText,
     Paper, ToggleButtonGroup, ToggleButton,
-    Typography, Box, Fab
+    Typography, Box, Fab, Stack
 } from "@mui/material";
 import {PrecisionManufacturing, VideogameAsset, Leaderboard, AppRegistration, Delete, Undo} from "@mui/icons-material";
 import Image from "next/image";
 import CubeImage from "../../../public/images/scouting/teleop/CubeRotoscoped.png";
 import ConeImage from "../../../public/images/scouting/teleop/ConeRotoscoped.png";
-import {Stack} from "@mui/system";
 import {animated, useSpring} from "@react-spring/web";
 import AutoFieldSVG from "../../../public/images/scouting/auto/AutoField";
 import AutoFieldHorizontalSVG from "../../../public/images/scouting/auto/AutoFieldHorizontal";
