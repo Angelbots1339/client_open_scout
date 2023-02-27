@@ -34,7 +34,8 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
-    "react-google-button": "^0.7.2"
+    "react-google-button": "^0.7.2",
+    "swr": "^2.0.3"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.13",

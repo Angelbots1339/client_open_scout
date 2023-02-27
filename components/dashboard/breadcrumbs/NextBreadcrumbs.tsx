@@ -11,7 +11,7 @@ const generatePathParts = (pathStr: string) => {
         .filter(v => v.length > 0);
 }
 const cleanUpText = (text: string) => {
-    return (text[0].toUpperCase() +  text.slice(1)).replace("%20", " ").replace("]", "").replace("[", "");
+    return (text[0].toUpperCase() +  text.slice(1)).replace("%20", " ").replace("]", "").replace("[", "").replace(/([A-Z])/g, ' $1').trim();
 }
 
 interface IBreadCrumb {

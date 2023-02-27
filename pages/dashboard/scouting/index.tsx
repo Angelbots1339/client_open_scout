@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import {
     BottomNavigation,
     BottomNavigationAction,
@@ -16,6 +16,7 @@ import {Stack} from "@mui/system";
 import {animated, useSpring} from "@react-spring/web";
 import AutoFieldSVG from "../../../public/images/scouting/auto/AutoField";
 import AutoFieldHorizontalSVG from "../../../public/images/scouting/auto/AutoFieldHorizontal";
+// import {useSWR} from "swr";
 // import PrematchPlacementSVG from "../../../public/images/scouting/prematch/PrematchPlacement";
 
 
@@ -49,6 +50,9 @@ const DashboardScouting = () => {
         return (value - r1[0]) * (r2[1] - r2[0]) / (r1[1] - r1[0]) + r2[0];
     }
 
+    // @ts-ignore
+    // const fetcher = (...args: any) => fetch(...args).then(res => res.json());
+
     const [activeStep, setActiveStep] = React.useState(0); // Current Nav Tab
 
     const topColor = "#c9d0fd";
@@ -80,6 +84,19 @@ const DashboardScouting = () => {
 
 
     const [preload, setPreload] = useState<"none" | "cube" | "cone">("none");
+    // @ts-ignore
+    const [team, setTeam] = useState<number>(0);
+    // const [possibleTeams, setPossibleTeams] = useState<number[]>([0, 1, 2]);
+
+    setTeam(0); // Just to pass linting
+    // const { data: possibleTeams, error: possibleTeamsLoadingError, isLoading: isPossibleTeamsLoading} = useSWR('/api/user/123', fetcher);
+
+    useEffect(() => {
+        console.log(team);
+    }, [team])
+
+
+
     const [{startPosX, startPosY}, setStartPos] = useState({startPosX: 0, startPosY: 0})
 
     const [{startPosSpringX, startPosSpringY}, startPosApi] = useSpring(() => ({
@@ -90,16 +107,6 @@ const DashboardScouting = () => {
             friction: 6, // 6
         }
     }))
-
-    useEffect(() => {
-        console.log(startPosX, startPosY);
-    }, [startPosX, startPosY])
-
-    // const [prematchPiecePlacement, setPrematchPiecePlacement] = useState<("cube" | "cone")[]>(["cube", "cube", "cube", "cube"]);
-    //
-    // useEffect(() => {
-    //     console.log(prematchPiecePlacement);
-    // }, [prematchPiecePlacement])
 
     const PrematchPage = () => {
         const prematchFieldRefMobile = useRef(null);
@@ -177,6 +184,8 @@ const DashboardScouting = () => {
                     }}/>
                 </Grid>
                 <Grid item xs={12} sm={5} sx={{display: {xs: 'none', sm: 'block'}}}>
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <div>
                     <Typography variant="h6" color={"text.primary"}>Preload</Typography>
                     <ToggleButtonGroup
                         value={preload}
@@ -203,6 +212,36 @@ const DashboardScouting = () => {
                             <Image src={ConeImage} width={100} height={100} alt={"Cone"}/>
                         </ToggleButton>
                     </ToggleButtonGroup>
+                        </div>
+                        {/*<Autocomplete*/}
+                        {/*    disablePortal*/}
+                        {/*    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {*/}
+                        {/*        if (newValue !== null) {*/}
+                        {/*            setTeam(newValue);*/}
+                        {/*        }*/}
+                        {/*    }}*/}
+                        {/*    // defaultValue={possibleTeams[0]}*/}
+                        {/*    id="TeamSelect"*/}
+                        {/*    options={isPossibleTeamsLoading ? [] : possibleTeams}*/}
+                        {/*    sx={{width: 100, mt: 2}}*/}
+                        {/*    loading={isPossibleTeamsLoading}*/}
+                        {/*    renderInput={(params) => (*/}
+                        {/*        <TextField*/}
+                        {/*            {...params}*/}
+                        {/*            label="Teams"*/}
+                        {/*            InputProps={{*/}
+                        {/*                ...params.InputProps,*/}
+                        {/*                endAdornment: (*/}
+                        {/*                    <React.Fragment>*/}
+                        {/*                        {isPossibleTeamsLoading ? <CircularProgress color="inherit" size={20} /> : null}*/}
+                        {/*                        {params.InputProps.endAdornment}*/}
+                        {/*                    </React.Fragment>*/}
+                        {/*                ),*/}
+                        {/*            }}*/}
+                        {/*            />*/}
+                        {/*        )}*/}
+                        {/*/>*/}
+                    </Stack>
                 </Grid>
                 <Grid item xs={12} sm={5} sx={{display: {xs: 'block', sm: 'none'}}}>
                     <Typography variant="h6" color={"text.primary"}>Preload</Typography>
@@ -230,6 +269,19 @@ const DashboardScouting = () => {
                             <Image src={ConeImage} width={100} height={100} alt={"Cone"}/>
                         </ToggleButton>
                     </ToggleButtonGroup>
+                    {/*<Autocomplete*/}
+                    {/*    disablePortal*/}
+                    {/*    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {*/}
+                    {/*        if (newValue !== null) {*/}
+                    {/*            setTeam(newValue);*/}
+                    {/*        }*/}
+                    {/*    }}*/}
+                    {/*    defaultValue={team}*/}
+                    {/*    id="TeamSelect"*/}
+                    {/*    options={possibleTeams}*/}
+                    {/*    sx={{width: 100, mt: 2}}*/}
+                    {/*    renderInput={(params) => <TextField {...params} label="Team"/>}*/}
+                    {/*/>*/}
                 </Grid>
                 {/*<Grid item xs={12} sm={6} sx={{display: {xs: 'block', sm: 'block'}}}>*/}
                     {/**/}
@@ -251,6 +303,7 @@ const DashboardScouting = () => {
     }
 
     const [isOnChargeStationAuto, setIsOnChargeStationAuto] = useState<boolean>(false);
+    const [doesNotMoveAuto, setDoesNotMoveAuto] = useState<boolean>(false);
 
     const [autoPositionsRaw, setAutoPositionsRaw] = useState<{ x: number, y: number }[]>([])
     const [autoPositions, setAutoPositions] = useState<AutoPositionsI[]>([])
@@ -295,6 +348,11 @@ const DashboardScouting = () => {
         }
 
         const handleAutoPlacementClick = (e: any, ref: any, desktop: boolean) => {
+
+            if(doesNotMoveAuto) {
+                setDoesNotMoveAuto(false);
+            }
+
             let coords = {
                 x: desktop ? convertToPercent(e.nativeEvent.offsetX, e.nativeEvent.offsetY, ref).y : convertToPercent(e.nativeEvent.offsetX, e.nativeEvent.offsetY, ref).x, // X and Y are flipped because the SVG is rotated 90 degrees
                 y: desktop ? 1 - convertToPercent(e.nativeEvent.offsetX, e.nativeEvent.offsetY, ref).x : convertToPercent(e.nativeEvent.offsetX, e.nativeEvent.offsetY, ref).y// X needs to be inverted here
@@ -439,6 +497,24 @@ const DashboardScouting = () => {
                 <Grid item xs={6} sm={4} sx={{justifyContent: 'center'}}>
                     <ChargeStationUI isOnStation={isOnChargeStationAuto} setIsOnStation={setIsOnChargeStationAuto}
                                      buttonTitle={"Charging Station"} buttonText={"On Charging Station?"}/>
+                    <ToggleButtonGroup
+                        value={doesNotMoveAuto}
+                        exclusive
+                        onChange={(event, value) => {
+                            if (value === null) {
+                                setDoesNotMoveAuto(false);
+                            } else {
+                                setDoesNotMoveAuto(value)
+                            }
+                        }}
+                        aria-label={"Does not move during auto button group"}
+                        size="large"
+                    >
+                        <ToggleButton sx={{width: 200, height: 100}} color={"secondary"} value={true}
+                                      aria-label={"Does not move during auto button"}>
+                            {"Doesn't move during auto?"}
+                        </ToggleButton>
+                    </ToggleButtonGroup>
                 </Grid>
             </Grid>
             <Fab color="primary" aria-label="undo" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() => {
@@ -969,7 +1045,7 @@ const DashboardScouting = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} justifyContent={"center"} >
-                    <Button variant="contained">
+                    <Button variant="contained" onClick={handleSubmit}>
                         <Typography variant="h5" color={"text.primary"}>Submit</Typography>
                     </Button>
                 </Grid>
@@ -980,6 +1056,31 @@ const DashboardScouting = () => {
         </>)
     }
 
+
+
+    const handleSubmit = () => {
+
+        let final = {
+            "_id": team,
+            "auto": {
+                "startingPosition": {
+                    "x": startPosX,
+                    "y": startPosY,
+                },
+                "mobility": !doesNotMoveAuto,
+                "chargingStation": isOnChargeStationAuto,
+                "path": autoPositions,
+            },
+            "cycles": teleopActionList,
+            "onChargeStationEnd": isOnChargeStationEndgame,
+        }
+
+        console.log(final);
+
+        // Push to database
+
+
+    }
 
     return (<>
         <BottomNav/>

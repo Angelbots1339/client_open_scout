@@ -15,7 +15,9 @@ import {
     Search,
     Star,
     ViewStream,
-    AssignmentInd
+    AssignmentInd,
+    Create,
+    Notes
 } from "@mui/icons-material"
 import DashboardDrawerItem from "../dashboardDrawerItem/DashboardDrawerItem";
 import {CurrentTheme} from "../../../../pages/_app";
@@ -34,6 +36,11 @@ const DashboardDrawer: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerO
     const DataDropDownPopupState = usePopupState({variant: 'popover', popupId: 'dashboardDrawer'})
 
 
+    const ScoutingDropDownPopupState = usePopupState({variant: 'popover', popupId: 'dashboardScouting'})
+
+
+
+
     useEffect(() => {
 
         mainLayoutSetDrawerOpen(DashboardDrawerPopupState.isOpen);
@@ -50,14 +57,25 @@ const DashboardDrawer: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerO
             <DashboardDrawerItem text={"Schedule"} icon={<AccessTime fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} href="/dashboard/schedule"
                                  dropDownType=""/>
-            <DashboardDrawerItem text={"Scouting"} icon={<Assignment fontSize="medium"/>}
+            {/*<DashboardDrawerItem text={"Scouting"} icon={<Assignment fontSize="medium"/>}*/}
+            {/*                     drawerOpen={DashboardDrawerPopupState} href="/dashboard/scouting"*/}
+            {/*                     dropDownType=""/>*/}
+
+            <DashboardDrawerItem text={"Scouting"} icon={<Create fontSize="medium"/>}
+                                 drawerOpen={DashboardDrawerPopupState} dropDownType="parent"
+                                 dropDownPopupState={ScoutingDropDownPopupState}/>
+            <DashboardDrawerItem text={"Scout Page"} icon={<Assignment fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} href="/dashboard/scouting"
-                                 dropDownType=""/>
+                                 dropDownType="child" dropDownPopupState={ScoutingDropDownPopupState}/>
+            <DashboardDrawerItem text={"Super Scout"} icon={<Notes fontSize="medium"/>}
+                                 drawerOpen={DashboardDrawerPopupState} href="/dashboard/superScout"
+                                 dropDownType="child" dropDownPopupState={ScoutingDropDownPopupState}/>
+
 
             <DashboardDrawerItem text={"Data"} icon={<ShowChart fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} dropDownType="parent"
                                  dropDownPopupState={DataDropDownPopupState}/>
-            <DashboardDrawerItem text={"Team Lookup"} icon={<Search fontSize="medium"/>}
+            <DashboardDrawerItem text={"Search"} icon={<Search fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} href="/dashboard/data/search"
                                  dropDownType="child" dropDownPopupState={DataDropDownPopupState}/>
             <DashboardDrawerItem text={"Starred"} icon={<Star fontSize="medium"/>}
