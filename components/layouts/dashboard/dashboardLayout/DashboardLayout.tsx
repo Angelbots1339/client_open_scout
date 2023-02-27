@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 import NextBreadcrumbs from "../../../dashboard/breadcrumbs/NextBreadcrumbs";
 import DashboardLoading from "../../../dashboard/dashboardLoading/DashboardLoading";
 import {CurrentTheme} from "../../../../pages/_app";
-import {Stack} from "@mui/system";
+import {Stack} from "@mui/material";
 
 export interface IDashboardLayout {
     children: React.ReactNode;
