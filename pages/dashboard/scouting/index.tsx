@@ -88,7 +88,9 @@ const DashboardScouting = () => {
     const [team, setTeam] = useState<number>(0);
     // const [possibleTeams, setPossibleTeams] = useState<number[]>([0, 1, 2]);
 
-    setTeam(0); // Just to pass linting
+    useEffect(() => {
+        setTeam(0); // Just to pass linting
+    }, [])
     // const { data: possibleTeams, error: possibleTeamsLoadingError, isLoading: isPossibleTeamsLoading} = useSWR('/api/user/123', fetcher);
 
     useEffect(() => {
