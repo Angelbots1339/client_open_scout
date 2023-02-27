@@ -9,7 +9,7 @@ import React from "react";
 import LandingAppBarButton from "../landingAppBarButton/LandingAppBarButton";
 import Image from "next/image";
 import WideLogo from "/public/images/logos/LogoIpsum.svg"
-import {Stack} from "@mui/system";
+import {Stack} from "@mui/material";
 
 export interface ILandingAppBar {
 }
