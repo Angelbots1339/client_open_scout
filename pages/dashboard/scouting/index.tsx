@@ -306,7 +306,6 @@ const DashboardScouting = () => {
     const [isOnChargeStationAuto, setIsOnChargeStationAuto] = useState<boolean>(false);
     const [doesNotMoveAuto, setDoesNotMoveAuto] = useState<boolean>(false);
 
-    const [autoPositionsRaw, setAutoPositionsRaw] = useState<{ x: number, y: number }[]>([])
     const [autoPositions, setAutoPositions] = useState<AutoPositionsI[]>([])
 
     const [autoPlacementPopup, setAutoPlacementPopup] = useState<boolean>(false);
@@ -519,13 +518,11 @@ const DashboardScouting = () => {
                 </Grid>
             </Grid>
             <Fab color="primary" aria-label="undo" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() => {
-
                 if (autoPositions.length > 0) {
-                    setAutoPositionsRaw(autoPositionsRaw.slice(0, -1));
                     if (autoPositions.length === 1) {
                         setAutoPositions([]);
                     } else {
-                        setAutoPositions(autoPositions.slice(0, -2));
+                        setAutoPositions(autoPositions.slice(0, -1));
                     }
                 }
             }}>
