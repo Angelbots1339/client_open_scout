@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, SyntheticEvent} from "react";
 import {
     BottomNavigation,
     BottomNavigationAction,
@@ -6,7 +6,7 @@ import {
     Grid, IconButton,
     List, ListItem, ListItemAvatar, ListItemText,
     Paper, ToggleButtonGroup, ToggleButton,
-    Typography, Box, Fab, Stack
+    Typography, Box, Fab, Stack, CircularProgress, Autocomplete, TextField, Alert
 } from "@mui/material";
 import {PrecisionManufacturing, VideogameAsset, Leaderboard, AppRegistration, Delete, Undo} from "@mui/icons-material";
 import Image from "next/image";
@@ -15,7 +15,8 @@ import ConeImage from "../../../public/images/scouting/teleop/ConeRotoscoped.png
 import {animated, useSpring} from "@react-spring/web";
 import AutoFieldSVG from "../../../public/images/scouting/auto/AutoField";
 import AutoFieldHorizontalSVG from "../../../public/images/scouting/auto/AutoFieldHorizontal";
-// import {useSWR} from "swr";
+// import axios from "axios";
+import useSWR from "swr";
 // import PrematchPlacementSVG from "../../../public/images/scouting/prematch/PrematchPlacement";
 
 
@@ -50,7 +51,10 @@ const DashboardScouting = () => {
     }
 
     // @ts-ignore
-    // const fetcher = (...args: any) => fetch(...args).then(res => res.json());
+    const fetcher = (...args: any) => fetch(...args).then(res => res.json());
+
+    const APIserverURL = "https://openscoutapi.onrender.com";
+    const currentCompetitionCode = "2022code"; //"2023mosl";
 
     const [activeStep, setActiveStep] = React.useState(0); // Current Nav Tab
 
@@ -84,19 +88,94 @@ const DashboardScouting = () => {
 
     const [preload, setPreload] = useState<"none" | "cube" | "cone">("none");
     // @ts-ignore
-    const [team, setTeam] = useState<number>(0);
-    // const [possibleTeams, setPossibleTeams] = useState<number[]>([0, 1, 2]);
+    const [team, setTeam] = useState<any>({
+        "address": null,
+        "city": "",
+        "country": "",
+        "gmaps_place_id": null,
+        "gmaps_url": null,
+        "key": "frc0",
+        "lat": null,
+        "lng": null,
+        "location_name": null,
+        "motto": null,
+        "name": "Test Name",
+        "nickname": "Loading...",
+        "postal_code": "",
+        "rookie_year": 0,
+        "school_name": "",
+        "state_prov": "",
+        "team_number": 0,
+        "website": "",
+    });
+    const [currentMatch, setCurrentMatch] = useState<string>("");
+
+    // const { data: possibleTeams, error: possibleTeamsLoadingError, isLoading: isPossibleTeamsLoading} = useSWR("http://172.18.178.204:3001/2023/event/2023mosl/teams", fetcher);
+    const {
+        data: possibleTeams,
+        error: possibleTeamsLoadingError,
+        isLoading: isPossibleTeamsLoading
+    } = useSWR(APIserverURL + '/2023/event/' + currentCompetitionCode + '/teams', fetcher, {
+        fallbackData: {
+            "0": {
+                "address": null,
+                "city": "",
+                "country": "",
+                "gmaps_place_id": null,
+                "gmaps_url": null,
+                "key": "frc0",
+                "lat": null,
+                "lng": null,
+                "location_name": null,
+                "motto": null,
+                "name": "Test Name",
+                "nickname": "Loading...",
+                "postal_code": "",
+                "rookie_year": 0,
+                "school_name": "",
+                "state_prov": "",
+                "team_number": 0,
+                "website": "",
+            }
+        }
+    });
+    const {
+        data: possibleMatches,
+        error: possibleMatchesLoadingError,
+        isLoading: isPossibleMatchesLoading
+    } = useSWR(APIserverURL + '/2023/event/' + currentCompetitionCode + '/matches/keys/', fetcher, {
+        fallbackData: {
+            "0": "Loading..."
+        }
+    });
+
+    // useEffect(() => {
+    //     // console.log(possibleTeams);
+    //     // console.log(possibleMatches);
+    //
+    //     if(possibleTeamsLoadingError){
+    //         setTeamLoadError("Error loading teams");
+    //     }
+    //     if(possibleMatchesLoadingError){
+    //         setMatchLoadError("Error loading matches");
+    //     }
+    // })
+
+    const [teamLoadError, setTeamLoadError] = useState<string>("");
+    const [matchLoadError, setMatchLoadError] = useState<string>("");
 
     useEffect(() => {
-        setTeam(0); // Just to pass linting
-    }, [])
-    // const { data: possibleTeams, error: possibleTeamsLoadingError, isLoading: isPossibleTeamsLoading} = useSWR('/api/user/123', fetcher);
-
-    useEffect(() => {
-        console.log(team);
-    }, [team])
-
-
+        if(teamLoadError != ""){
+            setTimeout(() => {
+                setTeamLoadError("");
+            }, 5000);
+        }
+        if(matchLoadError != ""){
+            setTimeout(() => {
+                setMatchLoadError("");
+            }, 5000);
+        }
+    }, [teamLoadError, matchLoadError])
 
     const [{startPosX, startPosY}, setStartPos] = useState({startPosX: 0, startPosY: 0})
 
@@ -108,6 +187,153 @@ const DashboardScouting = () => {
             friction: 6, // 6
         }
     }))
+
+
+    const TeamAndMatchSelect: React.FC = () => {
+        return (
+            <>
+                <Box sx={{display: {xs: 'none', sm: 'block'}}}>
+                <Autocomplete
+                    disablePortal
+                    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
+                        if (newValue !== null) {
+                            setTeam(newValue);
+                        }
+                    }}
+                    defaultValue={team}
+                    id="TeamSelect"
+                    options={Object.keys(possibleTeams).map((team: any) => {
+                        return possibleTeams[team];
+                    })}
+                    getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
+                    isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
+                    sx={{minWidth: 200, maxWidth:350, mt: 2}}
+                    fullWidth
+                    loading={isPossibleTeamsLoading}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Team"
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <React.Fragment>
+                                        {isPossibleTeamsLoading ?
+                                            <CircularProgress color="inherit" size={20}/> : null}
+                                        {params.InputProps.endAdornment}
+                                    </React.Fragment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
+                <Autocomplete
+                    disablePortal
+                    onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+                        if (newValue !== null) {
+                            setCurrentMatch(newValue);
+                        }
+                    }}
+                    defaultValue={currentMatch}
+                    id="MatchSelect"
+                    options={Object.keys(possibleMatches).map((match: any) => {
+                        return possibleMatches[match];
+                    })}
+                    getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
+                    isOptionEqualToValue={(option, value) => option === value}
+                    sx={{minWidth: 200, maxWidth:350, mt: 2}}
+                    fullWidth
+                    loading={isPossibleMatchesLoading}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Match"
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <React.Fragment>
+                                        {isPossibleMatchesLoading ?
+                                            <CircularProgress color="inherit" size={20}/> : null}
+                                        {params.InputProps.endAdornment}
+                                    </React.Fragment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
+                </Box>
+                <Box sx={{display: {xs: 'block', sm: 'none'}, width:"95%", ml:"2.5%", justifyContent:"center"}}>
+                <Autocomplete
+                    disablePortal
+                    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
+                        if (newValue !== null) {
+                            setTeam(newValue);
+                        }
+                    }}
+                    defaultValue={team}
+                    id="TeamSelect"
+                    options={Object.keys(possibleTeams).map((team: any) => {
+                        return possibleTeams[team];
+                    })}
+                    getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
+                    isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
+                    sx={{width: 350, mt: 2}}
+                    loading={isPossibleTeamsLoading}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Team"
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <React.Fragment>
+                                        {isPossibleTeamsLoading ?
+                                            <CircularProgress color="inherit" size={20}/> : null}
+                                        {params.InputProps.endAdornment}
+                                    </React.Fragment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
+                <Autocomplete
+                    disablePortal
+                    onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+                        if (newValue !== null) {
+                            setCurrentMatch(newValue);
+                        }
+                    }}
+                    defaultValue={currentMatch}
+                    id="MatchSelect"
+                    options={Object.keys(possibleMatches).map((match: any) => {
+                        return possibleMatches[match];
+                    })}
+                    getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
+                    isOptionEqualToValue={(option, value) => option === value}
+                    sx={{width: 350, mt: 2}}
+                    loading={isPossibleMatchesLoading}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Match"
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <React.Fragment>
+                                        {isPossibleMatchesLoading ?
+                                            <CircularProgress color="inherit" size={20}/> : null}
+                                        {params.InputProps.endAdornment}
+                                    </React.Fragment>
+                                ),
+                            }}
+                        />
+                    )}
+                />
+                    { teamLoadError != "" && <Alert severity="error"> {teamLoadError} </Alert>}
+                    { matchLoadError != "" && <Alert severity="error"> {matchLoadError} </Alert>}
+                </Box>
+            </>)
+    }
 
     const PrematchPage = () => {
         const prematchFieldRefMobile = useRef(null);
@@ -187,61 +413,36 @@ const DashboardScouting = () => {
                 <Grid item xs={12} sm={5} sx={{display: {xs: 'none', sm: 'block'}}}>
                     <Stack direction="row" spacing={2} alignItems="center">
                         <div>
-                    <Typography variant="h6" color={"text.primary"}>Preload</Typography>
-                    <ToggleButtonGroup
-                        value={preload}
-                        exclusive
-                        defaultValue={"none"}
-                        orientation="vertical"
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setPreload(value);
-                            }
-                        }}
-                        aria-label="charging station position"
-                        size="large"
-                    >
-                        <ToggleButton sx={{width: 100, height: 100}} value="none"
-                                      aria-label="No Preload">
-                            None
-                        </ToggleButton>
-                        <ToggleButton sx={{width: 100, height: 100}} value="cube" aria-label="Cube Preload">
-                            <Image src={CubeImage} width={100} height={100} alt={"Cube"}/>
-                        </ToggleButton>
-                        <ToggleButton sx={{width: 100, height: 100}} value="cone"
-                                      aria-label="Cone Preload">
-                            <Image src={ConeImage} width={100} height={100} alt={"Cone"}/>
-                        </ToggleButton>
-                    </ToggleButtonGroup>
+                            <Typography variant="h6" color={"text.primary"}>Preload</Typography>
+                            <ToggleButtonGroup
+                                value={preload}
+                                exclusive
+                                defaultValue={"none"}
+                                orientation="vertical"
+                                onChange={(event, value) => {
+                                    if (value !== null) {
+                                        setPreload(value);
+                                    }
+                                }}
+                                aria-label="charging station position"
+                                size="large"
+                            >
+                                <ToggleButton sx={{width: 100, height: 100}} value="none"
+                                              aria-label="No Preload">
+                                    None
+                                </ToggleButton>
+                                <ToggleButton sx={{width: 100, height: 100}} value="cube" aria-label="Cube Preload">
+                                    <Image src={CubeImage} width={100} height={100} alt={"Cube"}/>
+                                </ToggleButton>
+                                <ToggleButton sx={{width: 100, height: 100}} value="cone"
+                                              aria-label="Cone Preload">
+                                    <Image src={ConeImage} width={100} height={100} alt={"Cone"}/>
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </div>
-                        {/*<Autocomplete*/}
-                        {/*    disablePortal*/}
-                        {/*    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {*/}
-                        {/*        if (newValue !== null) {*/}
-                        {/*            setTeam(newValue);*/}
-                        {/*        }*/}
-                        {/*    }}*/}
-                        {/*    // defaultValue={possibleTeams[0]}*/}
-                        {/*    id="TeamSelect"*/}
-                        {/*    options={isPossibleTeamsLoading ? [] : possibleTeams}*/}
-                        {/*    sx={{width: 100, mt: 2}}*/}
-                        {/*    loading={isPossibleTeamsLoading}*/}
-                        {/*    renderInput={(params) => (*/}
-                        {/*        <TextField*/}
-                        {/*            {...params}*/}
-                        {/*            label="Teams"*/}
-                        {/*            InputProps={{*/}
-                        {/*                ...params.InputProps,*/}
-                        {/*                endAdornment: (*/}
-                        {/*                    <React.Fragment>*/}
-                        {/*                        {isPossibleTeamsLoading ? <CircularProgress color="inherit" size={20} /> : null}*/}
-                        {/*                        {params.InputProps.endAdornment}*/}
-                        {/*                    </React.Fragment>*/}
-                        {/*                ),*/}
-                        {/*            }}*/}
-                        {/*            />*/}
-                        {/*        )}*/}
-                        {/*/>*/}
+                        <Stack alignItems="center">
+                            <TeamAndMatchSelect/>
+                        </Stack>
                     </Stack>
                 </Grid>
                 <Grid item xs={12} sm={5} sx={{display: {xs: 'block', sm: 'none'}}}>
@@ -270,34 +471,23 @@ const DashboardScouting = () => {
                             <Image src={ConeImage} width={100} height={100} alt={"Cone"}/>
                         </ToggleButton>
                     </ToggleButtonGroup>
-                    {/*<Autocomplete*/}
-                    {/*    disablePortal*/}
-                    {/*    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {*/}
-                    {/*        if (newValue !== null) {*/}
-                    {/*            setTeam(newValue);*/}
-                    {/*        }*/}
-                    {/*    }}*/}
-                    {/*    defaultValue={team}*/}
-                    {/*    id="TeamSelect"*/}
-                    {/*    options={possibleTeams}*/}
-                    {/*    sx={{width: 100, mt: 2}}*/}
-                    {/*    renderInput={(params) => <TextField {...params} label="Team"/>}*/}
-                    {/*/>*/}
+
+                    <TeamAndMatchSelect/>
                 </Grid>
                 {/*<Grid item xs={12} sm={6} sx={{display: {xs: 'block', sm: 'block'}}}>*/}
-                    {/**/}
-                    {/*<PrematchPlacementSVG setPrematchPlacement={setPrematchPiecePlacement} getPrematchPlacement={() => prematchPiecePlacement}/>*/}
-                    {/**/}
-                    {/*<Box ref={prematchPlacementRef} sx={{backgroundImage: "url(/images/scouting/prematch/PrematchPlacement.svg)", backgroundRepeat: "no-repeat", width: "100%", height:100, justifyContent: 'space-evenly'}}>*/}
-                    {/*<img ref={prematchPlacementRef} src="/images/scouting/prematch/PrematchPlacement.svg" alt="Field Picture"*/}
-                    {/*     width={"100%"}*/}
-                    {/*     height={"auto"}*/}
-                    {/*/>*/}
-                    {/*    <Image src={CubeImage} width={50} height={50}/>*/}
-                    {/*    <Image src={ConeImage} width={50} height={50}/>*/}
-                    {/*    <Image src={CubeImage} width={50} height={50}/>*/}
-                    {/*    <Image src={ConeImage} width={50} height={50}/>*/}
-                    {/*</Box>*/}
+                {/**/}
+                {/*<PrematchPlacementSVG setPrematchPlacement={setPrematchPiecePlacement} getPrematchPlacement={() => prematchPiecePlacement}/>*/}
+                {/**/}
+                {/*<Box ref={prematchPlacementRef} sx={{backgroundImage: "url(/images/scouting/prematch/PrematchPlacement.svg)", backgroundRepeat: "no-repeat", width: "100%", height:100, justifyContent: 'space-evenly'}}>*/}
+                {/*<img ref={prematchPlacementRef} src="/images/scouting/prematch/PrematchPlacement.svg" alt="Field Picture"*/}
+                {/*     width={"100%"}*/}
+                {/*     height={"auto"}*/}
+                {/*/>*/}
+                {/*    <Image src={CubeImage} width={50} height={50}/>*/}
+                {/*    <Image src={ConeImage} width={50} height={50}/>*/}
+                {/*    <Image src={CubeImage} width={50} height={50}/>*/}
+                {/*    <Image src={ConeImage} width={50} height={50}/>*/}
+                {/*</Box>*/}
                 {/*</Grid>*/}
             </Grid>
         </>)
@@ -311,24 +501,24 @@ const DashboardScouting = () => {
     const [autoPlacementPopup, setAutoPlacementPopup] = useState<boolean>(false);
     const [queuedAutoPlacement, setQueuedAutoPlacement] = useState<AutoPositionsI>({type: "cube", id: 0, y: 0.1});
 
-        const autoPickupPositionsY: AutoPositionsI[] = [
-            {type: "pickup", id: 0, y: 2 / 13},
-            {type: "pickup", id: 1, y: 5 / 13},
-            {type: "pickup", id: 2, y: 8 / 13},
-            {type: "pickup", id: 3, y: 11 / 13}];
+    const autoPickupPositionsY: AutoPositionsI[] = [
+        {type: "pickup", id: 0, y: 2 / 13},
+        {type: "pickup", id: 1, y: 5 / 13},
+        {type: "pickup", id: 2, y: 8 / 13},
+        {type: "pickup", id: 3, y: 11 / 13}];
 
-        const autoPlacementPositionsY: AutoPositionsI[] = [
-            {type: "cube", id: 0, y: 0.1},
-            {type: "cone", id: 0, y: 0.2}, // Cone
-            {type: "cube", id: 1, y: 0.28},
-            {type: "cube", id: 2, y: .4},
-            {type: "cone", id: 1, y: 0.5}, // Cone
-            {type: "cube", id: 3, y: .6},
-            {type: "cube", id: 4, y: .7},
-            {type: "cone", id: 2, y: .82}, // Cone
-            {type: "cube", id: 5, y: .9},
+    const autoPlacementPositionsY: AutoPositionsI[] = [
+        {type: "cube", id: 0, y: 0.1},
+        {type: "cone", id: 0, y: 0.2}, // Cone
+        {type: "cube", id: 1, y: 0.28},
+        {type: "cube", id: 2, y: .4},
+        {type: "cone", id: 1, y: 0.5}, // Cone
+        {type: "cube", id: 3, y: .6},
+        {type: "cube", id: 4, y: .7},
+        {type: "cone", id: 2, y: .82}, // Cone
+        {type: "cube", id: 5, y: .9},
 
-        ];
+    ];
 
     useEffect(() => {
         setAutoPositions([]);
@@ -349,7 +539,7 @@ const DashboardScouting = () => {
 
         const handleAutoPlacementClick = (e: any, ref: any, desktop: boolean) => {
 
-            if(doesNotMoveAuto) {
+            if (doesNotMoveAuto) {
                 setDoesNotMoveAuto(false);
             }
 
@@ -366,7 +556,8 @@ const DashboardScouting = () => {
                 tempPosition = autoPickupPositionsY[prevBest];
                 if (autoPositions.filter(function (entry) {
                     // @ts-ignore
-                    return entry.type === tempPosition.type && entry.id === tempPosition.id; }).length === 0) {
+                    return entry.type === tempPosition.type && entry.id === tempPosition.id;
+                }).length === 0) {
                     setAutoPositions((a) => [...a, tempPosition]);
                 }
             } else {
@@ -378,7 +569,7 @@ const DashboardScouting = () => {
                 setAutoPlacementPopup(true);
                 setQueuedAutoPlacement(tempPosition);
             }
-            console.log(tempPosition);
+            // console.log(tempPosition);
         }
 
         return (<>
@@ -577,7 +768,12 @@ const DashboardScouting = () => {
 
     }
 
-    const GamePieceDialog: React.FC<GamePieceDialogInterface> = ({setNewAction, actionList, setActionList, onlyPlacement}) => {
+    const GamePieceDialog: React.FC<GamePieceDialogInterface> = ({
+                                                                     setNewAction,
+                                                                     actionList,
+                                                                     setActionList,
+                                                                     onlyPlacement
+                                                                 }) => {
 
         return (<>
             <Grid container spacing={2} justifyContent="center" columns={12}>
@@ -972,11 +1168,11 @@ const DashboardScouting = () => {
 
     const ChargeStationUI:
         React.FC<{ isOnStation: boolean, setIsOnStation: any, buttonTitle: string, buttonText: string }> = ({
-                                                                                                               isOnStation,
-                                                                                                               setIsOnStation,
-                                                                                                               buttonTitle,
-                                                                                                               buttonText
-                                                                                                           }) => {
+                                                                                                                isOnStation,
+                                                                                                                setIsOnStation,
+                                                                                                                buttonTitle,
+                                                                                                                buttonText
+                                                                                                            }) => {
         return (
             <Box sx={{width: "100%", justifyContent: "center"}}>
                 <Typography variant="h6" color={"text.primary"}>{buttonTitle}</Typography>
@@ -1008,6 +1204,7 @@ const DashboardScouting = () => {
     const [isOnChargeStationEndgame, setIsOnChargeStationEndgame] = useState<boolean>(false);
     const [hasBrokenDown, setHasBrokenDown] = useState<boolean>(false);
 
+    const [submitError, setSubmitError] = useState<string>("");
 
     const EndgamePage = () => {
 
@@ -1042,10 +1239,11 @@ const DashboardScouting = () => {
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} justifyContent={"center"} >
+                <Grid item xs={12} sm={12} justifyContent={"center"}>
                     <Button variant="contained" onClick={handleSubmit}>
                         <Typography variant="h5" color={"text.primary"}>Submit</Typography>
                     </Button>
+                    { submitError != "" && <Alert severity="error"> {submitError} </Alert>}
                 </Grid>
             </Grid>
 
@@ -1055,11 +1253,18 @@ const DashboardScouting = () => {
     }
 
 
+    useEffect(() => {
+        if(submitError != ""){
+            setTimeout(() => {
+                setSubmitError("");
+            }, 5000);
+        }
+    }, [submitError])
 
     const handleSubmit = () => {
 
         let final = {
-            "_id": team,
+            "_id": team.key,
             "auto": {
                 "startingPosition": {
                     "x": startPosX,
@@ -1075,7 +1280,23 @@ const DashboardScouting = () => {
 
         console.log(final);
 
-        // Push to database
+
+        // TODO Push to database
+
+        // axios.post('https://172.18.178.204:3001/2023/2023utwv/match/test/team/frc1339', final)
+        //     .then(response => console.log(response));
+
+        // if (final._id === "frc0" || currentMatch === "") {
+        //
+        //     setSubmitError("Please enter a team number and match number (First Page)");
+        //
+        // } else {
+        //     axios.post(APIserverURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + team, final)
+        //         .then(response => console.log(response));
+        // }
+
+        // axios.get(APIserverURL + '/2023/2023code/teams')
+        //     .then(response => console.log(response));
 
 
     }
