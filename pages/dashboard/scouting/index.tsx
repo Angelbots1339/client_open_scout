@@ -149,17 +149,17 @@ const DashboardScouting = () => {
         }
     });
 
-    // useEffect(() => {
-    //     // console.log(possibleTeams);
-    //     // console.log(possibleMatches);
-    //
-    //     if(possibleTeamsLoadingError){
-    //         setTeamLoadError("Error loading teams");
-    //     }
-    //     if(possibleMatchesLoadingError){
-    //         setMatchLoadError("Error loading matches");
-    //     }
-    // })
+    useEffect(() => {
+        // console.log(possibleTeams);
+        // console.log(possibleMatches);
+
+        if(possibleTeamsLoadingError){
+            setTeamLoadError("Error loading teams");
+        }
+        if(possibleMatchesLoadingError){
+            setMatchLoadError("Error loading matches");
+        }
+    }, [possibleTeamsLoadingError, possibleMatchesLoadingError])
 
     const [teamLoadError, setTeamLoadError] = useState<string>("");
     const [matchLoadError, setMatchLoadError] = useState<string>("");
