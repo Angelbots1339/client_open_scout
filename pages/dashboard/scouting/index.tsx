@@ -2,11 +2,29 @@ import React, {useEffect, useRef, useState, SyntheticEvent} from "react";
 import {
     BottomNavigation,
     BottomNavigationAction,
-    Button, Dialog, Divider,
-    Grid, IconButton,
-    List, ListItem, ListItemAvatar, ListItemText,
-    Paper, ToggleButtonGroup, ToggleButton,
-    Typography, Box, Fab, Stack, CircularProgress, Autocomplete, TextField, Alert
+    Button,
+    Dialog,
+    Divider,
+    Grid,
+    IconButton,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Paper,
+    ToggleButtonGroup,
+    ToggleButton,
+    Typography,
+    Box,
+    Fab,
+    Stack,
+    CircularProgress,
+    Autocomplete,
+    TextField,
+    Alert,
+    DialogTitle,
+    DialogContentText,
+    DialogContent, DialogActions
 } from "@mui/material";
 import {PrecisionManufacturing, VideogameAsset, Leaderboard, AppRegistration, Delete, Undo} from "@mui/icons-material";
 import Image from "next/image";
@@ -17,10 +35,14 @@ import AutoFieldSVG from "../../../public/images/scouting/auto/AutoField";
 import AutoFieldHorizontalSVG from "../../../public/images/scouting/auto/AutoFieldHorizontal";
 // import axios from "axios";
 import useSWR from "swr";
+import axios from "axios";
 // import PrematchPlacementSVG from "../../../public/images/scouting/prematch/PrematchPlacement";
 
 
 const DashboardScouting = () => {
+
+    const APIServerURL = "https://openscoutapi.onrender.com";
+    const currentCompetitionCode = "2023caph";
 
     // const hasWindow = typeof window !== 'undefined';
 
@@ -50,11 +72,25 @@ const DashboardScouting = () => {
         return (value - r1[0]) * (r2[1] - r2[0]) / (r1[1] - r1[0]) + r2[0];
     }
 
+
+    // const [data, setData] = useState<MatchScoutI>({
+    //     "_id": "",
+    //     "auto": {
+    //         "startingPosition": {
+    //             "x": 0,
+    //             "y": 0,
+    //         },
+    //         "mobility": false,
+    //         "chargingStation": false,
+    //         "path": [],
+    //     },
+    //     "cycles": [],
+    //     "onChargeStationEnd": false,
+    // });
+
+
     // @ts-ignore
     const fetcher = (...args: any) => fetch(...args).then(res => res.json());
-
-    const APIserverURL = "https://openscoutapi.onrender.com";
-    const currentCompetitionCode = "2022code"; //"2023mosl";
 
     const [activeStep, setActiveStep] = React.useState(0); // Current Nav Tab
 
@@ -115,7 +151,7 @@ const DashboardScouting = () => {
         data: possibleTeams,
         error: possibleTeamsLoadingError,
         isLoading: isPossibleTeamsLoading
-    } = useSWR(APIserverURL + '/2023/event/' + currentCompetitionCode + '/teams', fetcher, {
+    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/teams', fetcher, {
         fallbackData: {
             "0": {
                 "address": null,
@@ -143,7 +179,7 @@ const DashboardScouting = () => {
         data: possibleMatches,
         error: possibleMatchesLoadingError,
         isLoading: isPossibleMatchesLoading
-    } = useSWR(APIserverURL + '/2023/event/' + currentCompetitionCode + '/matches/keys/', fetcher, {
+    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/matches/keys/', fetcher, {
         fallbackData: {
             "0": "Loading..."
         }
@@ -153,10 +189,10 @@ const DashboardScouting = () => {
         // console.log(possibleTeams);
         // console.log(possibleMatches);
 
-        if(possibleTeamsLoadingError){
+        if (possibleTeamsLoadingError) {
             setTeamLoadError("Error loading teams");
         }
-        if(possibleMatchesLoadingError){
+        if (possibleMatchesLoadingError) {
             setMatchLoadError("Error loading matches");
         }
     }, [possibleTeamsLoadingError, possibleMatchesLoadingError])
@@ -165,12 +201,12 @@ const DashboardScouting = () => {
     const [matchLoadError, setMatchLoadError] = useState<string>("");
 
     useEffect(() => {
-        if(teamLoadError != ""){
+        if (teamLoadError != "") {
             setTimeout(() => {
                 setTeamLoadError("");
             }, 5000);
         }
-        if(matchLoadError != ""){
+        if (matchLoadError != "") {
             setTimeout(() => {
                 setMatchLoadError("");
             }, 5000);
@@ -193,144 +229,148 @@ const DashboardScouting = () => {
         return (
             <>
                 <Box sx={{display: {xs: 'none', sm: 'block'}}}>
-                <Autocomplete
-                    disablePortal
-                    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
-                        if (newValue !== null) {
-                            setTeam(newValue);
-                        }
-                    }}
-                    defaultValue={team}
-                    id="TeamSelect"
-                    options={Object.keys(possibleTeams).map((team: any) => {
-                        return possibleTeams[team];
-                    })}
-                    getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
-                    isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
-                    sx={{minWidth: 200, maxWidth:350, mt: 2}}
-                    fullWidth
-                    loading={isPossibleTeamsLoading}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Team"
-                            InputProps={{
-                                ...params.InputProps,
-                                endAdornment: (
-                                    <React.Fragment>
-                                        {isPossibleTeamsLoading ?
-                                            <CircularProgress color="inherit" size={20}/> : null}
-                                        {params.InputProps.endAdornment}
-                                    </React.Fragment>
-                                ),
-                            }}
-                        />
-                    )}
-                />
-                <Autocomplete
-                    disablePortal
-                    onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
-                        if (newValue !== null) {
-                            setCurrentMatch(newValue);
-                        }
-                    }}
-                    defaultValue={currentMatch}
-                    id="MatchSelect"
-                    options={Object.keys(possibleMatches).map((match: any) => {
-                        return possibleMatches[match];
-                    })}
-                    getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
-                    isOptionEqualToValue={(option, value) => option === value}
-                    sx={{minWidth: 200, maxWidth:350, mt: 2}}
-                    fullWidth
-                    loading={isPossibleMatchesLoading}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Match"
-                            InputProps={{
-                                ...params.InputProps,
-                                endAdornment: (
-                                    <React.Fragment>
-                                        {isPossibleMatchesLoading ?
-                                            <CircularProgress color="inherit" size={20}/> : null}
-                                        {params.InputProps.endAdornment}
-                                    </React.Fragment>
-                                ),
-                            }}
-                        />
-                    )}
-                />
+                    <Autocomplete
+                        disablePortal
+                        disableClearable
+                        onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
+                            if (newValue !== null) {
+                                setTeam(newValue);
+                            }
+                        }}
+                        defaultValue={team}
+                        id="TeamSelect"
+                        options={Object.keys(possibleTeams).map((team: any) => {
+                            return possibleTeams[team];
+                        })}
+                        getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
+                        isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
+                        sx={{minWidth: 200, maxWidth: 350, mt: 2}}
+                        fullWidth
+                        loading={isPossibleTeamsLoading}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Team"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <React.Fragment>
+                                            {isPossibleTeamsLoading ?
+                                                <CircularProgress color="inherit" size={20}/> : null}
+                                            {params.InputProps.endAdornment}
+                                        </React.Fragment>
+                                    ),
+                                }}
+                            />
+                        )}
+                    />
+                    <Autocomplete
+                        disablePortal
+                        disableClearable
+                        onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+                            if (newValue !== null) {
+                                setCurrentMatch(newValue);
+                            }
+                        }}
+                        defaultValue={currentMatch}
+                        id="MatchSelect"
+                        options={Object.keys(possibleMatches).map((match: any) => {
+                            return possibleMatches[match];
+                        })}
+                        getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
+                        isOptionEqualToValue={(option, value) => option === value}
+                        sx={{minWidth: 200, maxWidth: 350, mt: 2}}
+                        fullWidth
+                        loading={isPossibleMatchesLoading}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Match"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <React.Fragment>
+                                            {isPossibleMatchesLoading ?
+                                                <CircularProgress color="inherit" size={20}/> : null}
+                                            {params.InputProps.endAdornment}
+                                        </React.Fragment>
+                                    ),
+                                }}
+                            />
+                        )}
+                    />
                 </Box>
-                <Box sx={{display: {xs: 'block', sm: 'none'}, width:"95%", ml:"2.5%", justifyContent:"center"}}>
-                <Autocomplete
-                    disablePortal
-                    onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
-                        if (newValue !== null) {
-                            setTeam(newValue);
-                        }
-                    }}
-                    defaultValue={team}
-                    id="TeamSelect"
-                    options={Object.keys(possibleTeams).map((team: any) => {
-                        return possibleTeams[team];
-                    })}
-                    getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
-                    isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
-                    sx={{width: 350, mt: 2}}
-                    loading={isPossibleTeamsLoading}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Team"
-                            InputProps={{
-                                ...params.InputProps,
-                                endAdornment: (
-                                    <React.Fragment>
-                                        {isPossibleTeamsLoading ?
-                                            <CircularProgress color="inherit" size={20}/> : null}
-                                        {params.InputProps.endAdornment}
-                                    </React.Fragment>
-                                ),
-                            }}
-                        />
-                    )}
-                />
-                <Autocomplete
-                    disablePortal
-                    onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
-                        if (newValue !== null) {
-                            setCurrentMatch(newValue);
-                        }
-                    }}
-                    defaultValue={currentMatch}
-                    id="MatchSelect"
-                    options={Object.keys(possibleMatches).map((match: any) => {
-                        return possibleMatches[match];
-                    })}
-                    getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
-                    isOptionEqualToValue={(option, value) => option === value}
-                    sx={{width: 350, mt: 2}}
-                    loading={isPossibleMatchesLoading}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Match"
-                            InputProps={{
-                                ...params.InputProps,
-                                endAdornment: (
-                                    <React.Fragment>
-                                        {isPossibleMatchesLoading ?
-                                            <CircularProgress color="inherit" size={20}/> : null}
-                                        {params.InputProps.endAdornment}
-                                    </React.Fragment>
-                                ),
-                            }}
-                        />
-                    )}
-                />
-                    { teamLoadError != "" && <Alert severity="error"> {teamLoadError} </Alert>}
-                    { matchLoadError != "" && <Alert severity="error"> {matchLoadError} </Alert>}
+                <Box sx={{display: {xs: 'block', sm: 'none'}, width: "95%", ml: "2.5%", justifyContent: "center"}}>
+                    <Autocomplete
+                        disablePortal
+                        disableClearable
+                        onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
+                            if (newValue !== null) {
+                                setTeam(newValue);
+                            }
+                        }}
+                        defaultValue={team}
+                        id="TeamSelect"
+                        options={Object.keys(possibleTeams).map((team: any) => {
+                            return possibleTeams[team];
+                        })}
+                        getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
+                        isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
+                        sx={{width: 350, mt: 2}}
+                        loading={isPossibleTeamsLoading}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Team"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <React.Fragment>
+                                            {isPossibleTeamsLoading ?
+                                                <CircularProgress color="inherit" size={20}/> : null}
+                                            {params.InputProps.endAdornment}
+                                        </React.Fragment>
+                                    ),
+                                }}
+                            />
+                        )}
+                    />
+                    <Autocomplete
+                        disablePortal
+                        disableClearable
+                        onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+                            if (newValue !== null) {
+                                setCurrentMatch(newValue);
+                            }
+                        }}
+                        defaultValue={currentMatch}
+                        id="MatchSelect"
+                        options={Object.keys(possibleMatches).map((match: any) => {
+                            return possibleMatches[match];
+                        })}
+                        getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
+                        isOptionEqualToValue={(option, value) => option === value}
+                        sx={{width: 350, mt: 2}}
+                        loading={isPossibleMatchesLoading}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Match"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <React.Fragment>
+                                            {isPossibleMatchesLoading ?
+                                                <CircularProgress color="inherit" size={20}/> : null}
+                                            {params.InputProps.endAdornment}
+                                        </React.Fragment>
+                                    ),
+                                }}
+                            />
+                        )}
+                    />
+                    {teamLoadError != "" && <Alert severity="error"> {teamLoadError} </Alert>}
+                    {matchLoadError != "" && <Alert severity="error"> {matchLoadError} </Alert>}
                 </Box>
             </>)
     }
@@ -493,8 +533,8 @@ const DashboardScouting = () => {
         </>)
     }
 
-    const [isOnChargeStationAuto, setIsOnChargeStationAuto] = useState<boolean>(false);
-    const [doesNotMoveAuto, setDoesNotMoveAuto] = useState<boolean>(false);
+    const [isOnChargeStationAuto, setIsOnChargeStationAuto] = useState<"none" | "docked" | "engaged">("none");
+    const [autoMobility, setAutoMobility] = useState<boolean>(false);
 
     const [autoPositions, setAutoPositions] = useState<AutoPositionsI[]>([])
 
@@ -539,8 +579,8 @@ const DashboardScouting = () => {
 
         const handleAutoPlacementClick = (e: any, ref: any, desktop: boolean) => {
 
-            if (doesNotMoveAuto) {
-                setDoesNotMoveAuto(false);
+            if (autoMobility) {
+                setAutoMobility(false);
             }
 
             let coords = {
@@ -579,6 +619,8 @@ const DashboardScouting = () => {
             }}
             >
                 <Paper sx={{width: "300", height: "auto"}}>
+                    <DialogTitle>{"Placement"}</DialogTitle>
+                    <DialogContent>
                     <Grid container columns={12}>
                         <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
                                 variant={"contained"}
@@ -614,6 +656,7 @@ const DashboardScouting = () => {
                             <Typography variant="h5">Fail</Typography>
                         </Button>
                     </Grid>
+                    </DialogContent>
                 </Paper>
             </Dialog>
 
@@ -687,23 +730,23 @@ const DashboardScouting = () => {
                 </Grid>
                 <Grid item xs={6} sm={4} sx={{justifyContent: 'center'}}>
                     <ChargeStationUI isOnStation={isOnChargeStationAuto} setIsOnStation={setIsOnChargeStationAuto}
-                                     buttonTitle={"Charging Station"} buttonText={"On Charging Station?"}/>
+                                     buttonTitle={"Charging Station"}/>
                     <ToggleButtonGroup
-                        value={doesNotMoveAuto}
+                        value={autoMobility}
                         exclusive
                         onChange={(event, value) => {
                             if (value === null) {
-                                setDoesNotMoveAuto(false);
+                                setAutoMobility(false);
                             } else {
-                                setDoesNotMoveAuto(value)
+                                setAutoMobility(value)
                             }
                         }}
-                        aria-label={"Does not move during auto button group"}
+                        aria-label={"Mobility Button Group"}
                         size="large"
                     >
                         <ToggleButton sx={{width: 200, height: 100}} color={"secondary"} value={true}
-                                      aria-label={"Does not move during auto button"}>
-                            {"Doesn't move during auto?"}
+                                      aria-label={"Mobility Button"}>
+                            {"Mobility?"}
                         </ToggleButton>
                     </ToggleButtonGroup>
                 </Grid>
@@ -723,11 +766,6 @@ const DashboardScouting = () => {
     }
 
     /****** Teleop Page Constants ******/
-    interface TeleopAction {
-        type: "cube" | "cone" | "",
-        pickup: "shelf" | "ground" | "tipped" | "",
-        placement: "top" | "mid" | "hybrid" | "fail" | ""
-    }
 
     const [cubePopup, setCubePopup] = React.useState(false);
     const [conePopup, setConePopup] = React.useState(false);
@@ -735,9 +773,9 @@ const DashboardScouting = () => {
     const [pickup, setPickup] = useState<"shelf" | "ground" | "tipped" | "">("");
 
 
-    const [teleopActionList, setTeleopActionList] = React.useState<TeleopAction[]>([]);
+    const [teleopActionList, setTeleopActionList] = React.useState<TeleopActionI[]>([]);
     // @ts-ignore
-    const [newTeleopAction, setNewTeleopAction]: TeleopAction = useState<TeleopAction>({
+    const [newTeleopAction, setNewTeleopAction]: TeleopActionI = useState<TeleopActionI>({
         type: "",
         pickup: "",
         placement: ""
@@ -761,9 +799,9 @@ const DashboardScouting = () => {
 
     interface GamePieceDialogInterface {
 
-        setNewAction: (newTeleopAction: TeleopAction) => void;
-        actionList: TeleopAction[];
-        setActionList: (newActionList: TeleopAction[]) => void;
+        setNewAction: (newTeleopAction: TeleopActionI) => void;
+        actionList: TeleopActionI[];
+        setActionList: (newActionList: TeleopActionI[]) => void;
         onlyPlacement?: boolean;
 
     }
@@ -873,325 +911,337 @@ const DashboardScouting = () => {
                 setCubePopup(false);
                 setCurrentStep('pickup');
             }}>
-                {/*** Desktop ***/}
-                {currentStep === "pickup" &&
-                    <Paper sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
-                        <Stack>
-                            <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: shelfColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("shelf");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Shelf</Typography>
-                            </Button>
-                            <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: groundColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("ground");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Ground</Typography>
-                            </Button>
-                        </Stack>
-                    </Paper>}
+                <DialogTitle>{currentStep === "pickup" ? "Pickup" : "Placement"}</DialogTitle>
+                <DialogContent>
+                    {/*** Desktop ***/}
+                    {currentStep === "pickup" &&
+                        <Box sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
+                            <Stack>
+                                <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: shelfColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("shelf");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Shelf</Typography>
+                                </Button>
+                                <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: groundColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("ground");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Ground</Typography>
+                                </Button>
+                            </Stack>
+                        </Box>}
 
-                {currentStep === "placement" &&
-                    <Paper sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
-                        <Grid container columns={12}>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "top"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Top</Typography>
-                            </Button>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: midColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "mid"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Middle</Typography>
-                            </Button>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: hybridColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "hybrid"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Hybrid</Typography>
-                            </Button>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: failColor}}
-                                    variant={"contained"}
-                                    color="inherit"
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "fail"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Fail</Typography>
-                            </Button>
-                        </Grid>
-                    </Paper>
-                }
+                    {currentStep === "placement" &&
+                        <Box sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
+                            <Grid container columns={12}>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "top"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Top</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: midColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "mid"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Middle</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: hybridColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "hybrid"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Hybrid</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: failColor}}
+                                        variant={"contained"}
+                                        color="inherit"
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "fail"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Fail</Typography>
+                                </Button>
+                            </Grid>
+                        </Box>
+                    }
 
 
-                {/*** Mobile ***/}
-                {currentStep === "pickup" &&
-                    <Paper sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
-                        <Stack>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("shelf");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Shelf</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("ground");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Ground</Typography>
-                            </Button>
-                        </Stack>
-                    </Paper>}
+                    {/*** Mobile ***/}
+                    {currentStep === "pickup" &&
+                        <Box sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
+                            <Stack>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("shelf");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Shelf</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("ground");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Ground</Typography>
+                                </Button>
+                            </Stack>
+                        </Box>}
 
-                {currentStep === "placement" &&
-                    <Paper sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
-                        <Stack>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: topColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "top"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Top</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: midColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "mid"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Middle</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: hybridColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "hybrid"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Hybrid</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: failColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cube", pickup: pickup, placement: "fail"})
-                                        setCurrentStep('pickup');
-                                        setCubePopup(false);
-                                    }}>
-                                <Typography variant="h5">Fail</Typography>
-                            </Button>
-                        </Stack>
-                    </Paper>
-                }
+                    {currentStep === "placement" &&
+                        <Box sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
+                            <Stack>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: topColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "top"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Top</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: midColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "mid"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Middle</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: hybridColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "hybrid"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Hybrid</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: failColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cube", pickup: pickup, placement: "fail"})
+                                            setCurrentStep('pickup');
+                                            setCubePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Fail</Typography>
+                                </Button>
+                            </Stack>
+                        </Box>
+                    }
+                </DialogContent>
             </Dialog>
 
             <Dialog open={conePopup} onClose={() => {
                 setConePopup(false);
                 setCurrentStep('pickup');
             }}>
-                {/*** Desktop ***/}
-                {currentStep === "pickup" &&
-                    <Paper sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
-                        <Stack>
-                            <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: shelfColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("shelf");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Shelf</Typography>
-                            </Button>
-                            <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: groundColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("ground");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Ground</Typography>
-                            </Button>
-                            <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: tippedColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("tipped");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Tipped</Typography>
-                            </Button>
-                        </Stack>
-                    </Paper>}
+                <DialogTitle>{currentStep === "pickup" ? "Pickup" : "Placement"}</DialogTitle>
+                <DialogContent>
+                    {/*** Desktop ***/}
+                    {currentStep === "pickup" &&
+                        <Box sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
+                            <Stack>
+                                <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: shelfColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("shelf");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Shelf</Typography>
+                                </Button>
+                                <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: groundColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("ground");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Ground</Typography>
+                                </Button>
+                                <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: tippedColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("tipped");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Tipped</Typography>
+                                </Button>
+                            </Stack>
+                        </Box>}
 
-                {currentStep === "placement" &&
-                    <Paper sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
-                        <Grid container columns={12}>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cone", pickup: pickup, placement: "top"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Top</Typography>
-                            </Button>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: midColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cone", pickup: pickup, placement: "mid"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Middle</Typography>
-                            </Button>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: hybridColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewAction({type: "cone", pickup: pickup, placement: "hybrid"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Hybrid</Typography>
-                            </Button>
-                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: failColor}}
-                                    variant={"contained"}
-                                    color="inherit"
-                                    onClick={() => {
-                                        setNewAction({type: "cone", pickup: pickup, placement: "fail"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Fail</Typography>
-                            </Button>
-                        </Grid>
-                    </Paper>
-                }
+                    {currentStep === "placement" &&
+                        <Box sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
+                            <Grid container columns={12}>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cone", pickup: pickup, placement: "top"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Top</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: midColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cone", pickup: pickup, placement: "mid"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Middle</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: hybridColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewAction({type: "cone", pickup: pickup, placement: "hybrid"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Hybrid</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: failColor}}
+                                        variant={"contained"}
+                                        color="inherit"
+                                        onClick={() => {
+                                            setNewAction({type: "cone", pickup: pickup, placement: "fail"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Fail</Typography>
+                                </Button>
+                            </Grid>
+                        </Box>
+                    }
 
 
-                {/*** Mobile ***/}
-                {currentStep === "pickup" &&
-                    <Paper sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
-                        <Stack>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("shelf");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Shelf</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("ground");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Ground</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: tippedColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setPickup("tipped");
-                                        setCurrentStep('placement');
-                                    }}>
-                                <Typography variant="h5">Tipped</Typography>
-                            </Button>
-                        </Stack>
-                    </Paper>}
+                    {/*** Mobile ***/}
+                    {currentStep === "pickup" &&
+                        <Box sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
+                            <Stack>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("shelf");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Shelf</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("ground");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Ground</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: tippedColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("tipped");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Tipped</Typography>
+                                </Button>
+                            </Stack>
+                        </Box>}
 
-                {currentStep === "placement" &&
-                    <Paper sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
-                        <Stack>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: topColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewTeleopAction({type: "cone", pickup: pickup, placement: "top"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Top</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: midColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewTeleopAction({type: "cone", pickup: pickup, placement: "mid"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Middle</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: hybridColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewTeleopAction({type: "cone", pickup: pickup, placement: "hybrid"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Hybrid</Typography>
-                            </Button>
-                            <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: failColor}}
-                                    variant={"contained"}
-                                    onClick={() => {
-                                        setNewTeleopAction({type: "cone", pickup: pickup, placement: "fail"})
-                                        setCurrentStep('pickup');
-                                        setConePopup(false);
-                                    }}>
-                                <Typography variant="h5">Fail</Typography>
-                            </Button>
-                        </Stack>
-                    </Paper>
-                }
+                    {currentStep === "placement" &&
+                        <Box sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
+                            <Stack>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: topColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewTeleopAction({type: "cone", pickup: pickup, placement: "top"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Top</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: midColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewTeleopAction({type: "cone", pickup: pickup, placement: "mid"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Middle</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: hybridColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewTeleopAction({type: "cone", pickup: pickup, placement: "hybrid"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Hybrid</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: failColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setNewTeleopAction({type: "cone", pickup: pickup, placement: "fail"})
+                                            setCurrentStep('pickup');
+                                            setConePopup(false);
+                                        }}>
+                                    <Typography variant="h5">Fail</Typography>
+                                </Button>
+                            </Stack>
+                        </Box>
+                    }
+                </DialogContent>
             </Dialog>
 
         </>)
     }
 
     const ChargeStationUI:
-        React.FC<{ isOnStation: boolean, setIsOnStation: any, buttonTitle: string, buttonText: string }> = ({
-                                                                                                                isOnStation,
-                                                                                                                setIsOnStation,
-                                                                                                                buttonTitle,
-                                                                                                                buttonText
-                                                                                                            }) => {
+        React.FC<{ isOnStation: string, setIsOnStation: any, buttonTitle: string }> = ({
+                                                                                           isOnStation,
+                                                                                           setIsOnStation,
+                                                                                           buttonTitle,
+                                                                                       }) => {
         return (
-            <Box sx={{width: "100%", justifyContent: "center"}}>
+            <Box sx={{width: "100%", justifyContent: "center", mb: 2}}>
                 <Typography variant="h6" color={"text.primary"}>{buttonTitle}</Typography>
                 <ToggleButtonGroup
                     value={isOnStation}
+                    orientation={"vertical"}
                     exclusive
                     onChange={(event, value) => {
-                        if (value === null) {
-                            setIsOnStation(false);
-                        } else {
+                        if (value != null) {
                             setIsOnStation(value)
                         }
                     }}
                     aria-label={buttonTitle + " button group"}
                     size="large"
                 >
-                    <ToggleButton sx={{width: 200, height: 100}} color={"secondary"} value={true}
-                                  aria-label={buttonTitle + " button"}>
-                        {buttonText}
+                    <ToggleButton sx={{width: 200, height: 100}} color={"secondary"} value={"none"}
+                                  aria-label={"None button"}>
+                        {"Not on station"}
+                    </ToggleButton>
+                    <ToggleButton sx={{width: 200, height: 100}} color={"secondary"} value={"docked"}
+                                  aria-label={"Docked button"}>
+                        {"Docked"}
+                    </ToggleButton>
+                    <ToggleButton sx={{width: 200, height: 100}} color={"secondary"} value={"engaged"}
+                                  aria-label={"Engaged button"}>
+                        {"Engaged"}
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>
@@ -1201,10 +1251,13 @@ const DashboardScouting = () => {
     // const [chargeStationPos, setChargeStationPos] = useState<"balanced" | "tipped" | "">("");
     // const [chargeStationRobots, setChargeStationRobots] = useState<number>(0);
 
-    const [isOnChargeStationEndgame, setIsOnChargeStationEndgame] = useState<boolean>(false);
-    const [hasBrokenDown, setHasBrokenDown] = useState<boolean>(false);
+    const [isOnChargeStationEndgame, setIsOnChargeStationEndgame] = useState<"none" | "docked" | "engaged">("none");
+    // const [hasBrokenDown, setHasBrokenDown] = useState<boolean>(false);
+
+    const [clearEntriesPopup, setClearEntriesPopup] = useState<boolean>(false);
 
     const [submitError, setSubmitError] = useState<string>("");
+    const [submitSuccess, setSubmitSuccess] = useState<string>("");
 
     const EndgamePage = () => {
 
@@ -1212,70 +1265,106 @@ const DashboardScouting = () => {
             {/**** Desktop ****/}
             <Grid container columns={12} spacing={2} justifyContent="center"
                   sx={{width: "90%", mx: "2.5%", display: {xs: 'block', sm: 'block'}}}>
+                <Box>
+                    {submitError != "" && <Alert severity="error" sx={{mt: 5}}> {submitError} </Alert>}
+                    {submitSuccess != "" && <Alert severity="success" sx={{mt: 5}}> {submitSuccess} </Alert>}
+                </Box>
                 <Grid item xs={12} sm={6}>
                     <ChargeStationUI isOnStation={isOnChargeStationEndgame} setIsOnStation={setIsOnChargeStationEndgame}
-                                     buttonTitle={"Charging Station"} buttonText={"On Charging Station?"}/>
+                                     buttonTitle={"Charging Station"}/>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Box sx={{width: "100%", justifyContent: "center"}}>
-                        <ToggleButtonGroup
-                            value={hasBrokenDown}
-                            exclusive
-                            onChange={(event, value) => {
-                                if (value === null) {
-                                    setHasBrokenDown(false);
-                                } else {
-                                    setHasBrokenDown(value)
-                                }
-                            }}
-                            aria-label={"Has broken down button group"}
-                            size="large"
-                        >
-                            <ToggleButton sx={{width: 200, height: 100}} value={true} color={"error"}
-                                          aria-label={"Has broken down button"}>
-                                Broke Down?
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </Box>
-                </Grid>
+                {/*<Grid item xs={12} sm={6}>*/}
+                {/*    <Box sx={{width: "100%", justifyContent: "center"}}>*/}
+                {/*        <ToggleButtonGroup*/}
+                {/*            value={hasBrokenDown}*/}
+                {/*            exclusive*/}
+                {/*            onChange={(event, value) => {*/}
+                {/*                if (value === null) {*/}
+                {/*                    setHasBrokenDown(false);*/}
+                {/*                } else {*/}
+                {/*                    setHasBrokenDown(value)*/}
+                {/*                }*/}
+                {/*            }}*/}
+                {/*            aria-label={"Has broken down button group"}*/}
+                {/*            size="large"*/}
+                {/*        >*/}
+                {/*            <ToggleButton sx={{width: 200, height: 100}} value={true} color={"error"}*/}
+                {/*                          aria-label={"Has broken down button"}>*/}
+                {/*                Broke Down?*/}
+                {/*            </ToggleButton>*/}
+                {/*        </ToggleButtonGroup>*/}
+                {/*    </Box>*/}
+                {/*</Grid>*/}
 
                 <Grid item xs={12} sm={12} justifyContent={"center"}>
-                    <Button variant="contained" onClick={handleSubmit}>
-                        <Typography variant="h5" color={"text.primary"}>Submit</Typography>
-                    </Button>
-                    { submitError != "" && <Alert severity="error"> {submitError} </Alert>}
+                    <Stack spacing={2} sx={{width: 200}}>
+                        <Button variant="contained" onClick={handleSubmit}>
+                            <Typography variant="h5" color={"text.primary"}>Submit</Typography>
+                        </Button>
+                        <Button variant="contained" color={"secondary"} onClick={() => setClearEntriesPopup(true)}>
+                            <Typography variant="h5" color={"text.primary"}>Clear Entries</Typography>
+                        </Button>
+                    </Stack>
                 </Grid>
             </Grid>
 
 
-            {/**** Mobile ****/}
+            <Dialog open={clearEntriesPopup} onClose={() => {
+                setClearEntriesPopup(false);
+            }}
+            >
+                <Paper sx={{width: "300", height: "auto"}}>
+                    <DialogTitle>{"Delete all data?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            {"Are you sure you want to clear all the data you've collected? This can't be undone."}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setClearEntriesPopup(false)}>Cancel</Button>
+                        <Button onClick={handleClearEntries}>Delete</Button>
+                    </DialogActions>
+                </Paper>
+            </Dialog>
+
+
         </>)
     }
 
 
     useEffect(() => {
-        if(submitError != ""){
+        if (submitError != "") {
             setTimeout(() => {
                 setSubmitError("");
             }, 5000);
         }
     }, [submitError])
 
+    useEffect(() => {
+        if (submitSuccess != "") {
+            setTimeout(() => {
+                setSubmitSuccess("");
+            }, 5000);
+        }
+    }, [submitSuccess])
+
     const handleSubmit = () => {
 
-        let final = {
+        let final: MatchScoutI = {
             "_id": team.key,
             "auto": {
                 "startingPosition": {
                     "x": startPosX,
                     "y": startPosY,
                 },
-                "mobility": !doesNotMoveAuto,
-                "chargingStation": isOnChargeStationAuto,
+                "mobility": autoMobility,
                 "path": autoPositions,
+                "chargingStation": isOnChargeStationAuto,
+                "preload": preload,
             },
             "cycles": teleopActionList,
             "onChargeStationEnd": isOnChargeStationEndgame,
+            // "brokeDown": hasBrokenDown,
         }
 
         console.log(final);
@@ -1283,23 +1372,141 @@ const DashboardScouting = () => {
 
         // TODO Push to database
 
-        // axios.post('https://172.18.178.204:3001/2023/2023utwv/match/test/team/frc1339', final)
-        //     .then(response => console.log(response));
 
-        // if (final._id === "frc0" || currentMatch === "") {
-        //
-        //     setSubmitError("Please enter a team number and match number (First Page)");
-        //
-        // } else {
-        //     axios.post(APIserverURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + team, final)
-        //         .then(response => console.log(response));
-        // }
+        if (final._id === "frc0" || currentMatch === "") {
 
-        // axios.get(APIserverURL + '/2023/2023code/teams')
-        //     .then(response => console.log(response));
+            setSubmitError("Please enter a team number and match number (First Page)");
 
-
+        } else {
+            axios.post(APIServerURL + "/2023/event/" + currentCompetitionCode + "/match/" + currentMatch.slice(9) + "/team/", final)
+                .then(response => {
+                    console.log(response);
+                    setSubmitSuccess("Successfully submitted data");
+                });
+        }
     }
+
+    const handleClearEntries = () => {
+        setClearEntriesPopup(false);
+
+        // Reset everything
+        setAutoPositions([]);
+        setAutoMobility(false);
+        setTeleopActionList([]);
+        setStartPos({startPosX: 0, startPosY: 0});
+        setPreload("none");
+        setIsOnChargeStationAuto("none");
+        setIsOnChargeStationEndgame("none");
+        startPosApi.start({startPosSpringX: 0, startPosSpringY: 0});
+        // setHasBrokenDown(false);
+    }
+
+
+    /******* Handle Data Changed *******/
+
+//     const [hasFirstUseEffectRan, setHasFirstUseEffectRan] = useState<boolean>(false);
+//
+//     useEffect(() => {
+//         if (!hasFirstUseEffectRan) {
+//             setData({ // Set data if any of the useEffects have been changed. Probably should fix it later
+//                 "_id": team.key,
+//                 "auto": {
+//                     "startingPosition": {
+//                         "x": startPosX,
+//                         "y": startPosY,
+//                     },
+//                     "mobility": !autoMobility,
+//                     "chargingStation": isOnChargeStationAuto,
+//                     "path": autoPositions,
+//                 },
+//                 "cycles": teleopActionList,
+//                 "onChargeStationEnd": isOnChargeStationEndgame,
+//             })
+//             console.log("Data changed");
+//         } else {
+//             setHasFirstUseEffectRan(true);
+//         }},
+//         [startPosX, startPosY, teleopActionList, autoPositions, preload, isOnChargeStationEndgame, isOnChargeStationAuto, autoMobility, hasBrokenDown])
+//
+//     useEffect(() => {
+//         if (!hasFirstUseEffectRan) {
+//
+//         const getData = async () => {
+//             // Push current data so it isn't lost forever
+//             await pushDataToServer();
+//             // Get new data
+//             return await fetch(APIServerURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + data._id).then(response => {
+//                 if(response.body != null){
+//                     // @ts-ignore
+//                     setData(JSON.parse(response.body));
+//                 }
+//             }).catch((error) => {
+//                 console.log(error);
+//             });
+//         }
+//         getData();
+//
+//     } else {
+//         setHasFirstUseEffectRan(true);
+//     }
+//     }, [currentMatch])
+//
+//     useEffect(() => {
+//         if (!hasFirstUseEffectRan) {
+//
+//         const getData = async () => {
+//             // Push current data so it isn't lost forever
+//             await pushDataToServer();
+//             // Get new data
+//             return await fetch(APIServerURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + data._id).then(response => {
+//                 if(response.body != null){
+//                     // @ts-ignore
+//                     setData(JSON.parse(response.body));
+//                 }
+//             }).catch((error) => {
+//                 console.log(error);
+//             });
+//         }
+//         console.log(data);
+//         if ( // Check to see if any data has been entered. If so, then don't reset by fetching new data
+//             data.auto.startingPosition.x === 0 &&
+//             data.auto.startingPosition.y === 0 &&
+//             data.auto.mobility === false &&
+//             data.auto.chargingStation === false &&
+//             data.auto.path.length === 0 &&
+//             data.cycles.length === 0 &&
+//             data.onChargeStationEnd === false
+//         ) {
+//             getData();
+//         } else { // If data is entered, just switch the team
+//             setData({
+//                 "_id": team.key,
+//                 "auto": {
+//                     "startingPosition": {
+//                         "x": startPosX,
+//                         "y": startPosY,
+//                     },
+//                     "mobility": !autoMobility,
+//                     "chargingStation": isOnChargeStationAuto,
+//                     "path": autoPositions,
+//                 },
+//                 "cycles": teleopActionList,
+//                 "onChargeStationEnd": isOnChargeStationEndgame,
+//             })
+//         }
+//
+//     } else {
+//     setHasFirstUseEffectRan(true);
+// }
+//     }, [team])
+//
+//     const pushDataToServer = async () => {
+//         return null;
+//         // return await axios.post(APIServerURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + data._id, data).then((response) => response).catch((error) => {
+//         //     console.log(error);
+//         // });
+//     }
+
 
     return (<>
         <BottomNav/>
@@ -1312,11 +1519,35 @@ const DashboardScouting = () => {
     </>)
 }
 
+
+export interface MatchScoutI {
+    _id: string,
+    auto: {
+        startingPosition: {
+            x: number,
+            y: number,
+        },
+        mobility: boolean,
+        chargingStation: "none" | "docked" | "engaged",
+        path: AutoPositionsI[],
+        preload: "cube" | "cone" | "none"
+    },
+    cycles: TeleopActionI[],
+    onChargeStationEnd: "none" | "docked" | "engaged",
+    // brokeDown: boolean,
+}
+
 export interface AutoPositionsI {
     type: "cube" | "cone" | "pickup",
     id: number,
     y: number,
     height?: "top" | "mid" | "hybrid" | "fail"
+}
+
+export interface TeleopActionI {
+    type: "cube" | "cone" | "",
+    pickup: "shelf" | "ground" | "tipped" | "",
+    placement: "top" | "mid" | "hybrid" | "fail" | ""
 }
 
 export default DashboardScouting;
