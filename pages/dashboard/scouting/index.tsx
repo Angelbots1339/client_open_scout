@@ -1258,6 +1258,17 @@ const DashboardScouting = () => {
 
     const [submitError, setSubmitError] = useState<string>("");
     const [submitSuccess, setSubmitSuccess] = useState<string>("");
+    const [submitInfo, setSubmitInfo] = useState<string>("");
+    const [submitLoading, setSubmitLoading] = useState<string>("");
+
+    //
+    // const [submitAlerts, setSubmitAlerts] = useState<{
+    //     type: "info" | "error" | "success",
+    //     text: string,
+    //     disappear?: boolean,
+    //     hasBeenScheduled?: boolean,
+    //     id: string
+    // }[]>([])
 
     const EndgamePage = () => {
 
@@ -1265,9 +1276,15 @@ const DashboardScouting = () => {
             {/**** Desktop ****/}
             <Grid container columns={12} spacing={2} justifyContent="center"
                   sx={{width: "90%", mx: "2.5%", display: {xs: 'block', sm: 'block'}}}>
-                <Box>
-                    {submitError != "" && <Alert severity="error" sx={{mt: 5}}> {submitError} </Alert>}
-                    {submitSuccess != "" && <Alert severity="success" sx={{mt: 5}}> {submitSuccess} </Alert>}
+                <Box sx={{mt:5}}>
+                    {/*{submitAlerts.map((alert, idx) => {*/}
+                    {/*    return <Alert severity={alert.type} key={"alert " + alert.text + idx}> {alert.text} </Alert>*/}
+                    {/*})}*/}
+
+                    {submitError && <Alert severity="error"> {submitError} </Alert>}
+                    {submitSuccess && <Alert severity="success"> {submitSuccess} </Alert>}
+                    {submitInfo && <Alert severity="info"> {submitInfo} </Alert>}
+                    {submitLoading && <Alert severity="info"> {submitLoading} </Alert>}
                 </Box>
                 <Grid item xs={12} sm={6}>
                     <ChargeStationUI isOnStation={isOnChargeStationEndgame} setIsOnStation={setIsOnChargeStationEndgame}
@@ -1332,21 +1349,79 @@ const DashboardScouting = () => {
     }
 
 
+
+// const addSubmitAlert = (type: "info" | "error" | "success", text: string, disappear?: boolean) => {
+    //
+    //     setSubmitAlerts([...submitAlerts, {
+    //         type: type,
+    //         text: text,
+    //         id: makeid(6),
+    //         disappear: disappear,
+    //         hasBeenScheduled:false
+    //     }])
+    //
+    // }
+    //
+    //
+    // function makeid(length: number) {
+    //     let result = '';
+    //     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //     const charactersLength = characters.length;
+    //     let counter = 0;
+    //     while (counter < length) {
+    //         result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    //         counter += 1;
+    //     }
+    //     return result;
+    // }
+
+    // useEffect(() => {
+    //     submitAlerts.map((alert, idx) => {
+    //         console.log("Alert: ", alert);
+    //         if(!alert.hasBeenScheduled) {
+    //             setTimeout(() => {
+    //                 let temp = submitAlerts;
+    //                 temp.splice(submitAlerts.findIndex((element) => {
+    //                     console.log(element.id === alert.id);
+    //                     return element.id === alert.id;
+    //                 }), 1);
+    //                 setSubmitAlerts(temp);
+    //                 console.log("Deleted");
+    //             }, 5000);
+    //         } else {
+    //             let temp = submitAlerts;
+    //             temp[idx].hasBeenScheduled = true;
+    //             setSubmitAlerts(temp);
+    //         }
+    //     })
+    // }, [submitAlerts])
+
+
     useEffect(() => {
-        if (submitError != "") {
-            setTimeout(() => {
-                setSubmitError("");
-            }, 5000);
-        }
+            //@ts-ignore
+            if(submitError != "") {
+                setTimeout(() => {
+                    setSubmitError("");
+                }, 10000);
+            }
     }, [submitError])
 
     useEffect(() => {
-        if (submitSuccess != "") {
-            setTimeout(() => {
-                setSubmitSuccess("");
-            }, 5000);
-        }
+            //@ts-ignore
+            if(submitSuccess != "") {
+                setTimeout(() => {
+                    setSubmitSuccess("");
+                }, 10000);
+            }
     }, [submitSuccess])
+    useEffect(() => {
+            //@ts-ignore
+            if(submitInfo != "") {
+                setTimeout(() => {
+                    setSubmitInfo("");
+                }, 10000);
+            }
+    }, [submitInfo])
 
     const handleSubmit = () => {
 
@@ -1378,16 +1453,23 @@ const DashboardScouting = () => {
             setSubmitError("Please enter a team number and match number (First Page)");
 
         } else {
+            setSubmitLoading("Loading...");
             axios.post(APIServerURL + "/2023/event/" + currentCompetitionCode + "/match/" + currentMatch.slice(9) + "/team/", final)
                 .then(response => {
                     console.log(response);
                     setSubmitSuccess("Successfully submitted data");
-                });
+                }).catch((err) => {
+                    console.log(err);
+                    setSubmitError("There was an error: " + err.message);
+            }).finally(() => {
+                setSubmitLoading("");
+            });
         }
     }
 
     const handleClearEntries = () => {
         setClearEntriesPopup(false);
+        setSubmitInfo( "Data cleared");
 
         // Reset everything
         setAutoPositions([]);
