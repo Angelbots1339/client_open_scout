@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="27.877 183.676 136.683 77.146" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="color-3" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.992625, 0, 0, 0.99455, 0.505826, -25.74806)" bx:pinned="true">
+      <title>Darkest Grey</title>
+      <stop style="stop-color: rgb(38, 38, 38);"/>
+    </linearGradient>
+    <linearGradient id="color-1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.993711, 0, 0, 1.008579, -1257.074219, -1865.813599)" bx:pinned="true">
+      <title>Light Grey</title>
+      <stop style="stop-color: rgb(115, 115, 115);"/>
+    </linearGradient>
+    <linearGradient id="color-2" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1.003165, -0.069743, -85.385376)" bx:pinned="true">
+      <title>Darkgray</title>
+      <stop style="stop-color: rgb(85, 85, 85);"/>
+    </linearGradient>
+    <linearGradient id="color-0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.014389, 0, 0, 1.044032, 18.741877, -53.681995)" bx:pinned="true">
+      <title>Team Color</title>
+      <stop style="stop-color: rgb(0, 72, 167);"/>
+    </linearGradient>
+    <linearGradient id="color-4" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.977503, 0, 0, 0.56506, -1923.815308, -4245.838379)" bx:pinned="true">
+      <title>Lightest grey</title>
+      <stop style="stop-color: rgb(238, 238, 238);"/>
+    </linearGradient>
+    <linearGradient id="color-5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.983317, 0, 0, 0.996024, 214.697533, -75.197601)" bx:pinned="true">
+      <title>Lighter gray</title>
+      <stop style="stop-color: rgb(191, 191, 191);"/>
+    </linearGradient>
+  </defs>
+  <g style="" transform="matrix(0, 0.997899, -0.999502, 0, 318.447845, 126.104683)">
+    <rect x="57.679" y="201.472" width="23.122" height="15.356" style="stroke-width: 0.580755px; fill: url(#color-3); stroke-linejoin: round;"/>
+    <rect x="57.711" y="259.202" width="13.181" height="11.44" style="stroke-width: 0.580755px; fill: url(#color-1); stroke-linejoin: round;"/>
+    <rect x="70.715" y="259.179" width="10.762" height="11.601" style="stroke-width: 0.580755px; fill: url(#color-2); stroke-linejoin: round;"/>
+    <rect x="57.719" y="243.899" width="23.044" height="15.371" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.571" y="270.612" width="23.326" height="20.004" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.662" y="186.256" width="23.118" height="15.242" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.419" y="153.744" width="23.637" height="21.138" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.722" y="228.439" width="23.038" height="15.481" style="stroke-width: 0.580755px; fill: url(#color-3); stroke-linejoin: round;"/>
+    <rect x="57.718" y="216.808" width="13.181" height="11.681" style="stroke-width: 0.580755px; fill: url(#color-1); stroke-linejoin: round;"/>
+    <rect x="70.888" y="216.791" width="10.762" height="11.707" style="stroke-width: 0.580755px; fill: url(#color-2); stroke-linejoin: round;"/>
+    <rect x="57.642" y="174.756" width="13.181" height="11.556" style="stroke-width: 0.580755px; fill: url(#color-1); stroke-linejoin: round;"/>
+    <rect x="70.812" y="174.752" width="10.762" height="11.609" style="stroke-width: 0.580755px; fill: url(#color-2); stroke-linejoin: round;"/>
+  </g>
+  <rect x="21.507" y="60.933" width="77.985" height="137.476" style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 1.0013px; stroke-linejoin: round;" rx="1.422" ry="1.422" transform="matrix(0.00005, 1, -1, 0, 225.968246, 161.683044)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.356" cy="-268.53" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.61" cy="-237.816" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.618" cy="-207.038" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <ellipse style="fill: url(#color-1); stroke-linejoin: round;" cx="-80.647" cy="-176.322" rx="10" ry="10" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <line style="fill: none; stroke-width: 1.35px; stroke: url(#color-0); stroke-linejoin: round;" x1="96.302" y1="285.666" x2="96.302" y2="149.099" transform="matrix(0, 1, -1, 0, 313.684509, 121.08049)"/>
+  <rect x="-115.999" y="-272.362" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-115.949" y="-290.447" width="14.179" height="1.88" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-116.002" y="-258.226" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-116.002" y="-244.204" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-115.975" y="-230.224" width="14.212" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-115.954" y="-216.014" width="14.189" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-116.009" y="-201.974" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-115.994" y="-187.806" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-115.982" y="-173.758" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <rect x="-115.963" y="-155.327" width="14.191" height="1.475" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, -125.882286, 318.482819)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="146.6" y1="196.885" x2="157.416" y2="196.907" transform="matrix(0, 1, -1, 0, 348.903992, 44.888004)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="146.6" y1="196.885" x2="157.416" y2="196.907" transform="matrix(0, 1, -1, 0, 348.903992, 44.888004)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="118.492" y1="196.885" x2="129.308" y2="196.907" transform="matrix(0, 1, -1, 0, 320.79599, 72.995995)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="104.453" y1="196.885" x2="115.269" y2="196.907" transform="matrix(0, 1, -1, 0, 306.756989, 87.034996)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="76.435" y1="196.885" x2="87.251" y2="196.907" transform="matrix(0, 1, -1, 0, 278.738983, 115.053001)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="62.246" y1="196.885" x2="73.062" y2="196.907" transform="matrix(0, 1, -1, 0, 264.549988, 129.242004)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="34.168" y1="196.885" x2="44.984" y2="196.907" transform="matrix(0, 1, -1, 0, 236.472, 157.319992)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="34.168" y1="196.885" x2="44.984" y2="196.907" transform="matrix(0, 1, -1, 0, 236.472, 157.319992)"/>
+</svg>

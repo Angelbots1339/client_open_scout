@@ -41,14 +41,14 @@ darkModeTheme = createTheme({
         mode: 'dark',
         primary: {
             // main: '#ff001b',
-            main: '#00e1ff',
+            main: '#88eefd',
         },
         secondary: {
-            main: '#ff00ea',
+            main: '#ff8ef6',
         },
         background: {
-            default: '#797979',
-            paper: '#6c6c6c',
+            paper: '#424242',
+            default: '#565656',
         },
         text: {
             primary: "#FFFFFF",

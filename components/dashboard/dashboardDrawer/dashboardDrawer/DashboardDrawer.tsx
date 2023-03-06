@@ -1,5 +1,6 @@
 import styles from './DashboardDrawer.module.css';
 import {
+    Button,
     Drawer, IconButton, List,
 } from "@mui/material";
 import React, {useEffect} from "react";
@@ -14,10 +15,15 @@ import {
     Search,
     Star,
     ViewStream,
-    AssignmentInd
+    AssignmentInd,
+    Create,
+    Notes
 } from "@mui/icons-material"
 import DashboardDrawerItem from "../dashboardDrawerItem/DashboardDrawerItem";
 import {CurrentTheme} from "../../../../pages/_app";
+import WideLogo from "/public/images/logos/LogoIpsum.svg"
+import Image from "next/image";
+
 
 export interface IDashboardDrawerLayout {
     mainLayoutSetDrawerOpen: (bool: boolean) => void;
@@ -28,6 +34,11 @@ const DashboardDrawer: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerO
 
     const DashboardDrawerPopupState = usePopupState({variant: 'popover', popupId: 'dashboardDrawer'})
     const DataDropDownPopupState = usePopupState({variant: 'popover', popupId: 'dashboardDrawer'})
+
+
+    const ScoutingDropDownPopupState = usePopupState({variant: 'popover', popupId: 'dashboardScouting'})
+
+
 
 
     useEffect(() => {
@@ -46,14 +57,25 @@ const DashboardDrawer: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerO
             <DashboardDrawerItem text={"Schedule"} icon={<AccessTime fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} href="/dashboard/schedule"
                                  dropDownType=""/>
-            <DashboardDrawerItem text={"Scouting"} icon={<Assignment fontSize="medium"/>}
+            {/*<DashboardDrawerItem text={"Scouting"} icon={<Assignment fontSize="medium"/>}*/}
+            {/*                     drawerOpen={DashboardDrawerPopupState} href="/dashboard/scouting"*/}
+            {/*                     dropDownType=""/>*/}
+
+            <DashboardDrawerItem text={"Scouting"} icon={<Create fontSize="medium"/>}
+                                 drawerOpen={DashboardDrawerPopupState} dropDownType="parent"
+                                 dropDownPopupState={ScoutingDropDownPopupState}/>
+            <DashboardDrawerItem text={"Scout Page"} icon={<Assignment fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} href="/dashboard/scouting"
-                                 dropDownType=""/>
+                                 dropDownType="child" dropDownPopupState={ScoutingDropDownPopupState}/>
+            <DashboardDrawerItem text={"Super Scout"} icon={<Notes fontSize="medium"/>}
+                                 drawerOpen={DashboardDrawerPopupState} href="/dashboard/superScout"
+                                 dropDownType="child" dropDownPopupState={ScoutingDropDownPopupState}/>
+
 
             <DashboardDrawerItem text={"Data"} icon={<ShowChart fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} dropDownType="parent"
                                  dropDownPopupState={DataDropDownPopupState}/>
-            <DashboardDrawerItem text={"Team Lookup"} icon={<Search fontSize="medium"/>}
+            <DashboardDrawerItem text={"Search"} icon={<Search fontSize="medium"/>}
                                  drawerOpen={DashboardDrawerPopupState} href="/dashboard/data/search"
                                  dropDownType="child" dropDownPopupState={DataDropDownPopupState}/>
             <DashboardDrawerItem text={"Starred"} icon={<Star fontSize="medium"/>}
@@ -76,11 +98,15 @@ const DashboardDrawer: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerO
     return (
         <div className={styles.container}>
 
+
             {/****** Desktop Drawer ******/}
-            <Drawer sx={{display: { xs: 'none', sm: 'block' }}} PaperProps={{sx: {backgroundColor: CurrentTheme().palette.background.paper}}} variant="permanent" anchor="left" {...bindMenu(DashboardDrawerPopupState)}>
+            <Drawer sx={{display: { xs: 'none', sm: 'block' }, elevation:15}} PaperProps={{sx: {backgroundColor: CurrentTheme().palette.background.paper}}} variant="permanent" anchor="left" {...bindMenu(DashboardDrawerPopupState)}>
                 <div className={styles.drawerDiv}>
                     {DashboardDrawerPopupState.isOpen ?
                         <div className={styles.drawerHeaderOpened}>
+                            <Button href={"/"} disableRipple={true} variant={"text"}>
+                                <Image src={WideLogo} alt="OpenScout Logo" width="200" height="25"/>
+                            </Button>
                             <IconButton className={styles.iconButton} {...bindToggle(DashboardDrawerPopupState)}>
                                 <ChevronLeft style={{color: CurrentTheme().palette.text.secondary}} fontSize="medium"/>
                             </IconButton>
@@ -101,9 +127,12 @@ const DashboardDrawer: React.FC<IDashboardDrawerLayout> = ({mainLayoutSetDrawerO
                 <ChevronRight style={{color: CurrentTheme().palette.text.secondary}} fontSize="large"/>
             </IconButton>
 
-            <Drawer sx={{display: { xs: 'block', sm: 'none' }}} PaperProps={{sx: {backgroundColor: CurrentTheme().palette.background.paper}}} variant="temporary" anchor="left" {...bindMenu(DashboardDrawerPopupState)}>
+            <Drawer sx={{display: { xs: 'block', sm: 'none' }, elevation:15}} PaperProps={{sx: {backgroundColor: CurrentTheme().palette.background.paper}}} variant="temporary" anchor="left" {...bindMenu(DashboardDrawerPopupState)}>
                 <div className={styles.drawerDiv}>
                         <div className={styles.drawerHeaderClosed}>
+                            <Button href={"/"} disableRipple={true} variant={"text"}>
+                                <Image src={WideLogo} alt="OpenScout Logo" width="200" height="25"/>
+                            </Button>
                             <IconButton className={styles.iconButton} {...bindToggle(DashboardDrawerPopupState)}>
                                 <ChevronLeft style={{color: CurrentTheme().palette.text.secondary}} fontSize="large"/>
                             </IconButton>

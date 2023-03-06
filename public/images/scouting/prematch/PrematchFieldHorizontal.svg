@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="50.098 160.65 137.482 123.063" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="color-3" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.988459, 0, 0, 0.99356, 0.503703, -25.722428)">
+      <title>Darkest Grey</title>
+      <stop style="stop-color: rgb(38, 38, 38);"/>
+    </linearGradient>
+    <linearGradient id="color-1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1.010087, 0.039965, -87.162812)">
+      <title>Light Grey</title>
+      <stop style="stop-color: rgb(115, 115, 115);"/>
+    </linearGradient>
+    <linearGradient id="color-2" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1, 0, 0, 1.003165, -0.069743, -85.385376)">
+      <title>Darkgray</title>
+      <stop style="stop-color: rgb(85, 85, 85);"/>
+    </linearGradient>
+    <linearGradient id="color-0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.012258, 0, 0, 1.043512, 0.800122, -35.410166)">
+      <title>Team Color</title>
+      <stop style="stop-color: rgb(0, 72, 167);"/>
+    </linearGradient>
+    <linearGradient id="color-5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.983317, 0, 0, 0.996024, 393.738496, -253.73008)">
+      <title>Lighter gray</title>
+      <stop style="stop-color: rgb(191, 191, 191);"/>
+    </linearGradient>
+    <linearGradient id="color-4" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.977503, 0, 0, 0.56506, -0.033772, 197.463131)">
+      <title>Lightest grey</title>
+      <stop style="stop-color: rgb(238, 238, 238);"/>
+    </linearGradient>
+  </defs>
+  <g style="" transform="matrix(0, 0.997899, -0.999502, 0, 340.985779, 103.564552)">
+    <rect x="57.679" y="201.472" width="23.122" height="15.356" style="stroke-width: 0.580755px; fill: url(#color-3); stroke-linejoin: round;"/>
+    <rect x="57.711" y="259.202" width="13.181" height="11.44" style="stroke-width: 0.580755px; fill: url(#color-1); stroke-linejoin: round;"/>
+    <rect x="70.715" y="259.179" width="10.762" height="11.601" style="stroke-width: 0.580755px; fill: url(#color-2); stroke-linejoin: round;"/>
+    <rect x="57.719" y="243.899" width="23.044" height="15.371" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.571" y="270.612" width="23.326" height="20.004" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.662" y="186.256" width="23.118" height="15.242" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.419" y="153.744" width="23.637" height="21.138" style="stroke-width: 0.580755px; fill: url(#color-0); stroke-linejoin: round;"/>
+    <rect x="57.722" y="228.439" width="23.038" height="15.481" style="stroke-width: 0.580755px; fill: url(#color-3); stroke-linejoin: round;"/>
+    <rect x="85.282" y="153.959" width="54.327" height="4.431" style="stroke-width: 0.580755px; fill: url(#color-5); stroke-linejoin: round;"/>
+    <rect x="57.718" y="216.808" width="13.181" height="11.681" style="stroke-width: 0.580755px; fill: url(#color-1); stroke-linejoin: round;"/>
+    <rect x="70.888" y="216.791" width="10.762" height="11.707" style="stroke-width: 0.580755px; fill: url(#color-2); stroke-linejoin: round;"/>
+    <rect x="57.642" y="174.756" width="13.181" height="11.556" style="stroke-width: 0.580755px; fill: url(#color-1); stroke-linejoin: round;"/>
+    <rect x="70.812" y="174.752" width="10.762" height="11.609" style="stroke-width: 0.580755px; fill: url(#color-2); stroke-linejoin: round;"/>
+  </g>
+  <rect x="33.939" y="60.933" width="123.063" height="137.476" style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 1.0013px; stroke-linejoin: round;" rx="1.422" ry="1.422" transform="matrix(0.00005, 1, -1, 0, 248.505508, 126.710915)"/>
+  <rect x="152.625" y="253.641" width="3.904" height="36.769" style="fill: rgb(57, 57, 57); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <line style="fill: none; stroke-width: 1.35px; stroke: url(#color-0); stroke-linejoin: round;" x1="118.841" y1="263.126" x2="118.841" y2="126.559" transform="matrix(0, 1, -1, 0, 313.683502, 76.001511)"/>
+  <rect x="76.379" y="171.968" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.429" y="153.883" width="14.179" height="1.88" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <polyline style="fill: none; stroke-width: 1.4px; stroke: url(#color-0);" points="99.394 194.712 99.394 231.847 138.297 231.847 138.297 331.182" transform="matrix(0, 1, -1, 0, 381.792511, 144.101501)"/>
+  <rect x="138.467" y="191.739" width="30.822" height="61.922" style="fill: url(#color-1); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="169.29" y="191.739" width="8.843" height="61.919" style="fill: url(#color-3); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="129.4" y="191.739" width="9.07" height="61.924" style="fill: url(#color-3); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.376" y="186.104" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.376" y="200.126" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.403" y="214.106" width="14.212" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.424" y="228.316" width="14.189" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.369" y="242.356" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.384" y="256.524" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.396" y="270.572" width="14.235" height="2.716" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <rect x="76.415" y="289.003" width="14.191" height="1.475" style="fill: url(#color-4); stroke-linejoin: round;" transform="matrix(0, 1, -1, 0, 340.985779, 103.564552)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="169.138" y1="174.345" x2="179.954" y2="174.367" transform="matrix(0, 1, -1, 0, 348.902008, -0.189997)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="169.138" y1="174.345" x2="179.954" y2="174.367" transform="matrix(0, 1, -1, 0, 348.902008, -0.189997)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="141.03" y1="174.345" x2="151.846" y2="174.367" transform="matrix(0, 1, -1, 0, 320.794006, 27.918007)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="126.991" y1="174.345" x2="137.807" y2="174.367" transform="matrix(0, 1, -1, 0, 306.755005, 41.957005)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="98.973" y1="174.345" x2="109.789" y2="174.367" transform="matrix(0, 1, -1, 0, 278.737, 69.975006)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="84.784" y1="174.345" x2="95.6" y2="174.367" transform="matrix(0, 1, -1, 0, 264.548004, 84.164001)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="56.706" y1="174.345" x2="67.522" y2="174.367" transform="matrix(0, 1, -1, 0, 236.470001, 112.241997)"/>
+  <line style="stroke-width: 0.580755px; fill: none; stroke: url(#color-5); stroke-linejoin: round;" x1="56.706" y1="174.345" x2="67.522" y2="174.367" transform="matrix(0, 1, -1, 0, 236.470001, 112.241997)"/>
+</svg>

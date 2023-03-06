@@ -5,7 +5,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {CurrentTheme} from "../../../pages/_app";
 import {ArrowBack} from "@mui/icons-material";
-import {Stack} from "@mui/system";
+import {Stack} from "@mui/material";
 
 export interface IDashboardTabs {
     children: React.ReactNode;
