@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@babel/core": ">=7.0.0 <8.0.0",
-    "@dnd-kit/utilities": "^3.2.0",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.4",
@@ -31,8 +30,6 @@
     "next": "12.2.5",
     "nivo": "^0.31.0",
     "react": "18.2.0",
-    "react-beautiful-dnd": "^13.1.1",
-    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-google-button": "^0.7.2",
     "swr": "^2.0.3"
