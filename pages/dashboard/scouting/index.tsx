@@ -42,7 +42,7 @@ import axios from "axios";
 const DashboardScouting = () => {
 
     const APIServerURL = "https://openscoutapi.onrender.com";
-    const currentCompetitionCode = "2023caph";
+    const currentCompetitionCode = "2023mosl";
 
     // const hasWindow = typeof window !== 'undefined';
 
