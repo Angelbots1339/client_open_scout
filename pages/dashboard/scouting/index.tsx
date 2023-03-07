@@ -220,7 +220,7 @@ const DashboardScouting = () => {
         startPosSpringY: startPosY,
         config: {
             mass: 0.1,
-            friction: 6, // 6
+            friction: 6,
         }
     }))
 
@@ -770,7 +770,7 @@ const DashboardScouting = () => {
     const [cubePopup, setCubePopup] = React.useState(false);
     const [conePopup, setConePopup] = React.useState(false);
     const [currentStep, setCurrentStep] = React.useState<"pickup" | "placement">("pickup"); // Current Selection
-    const [pickup, setPickup] = useState<"shelf" | "ground" | "tipped" | "">("");
+    const [pickup, setPickup] = useState<"substation" | "ground" | "tipped" | "">("");
 
 
     const [teleopActionList, setTeleopActionList] = React.useState<TeleopActionI[]>([]);
@@ -878,9 +878,9 @@ const DashboardScouting = () => {
                                         <ListItemText
                                             primary={action.pickup.charAt(0).toUpperCase() + action.pickup.slice(1)}
                                             sx={{
-                                                bgcolor: action.pickup === "shelf" ? shelfColor : action.pickup === "ground" ? groundColor : tippedColor,
+                                                bgcolor: action.pickup === "substation" ? shelfColor : action.pickup === "ground" ? groundColor : tippedColor,
                                                 height: "100%",
-                                                width: 40,
+                                                width: 65,
                                                 paddingY: 1,
                                                 paddingLeft: 1,
                                                 color: "black"
@@ -920,10 +920,10 @@ const DashboardScouting = () => {
                                 <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: shelfColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("shelf");
+                                            setPickup("substation");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Shelf</Typography>
+                                    <Typography variant="h5">Substation</Typography>
                                 </Button>
                                 <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
@@ -988,10 +988,10 @@ const DashboardScouting = () => {
                                 <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("shelf");
+                                            setPickup("substation");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Shelf</Typography>
+                                    <Typography variant="h5">Substation</Typography>
                                 </Button>
                                 <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
@@ -1062,10 +1062,10 @@ const DashboardScouting = () => {
                                 <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: shelfColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("shelf");
+                                            setPickup("substation");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Shelf</Typography>
+                                    <Typography variant="h5">Substation</Typography>
                                 </Button>
                                 <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
@@ -1138,10 +1138,10 @@ const DashboardScouting = () => {
                                 <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("shelf");
+                                            setPickup("substation");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Shelf</Typography>
+                                    <Typography variant="h5">Substation</Typography>
                                 </Button>
                                 <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
@@ -1426,7 +1426,7 @@ const DashboardScouting = () => {
     const handleSubmit = () => {
 
         let final: MatchScoutI = {
-            "_id": team.key,
+            "_id": currentMatch.slice(9) + "_" + team.key,
             "auto": {
                 "startingPosition": {
                     "x": startPosX,
@@ -1628,7 +1628,7 @@ export interface AutoPositionsI {
 
 export interface TeleopActionI {
     type: "cube" | "cone" | "",
-    pickup: "shelf" | "ground" | "tipped" | "",
+    pickup: "substation" | "ground" | "tipped" | "",
     placement: "top" | "mid" | "hybrid" | "fail" | ""
 }
 
