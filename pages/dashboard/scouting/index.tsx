@@ -1426,7 +1426,7 @@ const DashboardScouting = () => {
     const handleSubmit = () => {
 
         let final: MatchScoutI = {
-            "_id": currentMatch.slice(9) + "_" + team.key,
+            "_id": team.key,
             "auto": {
                 "startingPosition": {
                     "x": startPosX,
