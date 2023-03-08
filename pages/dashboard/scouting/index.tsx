@@ -93,7 +93,23 @@ const DashboardScouting = () => {
 
 
     // @ts-ignore
-    const fetcher = (...args: any) => fetch(...args).then(res => res.json());
+    const matchFetcher = (...args: any) => fetch(...args).then(res => {
+
+        let final = res.json().then((data) => {
+
+
+
+            // @ts-ignore
+            // data[Math.max(Object.keys(data).map((string) => parseInt(string))) + 1] = "Practice Match";
+            data["practiceMatch"] = "Practice Match";
+            // console.log(data);
+            return data;
+        });
+
+        return final;
+    });
+    // @ts-ignore
+    const teamFetcher = (...args: any) => fetch(...args).then(res => res.json());
 
     const [activeStep, setActiveStep] = React.useState(0); // Current Nav Tab
 
@@ -149,12 +165,12 @@ const DashboardScouting = () => {
     });
     const [currentMatch, setCurrentMatch] = useState<string>("");
 
-    // const { data: possibleTeams, error: possibleTeamsLoadingError, isLoading: isPossibleTeamsLoading} = useSWR("http://172.18.178.204:3001/2023/event/2023mosl/teams", fetcher);
+    // const { data: possibleTeams, error: possibleTeamsLoadingError, isLoading: isPossibleTeamsLoading} = useSWR("http://172.18.178.204:3001/2023/event/2023mosl/teams", matchFetcher);
     const {
         data: possibleTeams,
         error: possibleTeamsLoadingError,
         isLoading: isPossibleTeamsLoading
-    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/teams', fetcher, {
+    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/teams', teamFetcher, {
         fallbackData: {
             "0": {
                 "address": null,
@@ -182,15 +198,15 @@ const DashboardScouting = () => {
         data: possibleMatches,
         error: possibleMatchesLoadingError,
         isLoading: isPossibleMatchesLoading
-    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/matches/keys/', fetcher, {
+    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/matches/keys/', matchFetcher, {
         fallbackData: {
             "0": "Loading..."
         }
     });
 
+
+
     useEffect(() => {
-        // console.log(possibleTeams);
-        // console.log(possibleMatches);
 
         if (possibleTeamsLoadingError) {
             setTeamLoadError("Error loading teams");
@@ -278,10 +294,17 @@ const DashboardScouting = () => {
                         defaultValue={currentMatch}
                         id="MatchSelect"
                         options={Object.keys(possibleMatches).map((match: any) => {
+                            if(match === "practiceMatch") {
+                                return "Practice Practice Match"
+                            }
                             return possibleMatches[match];
                         })}
-                        getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
-                        isOptionEqualToValue={(option, value) => option === value}
+                        getOptionLabel={(option) => {
+                            if(option === "Practice Match") {
+                                return "Practice Match"
+                            }
+                            return option.slice(currentCompetitionCode.length + 1, option.length)
+                        }}                        isOptionEqualToValue={(option, value) => option === value}
                         sx={{minWidth: 200, maxWidth: 350, mt: 2}}
                         fullWidth
                         loading={isPossibleMatchesLoading}
@@ -349,9 +372,17 @@ const DashboardScouting = () => {
                         defaultValue={currentMatch}
                         id="MatchSelect"
                         options={Object.keys(possibleMatches).map((match: any) => {
+                            if(match === "practiceMatch") {
+                                return "Practice Practice Match"
+                            }
                             return possibleMatches[match];
                         })}
-                        getOptionLabel={(option) => option.slice(currentCompetitionCode.length + 1, option.length)}
+                        getOptionLabel={(option) => {
+                            if(option === "Practice Match") {
+                                return "Practice Match"
+                            }
+                            return option.slice(currentCompetitionCode.length + 1, option.length)
+                        }}
                         isOptionEqualToValue={(option, value) => option === value}
                         sx={{width: 350, mt: 2}}
                         loading={isPossibleMatchesLoading}
@@ -1450,14 +1481,18 @@ const DashboardScouting = () => {
 
         // TODO Push to database
 
+        // /:event/practiceMatch
 
         if (final._id === "frc0" || currentMatch === "") {
 
             setSubmitError("Please enter a team number and match number (First Page)");
 
         } else {
+
+            console.log(currentMatch);
+
             setSubmitLoading("Loading...");
-            axios.post(APIServerURL + "/2023/event/" + currentCompetitionCode + "/match/" + currentMatch.slice(9) + "/team/", final)
+            axios.post(currentMatch === "Practice Practice Match" ? APIServerURL + "/2023/event/" + currentCompetitionCode + "/practiceMatch" : APIServerURL + "/2023/event/" + currentCompetitionCode + "/match/" + currentMatch.slice(9) + "/team/", final)
                 .then(response => {
                     console.log(response);
                     setSubmitSuccess("Successfully submitted data");
