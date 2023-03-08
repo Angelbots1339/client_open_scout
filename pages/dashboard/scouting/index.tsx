@@ -42,8 +42,9 @@ import axios from "axios";
 const DashboardScouting = () => {
 
     const APIServerURL = "https://openscoutapi.onrender.com";
+    // const APIServerURL = "https://localhost:3001";
 
-    const currentCompetitionCode = "2023mosl";
+    const currentCompetitionCode = "2023caph"; //"2023mosl";
 
 
     // const hasWindow = typeof window !== 'undefined';
@@ -1428,7 +1429,7 @@ const DashboardScouting = () => {
     const handleSubmit = () => {
 
         let final: MatchScoutI = {
-            "_id": currentMatch.slice(9) + "_" + team.key,
+            "_id": team.key,
             "auto": {
                 "startingPosition": {
                     "x": startPosX,
@@ -1440,7 +1441,7 @@ const DashboardScouting = () => {
                 "preload": preload,
             },
             "cycles": teleopActionList,
-            "onChargeStationEnd": isOnChargeStationEndgame,
+            "chargingStation": isOnChargeStationEndgame,
             // "brokeDown": hasBrokenDown,
         }
 
@@ -1617,7 +1618,7 @@ export interface MatchScoutI {
         preload: "cube" | "cone" | "none"
     },
     cycles: TeleopActionI[],
-    onChargeStationEnd: "none" | "docked" | "engaged",
+    chargingStation: "none" | "docked" | "engaged",
     // brokeDown: boolean,
 }
 
