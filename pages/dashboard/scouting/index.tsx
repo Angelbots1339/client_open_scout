@@ -44,7 +44,7 @@ const DashboardScouting = () => {
     const APIServerURL = "https://openscoutapi.onrender.com";
     // const APIServerURL = "https://localhost:3001";
 
-    const currentCompetitionCode = "2023caph"; //"2023mosl";
+    const currentCompetitionCode = "2023mosl";
 
 
     // const hasWindow = typeof window !== 'undefined';
@@ -170,7 +170,7 @@ const DashboardScouting = () => {
         data: possibleTeams,
         error: possibleTeamsLoadingError,
         isLoading: isPossibleTeamsLoading
-    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/teams', teamFetcher, {
+    } = useSWR(APIServerURL + '/2023/event/' + currentCompetitionCode + '/tbaTeams', teamFetcher, {
         fallbackData: {
             "0": {
                 "address": null,
