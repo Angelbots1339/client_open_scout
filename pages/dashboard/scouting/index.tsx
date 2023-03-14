@@ -44,7 +44,7 @@ const DashboardScouting = () => {
     const APIServerURL = "https://openscoutapi.onrender.com";
     // const APIServerURL = "https://localhost:3001";
 
-    const currentCompetitionCode = "2023mosl";
+    const currentCompetitionCode = "2023utwv";
 
 
     // const hasWindow = typeof window !== 'undefined';
