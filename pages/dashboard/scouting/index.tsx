@@ -98,7 +98,6 @@ const DashboardScouting = () => {
         let final = res.json().then((data) => {
 
 
-
             // @ts-ignore
             // data[Math.max(Object.keys(data).map((string) => parseInt(string))) + 1] = "Practice Match";
             data["practiceMatch"] = "Practice Match";
@@ -119,7 +118,8 @@ const DashboardScouting = () => {
     const failColor = "#fca6a6";
 
 
-    const shelfColor = "#f8d4ba";
+    const singleColor = "#f8c1ba";
+    const doubleColor = "#f8d4ba";
     const groundColor = "#fcf3b6";
     const tippedColor = "#e4ffc7";
 
@@ -205,7 +205,6 @@ const DashboardScouting = () => {
     });
 
 
-
     useEffect(() => {
 
         if (possibleTeamsLoadingError) {
@@ -243,166 +242,222 @@ const DashboardScouting = () => {
         }
     }))
 
+    // const [scoutName, setScoutName] = useState<string>("");
+    //
+    //
+    // useEffect(() => {
+    //     console.log(scoutName);
+    // }, [scoutName])
 
     const TeamAndMatchSelect: React.FC = () => {
         return (
             <>
                 <Box sx={{display: {xs: 'none', sm: 'block'}}}>
-                    <Autocomplete
-                        disablePortal
-                        disableClearable
-                        onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
-                            if (newValue !== null) {
-                                setTeam(newValue);
-                            }
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': {m: 1, width: '25ch'},
                         }}
-                        defaultValue={team}
-                        id="TeamSelect"
-                        options={Object.keys(possibleTeams).map((team: any) => {
-                            return possibleTeams[team];
-                        })}
-                        getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
-                        isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
-                        sx={{minWidth: 200, maxWidth: 350, mt: 2}}
-                        fullWidth
-                        loading={isPossibleTeamsLoading}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Team"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <React.Fragment>
-                                            {isPossibleTeamsLoading ?
-                                                <CircularProgress color="inherit" size={20}/> : null}
-                                            {params.InputProps.endAdornment}
-                                        </React.Fragment>
-                                    ),
-                                }}
-                            />
-                        )}
-                    />
-                    <Autocomplete
-                        disablePortal
-                        disableClearable
-                        onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
-                            if (newValue !== null) {
-                                setCurrentMatch(newValue);
-                            }
-                        }}
-                        defaultValue={currentMatch}
-                        id="MatchSelect"
-                        options={Object.keys(possibleMatches).map((match: any) => {
-                            if(match === "practiceMatch") {
-                                return "Practice Practice Match"
-                            }
-                            return possibleMatches[match];
-                        })}
-                        getOptionLabel={(option) => {
-                            if(option === "Practice Match") {
-                                return "Practice Match"
-                            }
-                            return option.slice(currentCompetitionCode.length + 1, option.length)
-                        }}                        isOptionEqualToValue={(option, value) => option === value}
-                        sx={{minWidth: 200, maxWidth: 350, mt: 2}}
-                        fullWidth
-                        loading={isPossibleMatchesLoading}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Match"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <React.Fragment>
-                                            {isPossibleMatchesLoading ?
-                                                <CircularProgress color="inherit" size={20}/> : null}
-                                            {params.InputProps.endAdornment}
-                                        </React.Fragment>
-                                    ),
-                                }}
-                            />
-                        )}
-                    />
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <Autocomplete
+                            disablePortal
+                            disableClearable
+                            onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
+                                if (newValue !== null) {
+                                    setTeam(newValue);
+                                }
+                            }}
+                            defaultValue={team}
+                            id="TeamSelect"
+                            options={Object.keys(possibleTeams).map((team: any) => {
+                                return possibleTeams[team];
+                            })}
+                            getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
+                            isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
+                            sx={{minWidth: 200, maxWidth: 350, mt: 2}}
+                            fullWidth
+                            loading={isPossibleTeamsLoading}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Team"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        endAdornment: (
+                                            <React.Fragment>
+                                                {isPossibleTeamsLoading ?
+                                                    <CircularProgress color="inherit" size={20}/> : null}
+                                                {params.InputProps.endAdornment}
+                                            </React.Fragment>
+                                        ),
+                                    }}
+                                />
+                            )}
+                        />
+                        <Autocomplete
+                            disablePortal
+                            disableClearable
+                            onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+                                if (newValue !== null) {
+                                    setCurrentMatch(newValue);
+                                }
+                            }}
+                            defaultValue={currentMatch}
+                            id="MatchSelect"
+                            options={Object.keys(possibleMatches).map((match: any) => {
+                                if (match === "practiceMatch") {
+                                    return "Practice Practice Match"
+                                }
+                                return possibleMatches[match];
+                            })}
+                            getOptionLabel={(option) => {
+                                if (option === "Practice Match") {
+                                    return "Practice Match"
+                                }
+                                return option.slice(currentCompetitionCode.length + 1, option.length)
+                            }} isOptionEqualToValue={(option, value) => option === value}
+                            sx={{minWidth: 200, maxWidth: 350, mt: 2}}
+                            fullWidth
+                            loading={isPossibleMatchesLoading}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Match"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        endAdornment: (
+                                            <React.Fragment>
+                                                {isPossibleMatchesLoading ?
+                                                    <CircularProgress color="inherit" size={20}/> : null}
+                                                {params.InputProps.endAdornment}
+                                            </React.Fragment>
+                                        ),
+                                    }}
+                                />
+                            )}
+                        />
+                        {/*<Autocomplete*/}
+                        {/*    freeSolo*/}
+                        {/*    disableClearable*/}
+                        {/*    id="ScoutName"*/}
+                        {/*    options={[]}*/}
+                        {/*    onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {*/}
+                        {/*        if (newValue !== null) {*/}
+                        {/*            setScoutName(newValue);*/}
+                        {/*        } else {*/}
+                        {/*            setScoutName("");*/}
+                        {/*        }*/}
+                        {/*    }*/}
+                        {/*    }*/}
+                        {/*    renderInput={(params) => (*/}
+                        {/*        <TextField*/}
+                        {/*            {...params}*/}
+                        {/*            label="Your Name"*/}
+                        {/*            InputProps={{*/}
+                        {/*                ...params.InputProps,*/}
+                        {/*                type: 'search',*/}
+                        {/*            }}*/}
+                        {/*        />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
+                    </Box>
                 </Box>
                 <Box sx={{display: {xs: 'block', sm: 'none'}, width: "95%", ml: "2.5%", justifyContent: "center"}}>
-                    <Autocomplete
-                        disablePortal
-                        disableClearable
-                        onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
-                            if (newValue !== null) {
-                                setTeam(newValue);
-                            }
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': {m: 1, width: '25ch'},
                         }}
-                        defaultValue={team}
-                        id="TeamSelect"
-                        options={Object.keys(possibleTeams).map((team: any) => {
-                            return possibleTeams[team];
-                        })}
-                        getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
-                        isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
-                        sx={{width: 350, mt: 2}}
-                        loading={isPossibleTeamsLoading}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Team"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <React.Fragment>
-                                            {isPossibleTeamsLoading ?
-                                                <CircularProgress color="inherit" size={20}/> : null}
-                                            {params.InputProps.endAdornment}
-                                        </React.Fragment>
-                                    ),
-                                }}
-                            />
-                        )}
-                    />
-                    <Autocomplete
-                        disablePortal
-                        disableClearable
-                        onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
-                            if (newValue !== null) {
-                                setCurrentMatch(newValue);
-                            }
-                        }}
-                        defaultValue={currentMatch}
-                        id="MatchSelect"
-                        options={Object.keys(possibleMatches).map((match: any) => {
-                            if(match === "practiceMatch") {
-                                return "Practice Practice Match"
-                            }
-                            return possibleMatches[match];
-                        })}
-                        getOptionLabel={(option) => {
-                            if(option === "Practice Match") {
-                                return "Practice Match"
-                            }
-                            return option.slice(currentCompetitionCode.length + 1, option.length)
-                        }}
-                        isOptionEqualToValue={(option, value) => option === value}
-                        sx={{width: 350, mt: 2}}
-                        loading={isPossibleMatchesLoading}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Match"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <React.Fragment>
-                                            {isPossibleMatchesLoading ?
-                                                <CircularProgress color="inherit" size={20}/> : null}
-                                            {params.InputProps.endAdornment}
-                                        </React.Fragment>
-                                    ),
-                                }}
-                            />
-                        )}
-                    />
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <Autocomplete
+                            disablePortal
+                            disableClearable
+                            onChange={(event: SyntheticEvent<Element, Event>, newValue: number | null) => {
+                                if (newValue !== null) {
+                                    setTeam(newValue);
+                                }
+                            }}
+                            defaultValue={team}
+                            id="TeamSelect"
+                            options={Object.keys(possibleTeams).map((team: any) => {
+                                return possibleTeams[team];
+                            })}
+                            getOptionLabel={(option) => option.team_number != "" ? option.team_number + " " + option.nickname : ""}
+                            isOptionEqualToValue={(option, value) => option.team_number === value.team_number}
+                            sx={{width: 350, mt: 2}}
+                            loading={isPossibleTeamsLoading}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Team"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        endAdornment: (
+                                            <React.Fragment>
+                                                {isPossibleTeamsLoading ?
+                                                    <CircularProgress color="inherit" size={20}/> : null}
+                                                {params.InputProps.endAdornment}
+                                            </React.Fragment>
+                                        ),
+                                    }}
+                                />
+                            )}
+                        />
+                        <Autocomplete
+                            disablePortal
+                            disableClearable
+                            onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+                                if (newValue !== null) {
+                                    setCurrentMatch(newValue);
+                                }
+                            }}
+                            defaultValue={currentMatch}
+                            id="MatchSelect"
+                            options={Object.keys(possibleMatches).map((match: any) => {
+                                if (match === "practiceMatch") {
+                                    return "Practice Practice Match"
+                                }
+                                return possibleMatches[match];
+                            })}
+                            getOptionLabel={(option) => {
+                                if (option === "Practice Match") {
+                                    return "Practice Match"
+                                }
+                                return option.slice(currentCompetitionCode.length + 1, option.length)
+                            }}
+                            isOptionEqualToValue={(option, value) => option === value}
+                            sx={{width: 350, mt: 2}}
+                            loading={isPossibleMatchesLoading}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Match"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        endAdornment: (
+                                            <React.Fragment>
+                                                {isPossibleMatchesLoading ?
+                                                    <CircularProgress color="inherit" size={20}/> : null}
+                                                {params.InputProps.endAdornment}
+                                            </React.Fragment>
+                                        ),
+                                    }}
+                                />
+                            )}
+                        />
+                        {/*<TextField*/}
+                        {/*    id="outlined-controlled"*/}
+                        {/*    label="Your Name"*/}
+                        {/*    value={scoutName}*/}
+                        {/*    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {*/}
+                        {/*        setScoutName(event.target.value);*/}
+                        {/*    }}*/}
+                        {/*/>*/}
+                    </Box>
                     {teamLoadError != "" && <Alert severity="error"> {teamLoadError} </Alert>}
                     {matchLoadError != "" && <Alert severity="error"> {matchLoadError} </Alert>}
                 </Box>
@@ -655,41 +710,41 @@ const DashboardScouting = () => {
                 <Paper sx={{width: "300", height: "auto"}}>
                     <DialogTitle>{"Placement"}</DialogTitle>
                     <DialogContent>
-                    <Grid container columns={12}>
-                        <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
-                                variant={"contained"}
-                                onClick={() => {
-                                    setAutoPlacementPopup(false);
-                                    setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "top"}]);
-                                }}>
-                            <Typography variant="h5">Top</Typography>
-                        </Button>
-                        <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: midColor}}
-                                variant={"contained"}
-                                onClick={() => {
-                                    setAutoPlacementPopup(false);
-                                    setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "mid"}]);
-                                }}>
-                            <Typography variant="h5">Middle</Typography>
-                        </Button>
-                        <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: hybridColor}}
-                                variant={"contained"}
-                                onClick={() => {
-                                    setAutoPlacementPopup(false);
-                                    setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "hybrid"}]);
-                                }}>
-                            <Typography variant="h5">Hybrid</Typography>
-                        </Button>
-                        <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: failColor}}
-                                variant={"contained"}
-                                color="inherit"
-                                onClick={() => {
-                                    setAutoPlacementPopup(false);
-                                    setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "fail"}]);
-                                }}>
-                            <Typography variant="h5">Fail</Typography>
-                        </Button>
-                    </Grid>
+                        <Grid container columns={12}>
+                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: topColor}}
+                                    variant={"contained"}
+                                    onClick={() => {
+                                        setAutoPlacementPopup(false);
+                                        setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "top"}]);
+                                    }}>
+                                <Typography variant="h5">Top</Typography>
+                            </Button>
+                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: midColor}}
+                                    variant={"contained"}
+                                    onClick={() => {
+                                        setAutoPlacementPopup(false);
+                                        setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "mid"}]);
+                                    }}>
+                                <Typography variant="h5">Middle</Typography>
+                            </Button>
+                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: hybridColor}}
+                                    variant={"contained"}
+                                    onClick={() => {
+                                        setAutoPlacementPopup(false);
+                                        setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "hybrid"}]);
+                                    }}>
+                                <Typography variant="h5">Hybrid</Typography>
+                            </Button>
+                            <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: failColor}}
+                                    variant={"contained"}
+                                    color="inherit"
+                                    onClick={() => {
+                                        setAutoPlacementPopup(false);
+                                        setAutoPositions(a => [...a, {...queuedAutoPlacement, height: "fail"}]);
+                                    }}>
+                                <Typography variant="h5">Fail</Typography>
+                            </Button>
+                        </Grid>
                     </DialogContent>
                 </Paper>
             </Dialog>
@@ -804,7 +859,7 @@ const DashboardScouting = () => {
     const [cubePopup, setCubePopup] = React.useState(false);
     const [conePopup, setConePopup] = React.useState(false);
     const [currentStep, setCurrentStep] = React.useState<"pickup" | "placement">("pickup"); // Current Selection
-    const [pickup, setPickup] = useState<"substation" | "ground" | "tipped" | "">("");
+    const [pickup, setPickup] = useState<"single" | "double" | "ground" | "tipped" | "">("");
 
 
     const [teleopActionList, setTeleopActionList] = React.useState<TeleopActionI[]>([]);
@@ -912,7 +967,7 @@ const DashboardScouting = () => {
                                         <ListItemText
                                             primary={action.pickup.charAt(0).toUpperCase() + action.pickup.slice(1)}
                                             sx={{
-                                                bgcolor: action.pickup === "substation" ? shelfColor : action.pickup === "ground" ? groundColor : tippedColor,
+                                                bgcolor: action.pickup === "single" ? singleColor : action.pickup === "double" ? doubleColor : action.pickup === "ground" ? groundColor : tippedColor,
                                                 height: "100%",
                                                 width: 65,
                                                 paddingY: 1,
@@ -950,16 +1005,24 @@ const DashboardScouting = () => {
                     {/*** Desktop ***/}
                     {currentStep === "pickup" &&
                         <Box sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
-                            <Stack>
-                                <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: shelfColor}}
+                            <Grid container columns={12}>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: singleColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("substation");
+                                            setPickup("single");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Substation</Typography>
+                                    <Typography variant="h5">Single Station</Typography>
                                 </Button>
-                                <Button sx={{width: 300, height: 100, mx: 5, my: 1, backgroundColor: groundColor}}
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: doubleColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("double");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Double Station</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
                                         onClick={() => {
                                             setPickup("ground");
@@ -967,7 +1030,7 @@ const DashboardScouting = () => {
                                         }}>
                                     <Typography variant="h5">Ground</Typography>
                                 </Button>
-                            </Stack>
+                            </Grid>
                         </Box>}
 
                     {currentStep === "placement" &&
@@ -1019,13 +1082,21 @@ const DashboardScouting = () => {
                     {currentStep === "pickup" &&
                         <Box sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
                             <Stack>
-                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: singleColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("substation");
+                                            setPickup("single");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Substation</Typography>
+                                    <Typography variant="h5">Single Station</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: doubleColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("double");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Double Station</Typography>
                                 </Button>
                                 <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
@@ -1092,16 +1163,24 @@ const DashboardScouting = () => {
                     {/*** Desktop ***/}
                     {currentStep === "pickup" &&
                         <Box sx={{width: "300", height: "auto", display: {xs: 'none', sm: 'block'}}}>
-                            <Stack>
-                                <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: shelfColor}}
+                            <Grid container columns={12}>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: singleColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("substation");
+                                            setPickup("single");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Substation</Typography>
+                                    <Typography variant="h5">Single Station</Typography>
                                 </Button>
-                                <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: groundColor}}
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: doubleColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("double");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Double Station</Typography>
+                                </Button>
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
                                         onClick={() => {
                                             setPickup("ground");
@@ -1109,7 +1188,7 @@ const DashboardScouting = () => {
                                         }}>
                                     <Typography variant="h5">Ground</Typography>
                                 </Button>
-                                <Button sx={{width: 300, height: 80, mx: 5, my: 1, backgroundColor: tippedColor}}
+                                <Button sx={{width: "40%", height: 100, mx: "5%", my: 1, backgroundColor: tippedColor}}
                                         variant={"contained"}
                                         onClick={() => {
                                             setPickup("tipped");
@@ -1117,7 +1196,7 @@ const DashboardScouting = () => {
                                         }}>
                                     <Typography variant="h5">Tipped</Typography>
                                 </Button>
-                            </Stack>
+                            </Grid>
                         </Box>}
 
                     {currentStep === "placement" &&
@@ -1169,13 +1248,21 @@ const DashboardScouting = () => {
                     {currentStep === "pickup" &&
                         <Box sx={{width: 400, height: "auto", display: {xs: 'block', sm: 'none'}}}>
                             <Stack>
-                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: shelfColor}}
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: singleColor}}
                                         variant={"contained"}
                                         onClick={() => {
-                                            setPickup("substation");
+                                            setPickup("single");
                                             setCurrentStep('placement');
                                         }}>
-                                    <Typography variant="h5">Substation</Typography>
+                                    <Typography variant="h5">Single Station</Typography>
+                                </Button>
+                                <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: doubleColor}}
+                                        variant={"contained"}
+                                        onClick={() => {
+                                            setPickup("double");
+                                            setCurrentStep('placement');
+                                        }}>
+                                    <Typography variant="h5">Double Station</Typography>
                                 </Button>
                                 <Button sx={{width: "60%", height: 100, mx: "10%", my: 1, backgroundColor: groundColor}}
                                         variant={"contained"}
@@ -1310,7 +1397,7 @@ const DashboardScouting = () => {
             {/**** Desktop ****/}
             <Grid container columns={12} spacing={2} justifyContent="center"
                   sx={{width: "90%", mx: "2.5%", display: {xs: 'block', sm: 'block'}}}>
-                <Box sx={{mt:5}}>
+                <Box sx={{mt: 5}}>
                     {/*{submitAlerts.map((alert, idx) => {*/}
                     {/*    return <Alert severity={alert.type} key={"alert " + alert.text + idx}> {alert.text} </Alert>*/}
                     {/*})}*/}
@@ -1383,7 +1470,6 @@ const DashboardScouting = () => {
     }
 
 
-
 // const addSubmitAlert = (type: "info" | "error" | "success", text: string, disappear?: boolean) => {
     //
     //     setSubmitAlerts([...submitAlerts, {
@@ -1432,29 +1518,29 @@ const DashboardScouting = () => {
 
 
     useEffect(() => {
-            //@ts-ignore
-            if(submitError != "") {
-                setTimeout(() => {
-                    setSubmitError("");
-                }, 10000);
-            }
+        //@ts-ignore
+        if (submitError != "") {
+            setTimeout(() => {
+                setSubmitError("");
+            }, 10000);
+        }
     }, [submitError])
 
     useEffect(() => {
-            //@ts-ignore
-            if(submitSuccess != "") {
-                setTimeout(() => {
-                    setSubmitSuccess("");
-                }, 10000);
-            }
+        //@ts-ignore
+        if (submitSuccess != "") {
+            setTimeout(() => {
+                setSubmitSuccess("");
+            }, 10000);
+        }
     }, [submitSuccess])
     useEffect(() => {
-            //@ts-ignore
-            if(submitInfo != "") {
-                setTimeout(() => {
-                    setSubmitInfo("");
-                }, 10000);
-            }
+        //@ts-ignore
+        if (submitInfo != "") {
+            setTimeout(() => {
+                setSubmitInfo("");
+            }, 10000);
+        }
     }, [submitInfo])
 
     const handleSubmit = () => {
@@ -1497,8 +1583,8 @@ const DashboardScouting = () => {
                     console.log(response);
                     setSubmitSuccess("Successfully submitted data");
                 }).catch((err) => {
-                    console.log(err);
-                    setSubmitError("There was an error: " + err.message);
+                console.log(err);
+                setSubmitError("There was an error: " + err.message);
             }).finally(() => {
                 setSubmitLoading("");
             });
@@ -1507,7 +1593,7 @@ const DashboardScouting = () => {
 
     const handleClearEntries = () => {
         setClearEntriesPopup(false);
-        setSubmitInfo( "Data cleared");
+        setSubmitInfo("Data cleared");
 
         // Reset everything
         setAutoPositions([]);
@@ -1666,7 +1752,7 @@ export interface AutoPositionsI {
 
 export interface TeleopActionI {
     type: "cube" | "cone" | "",
-    pickup: "substation" | "ground" | "tipped" | "",
+    pickup: "single" | "double" | "ground" | "tipped" | "",
     placement: "top" | "mid" | "hybrid" | "fail" | ""
 }
 
