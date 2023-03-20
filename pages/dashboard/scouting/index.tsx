@@ -242,12 +242,12 @@ const DashboardScouting = () => {
         }
     }))
 
-    const [scoutName, setScoutName] = useState<string>("");
-
-
-    useEffect(() => {
-        console.log(scoutName);
-    }, [scoutName])
+    // const [scoutName, setScoutName] = useState<string>("");
+    //
+    //
+    // useEffect(() => {
+    //     console.log(scoutName);
+    // }, [scoutName])
 
     const TeamAndMatchSelect: React.FC = () => {
         return (
@@ -338,30 +338,30 @@ const DashboardScouting = () => {
                                 />
                             )}
                         />
-                        <Autocomplete
-                            freeSolo
-                            disableClearable
-                            id="ScoutName"
-                            options={[]}
-                            onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
-                                if (newValue !== null) {
-                                    setScoutName(newValue);
-                                } else {
-                                    setScoutName("");
-                                }
-                            }
-                            }
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Your Name"
-                                    InputProps={{
-                                        ...params.InputProps,
-                                        type: 'search',
-                                    }}
-                                />
-                            )}
-                        />
+                        {/*<Autocomplete*/}
+                        {/*    freeSolo*/}
+                        {/*    disableClearable*/}
+                        {/*    id="ScoutName"*/}
+                        {/*    options={[]}*/}
+                        {/*    onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {*/}
+                        {/*        if (newValue !== null) {*/}
+                        {/*            setScoutName(newValue);*/}
+                        {/*        } else {*/}
+                        {/*            setScoutName("");*/}
+                        {/*        }*/}
+                        {/*    }*/}
+                        {/*    }*/}
+                        {/*    renderInput={(params) => (*/}
+                        {/*        <TextField*/}
+                        {/*            {...params}*/}
+                        {/*            label="Your Name"*/}
+                        {/*            InputProps={{*/}
+                        {/*                ...params.InputProps,*/}
+                        {/*                type: 'search',*/}
+                        {/*            }}*/}
+                        {/*        />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
                     </Box>
                 </Box>
                 <Box sx={{display: {xs: 'block', sm: 'none'}, width: "95%", ml: "2.5%", justifyContent: "center"}}>
@@ -449,14 +449,14 @@ const DashboardScouting = () => {
                                 />
                             )}
                         />
-                        <TextField
-                            id="outlined-controlled"
-                            label="Your Name"
-                            value={scoutName}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                setScoutName(event.target.value);
-                            }}
-                        />
+                        {/*<TextField*/}
+                        {/*    id="outlined-controlled"*/}
+                        {/*    label="Your Name"*/}
+                        {/*    value={scoutName}*/}
+                        {/*    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {*/}
+                        {/*        setScoutName(event.target.value);*/}
+                        {/*    }}*/}
+                        {/*/>*/}
                     </Box>
                     {teamLoadError != "" && <Alert severity="error"> {teamLoadError} </Alert>}
                     {matchLoadError != "" && <Alert severity="error"> {matchLoadError} </Alert>}
