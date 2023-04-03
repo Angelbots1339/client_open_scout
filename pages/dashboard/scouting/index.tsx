@@ -1358,7 +1358,7 @@ const DashboardScouting = () => {
     // const [chargeStationRobots, setChargeStationRobots] = useState<number>(0);
 
     const [isOnChargeStationEndgame, setIsOnChargeStationEndgame] = useState<"none" | "docked" | "engaged">("none");
-    // const [hasBrokenDown, setHasBrokenDown] = useState<boolean>(false);
+    const [hasBrokenDown, setHasBrokenDown] = useState<boolean>(false);
 
     const [clearEntriesPopup, setClearEntriesPopup] = useState<boolean>(false);
 
@@ -1395,6 +1395,28 @@ const DashboardScouting = () => {
                 <Grid item xs={12} sm={6}>
                     <ChargeStationUI isOnStation={isOnChargeStationEndgame} setIsOnStation={setIsOnChargeStationEndgame}
                                      buttonTitle={"Charging Station"}/>
+                    <Box sx={{width: "100%", justifyContent: "center", mb: 2}}>
+                        <Typography variant="h6" color={"text.primary"}></Typography>
+                        <ToggleButtonGroup
+                            value={hasBrokenDown}
+                            orientation={"vertical"}
+                            exclusive
+                            onChange={(event, value) => {
+                                if (value != null) {
+                                    setHasBrokenDown(value)
+                                } else {
+                                    setHasBrokenDown(false);
+                                }
+                            }}
+                            aria-label={"Broke Down button group"}
+                            size="large"
+                        >
+                            <ToggleButton sx={{width: 200, height: 100}} color={"error"} value={true}
+                                          aria-label={"Broke Button"}>
+                                {"Broke?"}
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </Box>
                 </Grid>
                 {/*<Grid item xs={12} sm={6}>*/}
                 {/*    <Box sx={{width: "100%", justifyContent: "center"}}>*/}
@@ -1545,7 +1567,7 @@ const DashboardScouting = () => {
             "cycles": teleopActionList,
             "chargingStation": isOnChargeStationEndgame,
             "scoutName": scoutName,
-            // "brokeDown": hasBrokenDown,
+            "brokeDown": hasBrokenDown,
         }
 
         console.log(final);
@@ -1727,7 +1749,7 @@ export interface MatchScoutI {
     cycles: TeleopActionI[],
     chargingStation: "none" | "docked" | "engaged",
     scoutName: string,
-    // brokeDown: boolean,
+    brokeDown: boolean,
 }
 
 export interface AutoPositionsI {
