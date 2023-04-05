@@ -41,10 +41,10 @@ import axios from "axios";
 
 const DashboardScouting = () => {
 
-    const APIServerURL = "https://openscoutapi.onrender.com";
-    // const APIServerURL = "https://localhost:3001";
+    const APIServerURL: string = "https://openscoutapi.onrender.com";
+    // const APIServerURL: string = "https://localhost:3001";
 
-    const currentCompetitionCode = "2023code";
+    const currentCompetitionCode: string = "2023oktu";
 
 
     // const hasWindow = typeof window !== 'undefined';
@@ -1612,7 +1612,8 @@ const DashboardScouting = () => {
         setIsOnChargeStationAuto("none");
         setIsOnChargeStationEndgame("none");
         startPosApi.start({startPosSpringX: 0, startPosSpringY: 0});
-        // setHasBrokenDown(false);
+        setCurrentMatch("");
+        setHasBrokenDown(false);
     }
 
 
