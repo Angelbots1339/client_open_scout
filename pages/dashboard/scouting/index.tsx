@@ -44,7 +44,7 @@ const DashboardScouting = () => {
     const APIServerURL: string = "https://openscoutapi.onrender.com";
     // const APIServerURL: string = "https://localhost:3001";
 
-    const currentCompetitionCode: string = "2023oktu";
+    const currentCompetitionCode: string = "2023joh";
 
 
     // const hasWindow = typeof window !== 'undefined';
@@ -1615,113 +1615,6 @@ const DashboardScouting = () => {
         setCurrentMatch("");
         setHasBrokenDown(false);
     }
-
-
-    /******* Handle Data Changed *******/
-
-//     const [hasFirstUseEffectRan, setHasFirstUseEffectRan] = useState<boolean>(false);
-//
-//     useEffect(() => {
-//         if (!hasFirstUseEffectRan) {
-//             setData({ // Set data if any of the useEffects have been changed. Probably should fix it later
-//                 "_id": team.key,
-//                 "auto": {
-//                     "startingPosition": {
-//                         "x": startPosX,
-//                         "y": startPosY,
-//                     },
-//                     "mobility": !autoMobility,
-//                     "chargingStation": isOnChargeStationAuto,
-//                     "path": autoPositions,
-//                 },
-//                 "cycles": teleopActionList,
-//                 "onChargeStationEnd": isOnChargeStationEndgame,
-//             })
-//             console.log("Data changed");
-//         } else {
-//             setHasFirstUseEffectRan(true);
-//         }},
-//         [startPosX, startPosY, teleopActionList, autoPositions, preload, isOnChargeStationEndgame, isOnChargeStationAuto, autoMobility, hasBrokenDown])
-//
-//     useEffect(() => {
-//         if (!hasFirstUseEffectRan) {
-//
-//         const getData = async () => {
-//             // Push current data so it isn't lost forever
-//             await pushDataToServer();
-//             // Get new data
-//             return await fetch(APIServerURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + data._id).then(response => {
-//                 if(response.body != null){
-//                     // @ts-ignore
-//                     setData(JSON.parse(response.body));
-//                 }
-//             }).catch((error) => {
-//                 console.log(error);
-//             });
-//         }
-//         getData();
-//
-//     } else {
-//         setHasFirstUseEffectRan(true);
-//     }
-//     }, [currentMatch])
-//
-//     useEffect(() => {
-//         if (!hasFirstUseEffectRan) {
-//
-//         const getData = async () => {
-//             // Push current data so it isn't lost forever
-//             await pushDataToServer();
-//             // Get new data
-//             return await fetch(APIServerURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + data._id).then(response => {
-//                 if(response.body != null){
-//                     // @ts-ignore
-//                     setData(JSON.parse(response.body));
-//                 }
-//             }).catch((error) => {
-//                 console.log(error);
-//             });
-//         }
-//         console.log(data);
-//         if ( // Check to see if any data has been entered. If so, then don't reset by fetching new data
-//             data.auto.startingPosition.x === 0 &&
-//             data.auto.startingPosition.y === 0 &&
-//             data.auto.mobility === false &&
-//             data.auto.chargingStation === false &&
-//             data.auto.path.length === 0 &&
-//             data.cycles.length === 0 &&
-//             data.onChargeStationEnd === false
-//         ) {
-//             getData();
-//         } else { // If data is entered, just switch the team
-//             setData({
-//                 "_id": team.key,
-//                 "auto": {
-//                     "startingPosition": {
-//                         "x": startPosX,
-//                         "y": startPosY,
-//                     },
-//                     "mobility": !autoMobility,
-//                     "chargingStation": isOnChargeStationAuto,
-//                     "path": autoPositions,
-//                 },
-//                 "cycles": teleopActionList,
-//                 "onChargeStationEnd": isOnChargeStationEndgame,
-//             })
-//         }
-//
-//     } else {
-//     setHasFirstUseEffectRan(true);
-// }
-//     }, [team])
-//
-//     const pushDataToServer = async () => {
-//         return null;
-//         // return await axios.post(APIServerURL + "/event/" + currentCompetitionCode + "/match/" + currentMatch + "/team/" + data._id, data).then((response) => response).catch((error) => {
-//         //     console.log(error);
-//         // });
-//     }
-
 
     return (<>
         <BottomNav/>
