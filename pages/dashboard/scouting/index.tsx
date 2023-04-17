@@ -622,15 +622,15 @@ const DashboardScouting = () => {
         {type: "pickup", id: 3, y: 11 / 13}];
 
     const autoPlacementPositionsY: AutoPositionsI[] = [
-        {type: "cube", id: 0, y: 0.1},
-        {type: "cone", id: 0, y: 0.2}, // Cone
-        {type: "cube", id: 1, y: 0.28},
-        {type: "cube", id: 2, y: .4},
-        {type: "cone", id: 1, y: 0.5}, // Cone
-        {type: "cube", id: 3, y: .6},
-        {type: "cube", id: 4, y: .7},
-        {type: "cone", id: 2, y: .82}, // Cone
-        {type: "cube", id: 5, y: .9},
+        {type: "cone", id: 0, y: 0.1},
+        {type: "cube", id: 0, y: 0.2}, // Cone
+        {type: "cone", id: 1, y: 0.28},
+        {type: "cone", id: 2, y: .4},
+        {type: "cube", id: 1, y: 0.5}, // Cone
+        {type: "cone", id: 3, y: .6},
+        {type: "cone", id: 4, y: .7},
+        {type: "cube", id: 2, y: .82}, // Cone
+        {type: "cone", id: 5, y: .9},
 
     ];
 
