@@ -1573,7 +1573,7 @@ const DashboardScouting = () => {
         console.log(final);
 
 
-        // TODO Push to database
+        // Push to database
 
         // /:event/practiceMatch
 

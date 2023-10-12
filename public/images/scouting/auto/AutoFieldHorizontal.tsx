@@ -12,7 +12,7 @@ interface AutoFieldProps extends SVGProps<SVGSVGElement> {
 const AutoFieldHorizontalSVG = (props: AutoFieldProps) => {
 
     const possibleNumberLocations = {
-        "cube": [
+        "cone": [
             {x: 215, y: 152},
             {x: 215, y: 122.5},
             {x: 215, y: 108},
@@ -20,7 +20,7 @@ const AutoFieldHorizontalSVG = (props: AutoFieldProps) => {
             {x: 215, y: 65.5},
             {x: 215, y: 35},
         ],
-        "cone": [
+        "cube": [
             {x: 215, y: 136.5},
             {x: 215, y: 94},
             {x: 215, y: 51.5},
